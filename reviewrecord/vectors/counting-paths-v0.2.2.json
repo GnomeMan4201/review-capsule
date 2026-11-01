@@ -1,0 +1,592 @@
+{
+  "spec": "0.2.2",
+  "scope": "Semantic counting and filename functions only. Test reviewer tokens, file bytes and valid flags are not signed-envelope acceptance fixtures.",
+  "counting": [
+    {
+      "id": "two_valid",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977",
+          "valid": true
+        },
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 2,
+        "locked_count": 2,
+        "verified_reveals": 2,
+        "duplicate_seq": [],
+        "withdrawn": [],
+        "missing_reveals": [],
+        "withdrawn_and_missing": [],
+        "round_status": "complete"
+      }
+    },
+    {
+      "id": "duplicate_same",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 3,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977",
+          "valid": true
+        },
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 3,
+        "locked_count": 2,
+        "verified_reveals": 2,
+        "duplicate_seq": [
+          2
+        ],
+        "withdrawn": [],
+        "missing_reveals": [],
+        "withdrawn_and_missing": [],
+        "round_status": "complete"
+      }
+    },
+    {
+      "id": "duplicate_distinct",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:28e305942155682ff6d8737347eb297b9aa7c0b702d426ffcd5e3400a76c3db6"
+        },
+        {
+          "seq": 3,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977",
+          "valid": true
+        },
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 3,
+        "locked_count": 2,
+        "verified_reveals": 2,
+        "duplicate_seq": [
+          2
+        ],
+        "withdrawn": [],
+        "missing_reveals": [],
+        "withdrawn_and_missing": [],
+        "round_status": "complete"
+      }
+    },
+    {
+      "id": "later_not_replacement",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:28e305942155682ff6d8737347eb297b9aa7c0b702d426ffcd5e3400a76c3db6"
+        },
+        {
+          "seq": 3,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:28e305942155682ff6d8737347eb297b9aa7c0b702d426ffcd5e3400a76c3db6",
+          "valid": true
+        },
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 3,
+        "locked_count": 2,
+        "verified_reveals": 1,
+        "duplicate_seq": [
+          2
+        ],
+        "withdrawn": [],
+        "missing_reveals": [
+          "synthetic-reviewer-a"
+        ],
+        "withdrawn_and_missing": [],
+        "round_status": "incomplete"
+      }
+    },
+    {
+      "id": "withdrawn_missing",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [
+        "synthetic-reviewer-a"
+      ],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 2,
+        "locked_count": 2,
+        "verified_reveals": 1,
+        "duplicate_seq": [],
+        "withdrawn": [
+          "synthetic-reviewer-a"
+        ],
+        "missing_reveals": [
+          "synthetic-reviewer-a"
+        ],
+        "withdrawn_and_missing": [
+          "synthetic-reviewer-a"
+        ],
+        "round_status": "incomplete"
+      }
+    },
+    {
+      "id": "withdrawn_valid",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977",
+          "valid": true
+        },
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [
+        "synthetic-reviewer-a"
+      ],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 2,
+        "locked_count": 2,
+        "verified_reveals": 2,
+        "duplicate_seq": [],
+        "withdrawn": [
+          "synthetic-reviewer-a"
+        ],
+        "missing_reveals": [],
+        "withdrawn_and_missing": [],
+        "round_status": "complete"
+      }
+    },
+    {
+      "id": "withdrawn_invalid",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977",
+          "valid": false
+        },
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [
+        "synthetic-reviewer-a"
+      ],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 2,
+        "locked_count": 2,
+        "verified_reveals": 1,
+        "duplicate_seq": [],
+        "withdrawn": [
+          "synthetic-reviewer-a"
+        ],
+        "missing_reveals": [
+          "synthetic-reviewer-a"
+        ],
+        "withdrawn_and_missing": [
+          "synthetic-reviewer-a"
+        ],
+        "round_status": "incomplete"
+      }
+    },
+    {
+      "id": "three_locks_two_reveals",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        },
+        {
+          "seq": 3,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-c",
+          "commitment": "sha256:28e305942155682ff6d8737347eb297b9aa7c0b702d426ffcd5e3400a76c3db6"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977",
+          "valid": true
+        },
+        {
+          "reviewer_key": "synthetic-reviewer-b",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b",
+          "valid": true
+        }
+      ],
+      "withdrawn": [],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 3,
+        "locked_count": 3,
+        "verified_reveals": 2,
+        "duplicate_seq": [],
+        "withdrawn": [],
+        "missing_reveals": [
+          "synthetic-reviewer-c"
+        ],
+        "withdrawn_and_missing": [],
+        "round_status": "complete"
+      }
+    },
+    {
+      "id": "many_leaves_one_lock",
+      "log": [
+        {
+          "seq": 1,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 2,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        },
+        {
+          "seq": 3,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:28e305942155682ff6d8737347eb297b9aa7c0b702d426ffcd5e3400a76c3db6"
+        },
+        {
+          "seq": 4,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:308616d00da7171a2ace1743a2b01b799048931e77582c16d459c8c8931eb1d4"
+        },
+        {
+          "seq": 5,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977"
+        },
+        {
+          "seq": 6,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:72e480bd5989d9a096ef9e4a6ff6c93ba39e91b5c8d37dfb9c3da713905f914b"
+        },
+        {
+          "seq": 7,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:28e305942155682ff6d8737347eb297b9aa7c0b702d426ffcd5e3400a76c3db6"
+        },
+        {
+          "seq": 8,
+          "kind": "commit",
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:308616d00da7171a2ace1743a2b01b799048931e77582c16d459c8c8931eb1d4"
+        }
+      ],
+      "reveals": [
+        {
+          "reviewer_key": "synthetic-reviewer-a",
+          "commitment": "sha256:e4ab7f6fd767b0a0b5605c0f924c014a86992aa23854cda1c795da7585121977",
+          "valid": true
+        }
+      ],
+      "withdrawn": [],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 8,
+        "locked_count": 1,
+        "verified_reveals": 1,
+        "duplicate_seq": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "withdrawn": [],
+        "missing_reveals": [],
+        "withdrawn_and_missing": [],
+        "round_status": "incomplete"
+      }
+    },
+    {
+      "id": "empty",
+      "log": [],
+      "reveals": [],
+      "withdrawn": [],
+      "min_locks": 2,
+      "min_reveals": 2,
+      "expected": {
+        "tree_size": 0,
+        "locked_count": 0,
+        "verified_reveals": 0,
+        "duplicate_seq": [],
+        "withdrawn": [],
+        "missing_reveals": [],
+        "withdrawn_and_missing": [],
+        "round_status": "incomplete"
+      }
+    }
+  ],
+  "paths": [
+    {
+      "id": "declarations_matching",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a226465636c61726174696f6e73227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "declarations/r-a91a49032992de64/a11784a054f9106c3630d9233149bcb4dd26a25e34e1138592891023b5fdb3d9.json",
+      "expected": []
+    },
+    {
+      "id": "declarations_wrong_rid",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a226465636c61726174696f6e73227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "declarations/r-0000000000000000/a11784a054f9106c3630d9233149bcb4dd26a25e34e1138592891023b5fdb3d9.json",
+      "expected": [
+        "RID_MISMATCH"
+      ]
+    },
+    {
+      "id": "declarations_wrong_hash",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a226465636c61726174696f6e73227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "declarations/r-a91a49032992de64/0000000000000000000000000000000000000000000000000000000000000000.json",
+      "expected": [
+        "PATH_HASH_MISMATCH"
+      ]
+    },
+    {
+      "id": "commits_matching",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a22636f6d6d697473227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "commits/r-a91a49032992de64/54d2e0a867c2ae32f2ff41fd657cc8ce0df1754833326106f434015ede16718f.json",
+      "expected": []
+    },
+    {
+      "id": "commits_wrong_rid",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a22636f6d6d697473227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "commits/r-0000000000000000/54d2e0a867c2ae32f2ff41fd657cc8ce0df1754833326106f434015ede16718f.json",
+      "expected": [
+        "RID_MISMATCH"
+      ]
+    },
+    {
+      "id": "commits_wrong_hash",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a22636f6d6d697473227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "commits/r-a91a49032992de64/0000000000000000000000000000000000000000000000000000000000000000.json",
+      "expected": [
+        "PATH_HASH_MISMATCH"
+      ]
+    },
+    {
+      "id": "withdrawals_matching",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a227769746864726177616c73227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "withdrawals/r-a91a49032992de64/d7b9fac4f908ea63d54cf65488631eb75e04337ea4d346161231f71acb8b368d.json",
+      "expected": []
+    },
+    {
+      "id": "withdrawals_wrong_rid",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a227769746864726177616c73227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "withdrawals/r-0000000000000000/d7b9fac4f908ea63d54cf65488631eb75e04337ea4d346161231f71acb8b368d.json",
+      "expected": [
+        "RID_MISMATCH"
+      ]
+    },
+    {
+      "id": "withdrawals_wrong_hash",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a227769746864726177616c73227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "withdrawals/r-a91a49032992de64/0000000000000000000000000000000000000000000000000000000000000000.json",
+      "expected": [
+        "PATH_HASH_MISMATCH"
+      ]
+    },
+    {
+      "id": "assessments_matching",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a226173736573736d656e7473227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "assessments/r-a91a49032992de64/90d4c7cf2641807e0ac24999d40207dca4b8a2767688599bf85526270b192b48.json",
+      "expected": []
+    },
+    {
+      "id": "assessments_wrong_rid",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a226173736573736d656e7473227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "assessments/r-0000000000000000/90d4c7cf2641807e0ac24999d40207dca4b8a2767688599bf85526270b192b48.json",
+      "expected": [
+        "RID_MISMATCH"
+      ]
+    },
+    {
+      "id": "assessments_wrong_hash",
+      "file_hex": "7b2272657669657765725f6b6579223a2273796e7468657469632d72657669657765722d61222c2273796e746865746963223a226173736573736d656e7473227d",
+      "reviewer_key": "synthetic-reviewer-a",
+      "path": "assessments/r-a91a49032992de64/0000000000000000000000000000000000000000000000000000000000000000.json",
+      "expected": [
+        "PATH_HASH_MISMATCH"
+      ]
+    }
+  ]
+}

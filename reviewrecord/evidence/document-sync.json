@@ -1,0 +1,22 @@
+{
+  "technical_block_identical": true,
+  "limits_bytes_match": true,
+  "all_12_spec_sections_present": true,
+  "unchanged_vector_and_tool_files": [
+    "tools/rfc8032_crosscheck.mjs",
+    "tools/rfc8032_vectors.py",
+    "tools/vector_crosscheck.mjs",
+    "tools/vector_reference.py",
+    "vectors/primitive-draft.json",
+    "vectors/rfc8032-draft.json"
+  ],
+  "freeze_status": "blocked",
+  "blockers": [
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15"
+  ],
+  "note": "Document consistency checks only. No new protocol verifier tests were run."
+}

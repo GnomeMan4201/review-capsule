@@ -1,0 +1,9 @@
+{
+  "technical_block_identical": true,
+  "registration_limits_matches_version_statement": true,
+  "limits_file_matches_field_plus_LF": true,
+  "close_has_no_status": true,
+  "close_retains_locked_count": true,
+  "content_addressed_paths_present": true,
+  "S11_S16_applied": true
+}

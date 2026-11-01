@@ -1,0 +1,47 @@
+name: Review Record baseline vectors
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  vectors:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: reviewrecord
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: python -m pip install cryptography==50.0.2
+      - name: Check frozen baseline hashes
+        run: |
+          python - <<'PYCODE'
+          import hashlib,json
+          from pathlib import Path
+          record=json.loads(Path('spec/FREEZE_v0.2.2.json').read_text())
+          for entry in record['projection']['files']:
+              actual='sha256:'+hashlib.sha256(Path(entry['path']).read_bytes()).hexdigest()
+              assert actual==entry['sha256'], entry['path']
+          projection=json.dumps(record['projection'],sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()
+          assert 'sha256:'+hashlib.sha256(projection).hexdigest()==record['baseline_hash']
+          print('Frozen baseline hashes match')
+          PYCODE
+      - name: Check draft primitive vectors
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            python tools/vector_reference.py
+            node tools/vector_crosscheck.mjs
+            python tools/counting_vectors.py
+            node tools/counting_crosscheck.mjs
+            python tools/rfc8032_vectors.py
+            node tools/rfc8032_crosscheck.mjs
+          } 2>&1 | tee phase0-vectors.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase0-vector-log
+          path: phase0-vectors.log

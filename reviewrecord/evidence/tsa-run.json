@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "case": "wrong_target_rejected",
+      "command": [
+        "openssl",
+        "ts",
+        "-verify",
+        "-in",
+        "evidence/freetsa-response.tsr",
+        "-data",
+        "evidence/wrong-synthetic-target.txt",
+        "-CAfile",
+        "evidence/freetsa-ca.pem"
+      ],
+      "exit_code": 1,
+      "stdout": "Verification: FAILED\n",
+      "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n402701D81D7F0000:error:17800067:time stamp routines:ts_check_imprints:message imprint mismatch:../crypto/ts/ts_rsp_verify.c:512:\n"
+    },
+    {
+      "case": "request_and_chain_match",
+      "command": [
+        "openssl",
+        "ts",
+        "-verify",
+        "-in",
+        "evidence/freetsa-response.tsr",
+        "-queryfile",
+        "evidence/freetsa-request.tsq",
+        "-CAfile",
+        "evidence/freetsa-ca.pem"
+      ],
+      "exit_code": 0,
+      "stdout": "Verification: OK\n",
+      "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+    }
+  ],
+  "authority": "FreeTSA.org",
+  "endpoint": "https://freetsa.org/tsr",
+  "scope": "Synthetic token issuance and cryptographic verification under the fetched FreeTSA root; not a service audit or completed two-anchor protocol event."
+}
