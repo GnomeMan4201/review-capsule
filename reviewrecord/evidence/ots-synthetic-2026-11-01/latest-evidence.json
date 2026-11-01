@@ -1,0 +1,16 @@
+{
+  "historical_ots_only_report": {
+    "path": "report.json",
+    "tsa_evidence_state": "placeholder_no_token",
+    "note": "Historical report did not distinguish missing actual TSA tokens from unconfigured CA material."
+  },
+  "current_demo": {
+    "report": "external-demo/41361189390-1/report.json",
+    "results": "external-demo/41361189390-1/results.json",
+    "bundle": "external-demo/41361189390-1/bundle/",
+    "tsa_evidence_state": "real matching responses; no production pin policy selected",
+    "explorer_basis": "two explorer-operated APIs; not a node gate",
+    "bitcoin_rpc": "none configured"
+  },
+  "source_pin": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224"
+}

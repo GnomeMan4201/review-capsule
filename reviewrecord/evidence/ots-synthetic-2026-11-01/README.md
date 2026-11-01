@@ -1,3 +1,5 @@
+> Current evidence: [real matching TSA responses and explorer-only comparison](external-demo/41361189390-1/README.md). The root-level `report.json` is a historical OTS-only run whose TSA files were **placeholders—no actual token existed**. See `latest-evidence.json` for the precise input distinction. No node-backed gate or production TSA policy has been qualified.
+
 # Throwaway synthetic OTS evidence run
 
 Source candidate: d54432f3e4c67f11ea53c16ebb383c1aec1f9224. This uses only the public synthetic example at that revision. There is no real research or real reviewer. The protocol PR and the DEV.to pin remain untouched.
