@@ -13,6 +13,7 @@ dependencies = ["cryptography==50.0.2", "opentimestamps-client==0.8.0"]
 rrverify = "rr.cli:main"
 rrreview = "rr.review_cli:main"
 rrsteward = "rr.steward_cli:main"
+rrauthor = "rr.author_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
