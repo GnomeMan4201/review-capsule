@@ -108,17 +108,18 @@ def _objects(bundle,reg,registration_hash):
             if not path.is_file():continue
             record=dsse.decode(_read(path));v=record.value
             key=v.get("reviewer_key")
+            signed_by=reg["steward_key"] if kind=="withdrawal" and v.get("steward_attested") is True else key
             if (v.get("type")!=kind or type(key) is not str or
                 key in (reg["author_key"],reg["steward_key"]) or
-                not dsse.verify_signature(record,key)):
+                not dsse.verify_signature(record,signed_by)):
                 raise StewardError("Stored object failed reviewer identity/signature checks.")
             if v.get("round_id")!=reg["round_id"] or v.get("registration_hash")!=registration_hash:
                 raise StewardError("Stored object registration binding mismatch.")
             from .verify import rid
             if path.relative_to(bundle).as_posix()!=folder+"/"+rid(key)+"/"+record.object_hash[7:]+".json":
                 raise StewardError("Stored object is not at its hash-bound path.")
-            if kind=="withdrawal" and "steward_attested" in v:
-                raise StewardError("Steward-attested withdrawals need a separate, explicit path.")
+            if kind=="withdrawal" and ("steward_attested" in v) and v["steward_attested"] is not True:
+                raise StewardError("Malformed steward attestation flag.")
             if kind=="commit":
                 try:canon.hash_bytes(v["commitment"])
                 except (KeyError,ValueError,TypeError):
@@ -141,7 +142,7 @@ def _scan(bundle,reg,registration_hash):
     if any(p.stem!=str(i) for i,p in enumerate(entries,1)):
         raise StewardError("Log sequence contains a gap, duplicate or unexpected name.")
     previous=registration_hash
-    seen=set();declarations=set();commits=[];first=set();withdrawals={}
+    seen=set();declarations=set();commits=[];first=set();withdrawals={};owners={}
     for number,path in enumerate(entries,1):
         e=dsse.decode(_read(path));v=e.value
         if (v.get("type")!="logentry" or not dsse.verify_signature(e,reg["steward_key"]) or
@@ -158,9 +159,17 @@ def _scan(bundle,reg,registration_hash):
         else:
             if key not in declarations:raise StewardError("Commit/withdrawal preceded declaration.")
             if kind=="commit":
-                commits.append((key,value["commitment"]))
+                commitment=value["commitment"]
+                if commitment in owners and owners[commitment]!=key:
+                    raise StewardError("Commitment digest reused across different reviewer keys.")
+                owners[commitment]=key
+                commits.append((key,commitment))
                 first.add(key)
-            else:withdrawals[key]=value.get("reason")
+            else:
+                if key in withdrawals:
+                    raise StewardError("Second withdrawal for a reviewer requires a new protocol decision.")
+                withdrawals[key]={"reason":value.get("reason"),
+                                  "basis":"steward-attested" if value.get("steward_attested") is True else "reviewer-stated"}
         previous=e.object_hash
     if set(objects)!=seen:
         raise StewardError("Orphan signed object: stop instead of repairing a partial append.")
@@ -231,6 +240,10 @@ def intake(root,source,expected_author_key,steward_private):
             try:canon.hash_bytes(v["commitment"])
             except (ValueError,KeyError,TypeError):
                 raise StewardError("Malformed commitment.") from None
+            if any(other!=key and digest==v["commitment"] for other,digest in commits):
+                raise StewardError("Commitment digest is already used by another reviewer key.")
+        if kind=="withdrawal" and key in withdrawals:
+            raise StewardError("Repeated withdrawal refused.")
         if kind=="withdrawal" and "steward_attested" in v:
             raise StewardError("Steward attestation cannot use reviewer intake.")
         from .verify import rid
@@ -266,8 +279,8 @@ def close(root,expected_author_key,steward_private):
             raise StewardError("Local key is not this round's steward signing key.")
         leaves=[canon.hash_bytes(commitment) for _,commitment in commits]
         withdrawn=[
-            {"reviewer_key":key,**({"reason":reason} if reason is not None else {})}
-            for key,reason in sorted(withdrawals.items())
+            {"reviewer_key":key,**({"reason":data["reason"]} if data["reason"] is not None else {})}
+            for key,data in sorted(withdrawals.items())
         ]
         value={
             "type":"close","round_id":reg["round_id"],
