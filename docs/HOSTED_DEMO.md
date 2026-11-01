@@ -1,3 +1,5 @@
+> Historical Railway deployment plan. The synthetic demo is now live on Render; see the current status and sign-in instructions in [README](../README.md#hosted-synthetic-demo). The Railway attempts did not complete during setup.
+
 # Synthetic hosted demo: deployment candidate
 
 ## Status

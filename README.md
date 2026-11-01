@@ -2,9 +2,17 @@
 
 A small research-review workflow that separates the evidence a reviewer needs from the answers they should not see yet.
 
-**Status: v0.1.1 synthetic deployment candidate. Not deployed yet. Not ready for real confidential research or independent-review collection.** AI-assisted design and implementation; not independently audited. Working name, not a verified unique product name.
+**Status: v0.1.1 synthetic demo deployed on Render. Not ready for real confidential research or independent-review collection.** AI-assisted design and implementation; not independently audited. Working name, not a verified unique product name.
 
 The central promise is controlled disclosure and an inspectable first assessment. The software cannot guarantee an independent human, zero bias, secrecy from the server operator, or scientific validity.
+
+## Hosted synthetic demo
+
+Open [Review Capsule](https://review-capsule-demo.onrender.com). Start with `demo-author`. The generated demo password is stored privately in Render: open the `review-capsule-demo` service, choose **Environment**, and copy `CAPSULE_DEMO_PASSWORD`. The same demo password supports `demo-steward`, `demo-reviewer-a`, and `demo-reviewer-b`; sign out between roles. These accounts demonstrate the workflow, not independence.
+
+Render confirmed deploy `dep-dbjilnm7bikc73fitqmg` live on November 1, 2026, from commit `e5cc4a2d0642b73137157bd08e1f914343e28aa7`. The public HTTPS login page and database health endpoint were observed working. A complete hosted authenticated role walkthrough remains pending. All 23 tests passed locally; the PostgreSQL verification job also completed successfully in [run 41304343034](https://github.com/GnomeMan4201/review-capsule/actions/runs/41304343034).
+
+The free web service sleeps while idle. The free database expires December 1, 2026; do not use this instance for real records. Database external connections are blocked. Automatic application deploys are off. No secrets are stored in this repository.
 
 ## What works in this prototype
 
