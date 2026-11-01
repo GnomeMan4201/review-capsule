@@ -1,0 +1,46 @@
+name: Compare Review Record vs signed Git
+on:
+  push:
+    branches:
+      - experiment/commit-reveal-baseline-2026-11-01
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout experiment only
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout frozen Review Record source
+        uses: actions/checkout@v4
+        with:
+          ref: d54432f3e4c67f11ea53c16ebb383c1aec1f9224
+          path: upstream
+          persist-credentials: false
+      - name: Set Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source and native requirements
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C upstream rev-parse HEAD)" = "d54432f3e4c67f11ea53c16ebb383c1aec1f9224"
+          git --version
+          command -v ssh-keygen
+          openssl version
+      - name: Install pinned Review Record dependencies
+        run: python -m pip install -e ./upstream/reviewrecord
+      - name: Execute five paired synthetic attacks
+        run: python experiments/compare.py --run --rr-source upstream/reviewrecord --output comparison-results.json
+      - name: Archive complete matrix
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-results
+          path: comparison-results.json
+          if-no-files-found: warn
