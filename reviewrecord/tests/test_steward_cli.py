@@ -339,5 +339,37 @@ class StewardIntakeTests(unittest.TestCase):
         self.assertFalse((bundle/"close.json").exists())
 
 
+    def test_two_distinct_commits_same_reviewer_preserve_first_lock_and_both_leaves(self):
+        from reference_round import pub
+        self.init()
+        declaration,_=self.pick("declarations",pub("reviewer-a"))
+        self.assertEqual(self.intake(declaration),0,self.stderr.getvalue())
+        first,_=self.pick("commits",pub("reviewer-a"))
+        self.assertEqual(self.intake(first),0,self.stderr.getvalue())
+        value=dsse.decode(first.read_bytes()).value.copy()
+        value["commitment"]="sha256:"+"f"*64
+        second=self.root/"different-second-commit.json"
+        second.write_bytes(envelope(value,"reviewer-a"))
+        self.assertEqual(self.intake(second),0,self.stderr.getvalue())
+        self.assertEqual(self.invoke("close"),0,self.stderr.getvalue())
+        closed=dsse.decode((self.workspace/"bundle"/"close.json").read_bytes())
+        self.assertEqual(closed.value["tree_size"],2)
+        self.assertEqual(closed.value["locked_count"],1)
+
+    def test_verifier_marks_empty_steward_close_incomplete(self):
+        from rr.verify import verify_bundle
+        self.init()
+        self.assertEqual(self.invoke("close"),0,self.stderr.getvalue())
+        report=verify_bundle(self.workspace/"bundle",
+            expected_author_key=self.meta["author_key"],
+            expected_steward_key=self.meta["steward_key"])
+        self.assertEqual(report["round_status"],"incomplete")
+        for code in ("LOCKS_BELOW_MINIMUM","REVEALS_BELOW_MINIMUM"):
+            self.assertTrue(any(x["code"]==code and x["status"]=="fail"
+                                for x in report["checks"]))
+        self.assertEqual(report["locked_count"],0)
+        self.assertEqual(report["exit_code"],1)
+
+
 if __name__=="__main__":
     unittest.main()
