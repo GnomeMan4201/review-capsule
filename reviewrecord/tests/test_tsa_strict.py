@@ -68,6 +68,28 @@ class StrictTSABindingTests(unittest.TestCase):
     def test_malformed_token_is_invalid_not_offline(self):
         evidence=dict(self.evidence);evidence["anchors/token.tsr"]=b"not a timestamp response"
         self.assertEqual(self.evidence_for(self.a,files=evidence)["status"],"invalid")
+    def test_wrong_target_rejected_through_full_verifier(self):
+        from reference_round import create,canon
+        from rr.verify import verify_bundle
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/"round"
+            meta=create(root)
+            descriptor=root/"anchors"/"registration-tsa.json"
+            desc=json.loads(descriptor.read_bytes())
+            desc.update(proof="anchors/local.tsr",request="anchors/local.tsq")
+            descriptor.write_bytes(canon(desc))
+            (root/"anchors"/"local.tsr").write_bytes(self.evidence["anchors/token.tsr"])
+            (root/"anchors"/"local.tsq").write_bytes(self.evidence["anchors/request.tsq"])
+            report=verify_bundle(root,expected_author_key=meta["author_key"],
+                expected_steward_key=meta["steward_key"],tsa_ca=self.ca,tsa_policy=self.policy)
+            self.assertEqual(report["exit_code"],1)
+            self.assertTrue(any(x["code"]=="ANCHOR_INVALID" and
+                x["subject"]=="anchors/registration-tsa.json" for x in report["checks"]))
+            wrong=[x for x in report["anchors"] if x["target"]==meta["registration_hash"]
+                   and x["type"]=="rfc3161"]
+            self.assertEqual(len(wrong),1)
+            self.assertEqual(wrong[0]["status"],"invalid")
+
     def test_unpinned_ca_is_unverifiable_not_confirmed(self):
         result=inspect({"type":"rfc3161","target":"sha256:"+hashlib.sha256(self.a).hexdigest(),
                        "proof":"anchors/token.tsr","request":"anchors/request.tsq"},self.evidence)
