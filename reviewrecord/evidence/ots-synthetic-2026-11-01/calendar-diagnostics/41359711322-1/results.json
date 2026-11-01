@@ -1,0 +1,166 @@
+{
+  "scope": "Read-only calendar lookup; no stamp/resubmission, upgrade write or Bitcoin verification",
+  "advisory_time": "2026-11-01T22:57:56.775806+00:00",
+  "client_version": "0.8.0",
+  "library_version": "0.5.0",
+  "proofs": [
+    {
+      "name": "registration",
+      "proof_sha256": "af92c789ddc38740a308d4d9ce1c9618ae9ad9ecc91f9cd835cd37c486f711b4",
+      "file_digest": "2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+      "ots_info_stdout": "File sha256 hash: 2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde\nTimestamp:\nappend 2b02e211bb933c4fa4f3a1d4407c9730\nsha256\nappend 74f8b1055268dae68418ac6ce313909843c7d7e17cb5d69e7bfc5544d3e0e248\nsha256\nappend cdf926f65e598570a5a5987ded06e287b536157b34be91d32c708a4b95e500e2\nsha256\n -> append 36c3382fd0f4c021\n    sha256\n    prepend 5f6cab058177d4ac33f2d93ef6d6c0c10d2b80a333e99ab28502be12f091b032\n    sha256\n    append 775f3f48d29fe680482eaddbfe859633\n    sha256\n    append c988225ed477d031b08cdbf5ae42c6e8834e69d68c48398dcd08793e57da9647\n    sha256\n    prepend b7aa7f40bb38f4e5fd8717278be289c1280f7774ee6cd64aebde8adad26c3944\n    sha256\n    prepend 6ae79f57\n    append 5483e1b5a21805c2\n    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')\n -> append fe88b4b6f42f7a19\n    sha256\n    append 728e891a38805d683dde0118250cf50c9120c5e59060a7acaa4ed6acefc276d0\n    sha256\n    append 005b21b7501330e6713fd43dfeebf1b4\n    sha256\n    append bf4e224fda5cd7d67041ec8ea5c7ad4d78fed0f4e3758805a214e5a31a849267\n    sha256\n    prepend a8e2877ca8b18f75c0830c844213c57c56db568f7ffbb3fa6e446ffdcfefdc59\n    sha256\n    prepend 6ae79f58\n    append 8285a237687afc71\n    verify PendingAttestation('https://alice.btc.calendar.opentimestamps.org')\n\n",
+      "ots_info_stderr": "",
+      "ots_info_exit_code": 0,
+      "pending_routes": [
+        {
+          "embedded_calendar": "https://bob.btc.calendar.opentimestamps.org",
+          "calendar_commitment": "6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+          "native_request_url": "https://bob.btc.calendar.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+          "previous_override_request_urls": [
+            "https://a.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+            "https://b.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2"
+          ]
+        },
+        {
+          "embedded_calendar": "https://alice.btc.calendar.opentimestamps.org",
+          "calendar_commitment": "6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+          "native_request_url": "https://alice.btc.calendar.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+          "previous_override_request_urls": [
+            "https://a.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+            "https://b.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "proof_sha256": "a064c61404e20d6869bae417ba449551f6ff4eac4d1721e8c6b1df5e7a9983cb",
+      "file_digest": "71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+      "ots_info_stdout": "File sha256 hash: 71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323\nTimestamp:\nappend 160f7c1fcbeb76b7f7d4add04b63560a\nsha256\nprepend bbf39b57c52a85741b30322b37e389fbd9cda25b343f40dc26d8b25d4b145424\nsha256\nappend cdf926f65e598570a5a5987ded06e287b536157b34be91d32c708a4b95e500e2\nsha256\n -> append 36c3382fd0f4c021\n    sha256\n    prepend 5f6cab058177d4ac33f2d93ef6d6c0c10d2b80a333e99ab28502be12f091b032\n    sha256\n    append 775f3f48d29fe680482eaddbfe859633\n    sha256\n    append c988225ed477d031b08cdbf5ae42c6e8834e69d68c48398dcd08793e57da9647\n    sha256\n    prepend b7aa7f40bb38f4e5fd8717278be289c1280f7774ee6cd64aebde8adad26c3944\n    sha256\n    prepend 6ae79f57\n    append 5483e1b5a21805c2\n    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')\n -> append fe88b4b6f42f7a19\n    sha256\n    append 728e891a38805d683dde0118250cf50c9120c5e59060a7acaa4ed6acefc276d0\n    sha256\n    append 005b21b7501330e6713fd43dfeebf1b4\n    sha256\n    append bf4e224fda5cd7d67041ec8ea5c7ad4d78fed0f4e3758805a214e5a31a849267\n    sha256\n    prepend a8e2877ca8b18f75c0830c844213c57c56db568f7ffbb3fa6e446ffdcfefdc59\n    sha256\n    prepend 6ae79f58\n    append 8285a237687afc71\n    verify PendingAttestation('https://alice.btc.calendar.opentimestamps.org')\n\n",
+      "ots_info_stderr": "",
+      "ots_info_exit_code": 0,
+      "pending_routes": [
+        {
+          "embedded_calendar": "https://bob.btc.calendar.opentimestamps.org",
+          "calendar_commitment": "6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+          "native_request_url": "https://bob.btc.calendar.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+          "previous_override_request_urls": [
+            "https://a.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+            "https://b.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2"
+          ]
+        },
+        {
+          "embedded_calendar": "https://alice.btc.calendar.opentimestamps.org",
+          "calendar_commitment": "6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+          "native_request_url": "https://alice.btc.calendar.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+          "previous_override_request_urls": [
+            "https://a.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+            "https://b.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "record",
+      "proof_sha256": "805bd3db24d47b860f07a701e1a1d22b88674f5c784829003d145705c968d7cb",
+      "file_digest": "3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+      "ots_info_stdout": "File sha256 hash: 3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe\nTimestamp:\nappend 1ec74405883c9f0e78c9dd629f66bdb5\nsha256\nprepend 201d77dc5647acc117198db297cc41e301bff8a42b43b5a28cccedb8a1aa4273\nsha256\n -> append 36c3382fd0f4c021\n    sha256\n    prepend 5f6cab058177d4ac33f2d93ef6d6c0c10d2b80a333e99ab28502be12f091b032\n    sha256\n    append 775f3f48d29fe680482eaddbfe859633\n    sha256\n    append c988225ed477d031b08cdbf5ae42c6e8834e69d68c48398dcd08793e57da9647\n    sha256\n    prepend b7aa7f40bb38f4e5fd8717278be289c1280f7774ee6cd64aebde8adad26c3944\n    sha256\n    prepend 6ae79f57\n    append 5483e1b5a21805c2\n    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')\n -> append fe88b4b6f42f7a19\n    sha256\n    append 728e891a38805d683dde0118250cf50c9120c5e59060a7acaa4ed6acefc276d0\n    sha256\n    append 005b21b7501330e6713fd43dfeebf1b4\n    sha256\n    append bf4e224fda5cd7d67041ec8ea5c7ad4d78fed0f4e3758805a214e5a31a849267\n    sha256\n    prepend a8e2877ca8b18f75c0830c844213c57c56db568f7ffbb3fa6e446ffdcfefdc59\n    sha256\n    prepend 6ae79f58\n    append 8285a237687afc71\n    verify PendingAttestation('https://alice.btc.calendar.opentimestamps.org')\n\n",
+      "ots_info_stderr": "",
+      "ots_info_exit_code": 0,
+      "pending_routes": [
+        {
+          "embedded_calendar": "https://bob.btc.calendar.opentimestamps.org",
+          "calendar_commitment": "6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+          "native_request_url": "https://bob.btc.calendar.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+          "previous_override_request_urls": [
+            "https://a.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+            "https://b.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2"
+          ]
+        },
+        {
+          "embedded_calendar": "https://alice.btc.calendar.opentimestamps.org",
+          "calendar_commitment": "6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+          "native_request_url": "https://alice.btc.calendar.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+          "previous_override_request_urls": [
+            "https://a.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+            "https://b.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71"
+          ]
+        }
+      ]
+    }
+  ],
+  "live_gets": [
+    {
+      "requested_url": "https://a.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+      "http_status": 404,
+      "response_kind": "http_error",
+      "error_type": "HTTPError",
+      "response_body_utf8": "Not found\n",
+      "response_body_base64": "Tm90IGZvdW5kCg==",
+      "confirmation_basis": "No Bitcoin node/header/depth check was performed."
+    },
+    {
+      "requested_url": "https://a.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+      "http_status": 404,
+      "response_kind": "http_error",
+      "error_type": "HTTPError",
+      "response_body_utf8": "Not found\n",
+      "response_body_base64": "Tm90IGZvdW5kCg==",
+      "confirmation_basis": "No Bitcoin node/header/depth check was performed."
+    },
+    {
+      "requested_url": "https://alice.btc.calendar.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+      "http_status": 200,
+      "response_kind": "timestamp",
+      "final_url": "https://alice.btc.calendar.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+      "response_bytes": 861,
+      "response_sha256": "283ad2336a1c9a270e183b37f53972b383a556dd3b49c2c0bdc8b6b9c15d2b10",
+      "response_base64": "CPEgalIqKhoebftbicshOXdFeAGXWSAQurZMsl40snxlQgAI8CB2xMd6dijg+KssPyVHmzz27WAgmdypfFgamSD2Fzc9EwjwIKIKtNZwjqiT+Aq/Ma6AFYu7Y7Du5kF5xYy0b3ELnbvbCPAgG7aPuV5oyNwOHj7KJj4ENx21v1NL8JdFHyRZr3WOxJAI8SDs1E7OaHcrBRNZyYQppIseb8sywoF6iF6EQBshsLOzZgjwIF8dPBp6hWxxiEq7EeKzQ08ODhYkuyVD2fSClC42jVp4CPAg0PmmZa+VrC7VIjIEGJaQNp3KLpjJItyG9HGouON+0jcI8CBeCVsmnMjKRL6S+DFvSlNw90KIN+wghoGEp56YpSpd9gjxWQEAAAABTRibkPiUchgM28GM/MAvpAEr2VLH3lgUOpLCnVZQXc8AAAAAAP7///8CzRUBAAAAAAAWABTrT4VN6U9hQf0L9HMeC22HIw5yxgAAAAAAAAAAImog8ARb3Q4ACAjwIOMXSRQSX1wNoR8w++Q+NO5eJn+rXpkN7l/rpO5rn2pUCAjxIHMxGi7k/tydbYaxkhCN3Z9VIih2YCIcaw7K9tNJKrdSCAjwIM31uGzh5H8xHSko9xpKsHDEDoOvvfevehchZYfNRFtHCAjxIHouygSvA4UUG0OWVJmk53dgEdo98s7xRnVm3HSintJsCAjxIDtDpjLKLxf1hdV3/qJq7Xyg5FEyI6Jc/KZThOdvo5zrCAjwIAXMKbHOYifm2LEias7/yynIZKGKBexfSC4FKREMWCJnCAjxIBp8rzZ2mEewU5lqT382uPed9VZkcnKLES7IZogUo8LgCAjwIGUxQBZsmo/EOCG36outq7GWJJFLg2+3m1v1/mBh5/yvCAjxIF3ofE1VfbnSX3IJhVDacmV0/eA5xIK94EdonZbnuZmkCAjxIDEnYpECtqBwgpZcyVacVzAUX1+XTfRCRrO7Zvwqh3t4CAjwIGAxC8pndt6CPdFqeSwK+pjfAQl9/Y/IWilSabQTpaynCAjwIJkVEs+YxNUCKAMAQXDKV7dTMyUJzdYKg5tiswTyJr69CAjwIIOAgc5IiNiC/AOoPojhhgxiRqNZuZFLLEZY5k4WCZaYCAgABYiWDXPXGQED3Lo7",
+      "attestations": [
+        {
+          "type": "BitcoinBlockHeaderAttestation",
+          "height": 974172,
+          "uri": null
+        }
+      ],
+      "confirmation_basis": "No Bitcoin node/header/depth check was performed."
+    },
+    {
+      "requested_url": "https://b.pool.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+      "http_status": 404,
+      "response_kind": "http_error",
+      "error_type": "HTTPError",
+      "response_body_utf8": "Not found\n",
+      "response_body_base64": "Tm90IGZvdW5kCg==",
+      "confirmation_basis": "No Bitcoin node/header/depth check was performed."
+    },
+    {
+      "requested_url": "https://b.pool.opentimestamps.org/timestamp/6ae79f580d4316cfd8a12ea296f23ae93578c761880abdd0c59bf7555df1fcb4211e33b18285a237687afc71",
+      "http_status": 404,
+      "response_kind": "http_error",
+      "error_type": "HTTPError",
+      "response_body_utf8": "Not found\n",
+      "response_body_base64": "Tm90IGZvdW5kCg==",
+      "confirmation_basis": "No Bitcoin node/header/depth check was performed."
+    },
+    {
+      "requested_url": "https://bob.btc.calendar.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+      "http_status": 200,
+      "response_kind": "timestamp",
+      "final_url": "https://bob.btc.calendar.opentimestamps.org/timestamp/6ae79f57d17276f63d20f5e625cad8db195e41653250c7f9fe31f044cb1eec234944b2e65483e1b5a21805c2",
+      "response_bytes": 861,
+      "response_sha256": "50a3e468d99f910f79be4518d9597ebd80465d5530f2f61800672aa9e78e6629",
+      "response_base64": "CPEg5AII70Hsqc31+DMPKaDQGwgRn8FTNOBTnreeoayCmhEI8CBa1K6tsLKyup7fLr6r1sd6BKh9mx5mfTXnBvVhIExAMQjxIKA9RMOosvCw2X5KUymUUt3/gsQj0fQfRF3M/+mtQetOCPEgEWEmbYMfGRTDg47IdFegcdmI4GmIFaRJqg+j4YjNLjUI8CCgTRbEzQPHI9FvQDAll7a55dvnbypi8brLb9uuCBfwLQjwINI+JTjppdsz9bZWdGD2rkWmCsG07vbTQc1oSO6IlbdoCPAg9bNVKtCWQ7RpL/c0EHf3eL+TfJCnlQn7jF0lbFJuAagI8CC3/racDWYq1VgVPQboURAftR7ejyTDNQS7k73ivrwarAjxWQEAAAABR4vhk0KK2tcF624HkobksxNphdHCfCoAiobsshgQlGEAAAAAAP7///8Cn48AAAAAAAAWABSgqjTJqcIv95ZHJ05GHrE9L5fOGwAAAAAAAAAAImog8ARb3Q4ACAjwIGJxkygz0NC7UluBZowBNipPpFktC7oUdTw2fSeTPLf6CAjxIKGje+CDngRWDyYu/MK8bmAIWm+Mu+hCd6y5k47UAjonCAjwICJYHzuRDlcbpDfvpv0b7GAZ3BmwvoWYv+K/Y55IYEl3CAjxIOLj41rJnFxVcTrqQptwEVuoeMQbNqWCdffY9D9I838GCAjwIBYeWU4RADnc1rZXZR6KrHhLhWIv5ArE1+/4Qg2O80nwCAjwIAXMKbHOYifm2LEias7/yynIZKGKBexfSC4FKREMWCJnCAjxIBp8rzZ2mEewU5lqT382uPed9VZkcnKLES7IZogUo8LgCAjwIGUxQBZsmo/EOCG36outq7GWJJFLg2+3m1v1/mBh5/yvCAjxIF3ofE1VfbnSX3IJhVDacmV0/eA5xIK94EdonZbnuZmkCAjxIDEnYpECtqBwgpZcyVacVzAUX1+XTfRCRrO7Zvwqh3t4CAjwIGAxC8pndt6CPdFqeSwK+pjfAQl9/Y/IWilSabQTpaynCAjwIJkVEs+YxNUCKAMAQXDKV7dTMyUJzdYKg5tiswTyJr69CAjwIIOAgc5IiNiC/AOoPojhhgxiRqNZuZFLLEZY5k4WCZaYCAgABYiWDXPXGQED3Lo7",
+      "attestations": [
+        {
+          "type": "BitcoinBlockHeaderAttestation",
+          "height": 974172,
+          "uri": null
+        }
+      ],
+      "confirmation_basis": "No Bitcoin node/header/depth check was performed."
+    }
+  ],
+  "network_queries_requested": true,
+  "source_note": "OTS 0.8.0 upgrade -c overrides queried calendar_url; warnings print attestation.uri rather than calendar_url. Previous stderr alone does not record HTTP status or final routing."
+}
