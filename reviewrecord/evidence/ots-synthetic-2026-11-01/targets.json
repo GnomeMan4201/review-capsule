@@ -1,0 +1,28 @@
+{
+  "source_pin": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224",
+  "scope": "throwaway synthetic fixture; no research or real participants",
+  "hash_algorithm": "SHA-256",
+  "targets": [
+    {
+      "name": "registration",
+      "target": "sha256:2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+      "preimage": "targets/registration.preimage",
+      "byte_length": 1988,
+      "meaning": "exact file bytes"
+    },
+    {
+      "name": "close",
+      "target": "sha256:71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+      "preimage": "targets/close.preimage",
+      "byte_length": 937,
+      "meaning": "exact file bytes"
+    },
+    {
+      "name": "record",
+      "target": "sha256:3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+      "preimage": "targets/record.preimage",
+      "byte_length": 4256,
+      "meaning": "canon-v1 manifest projection, excluding anchors and manifest itself"
+    }
+  ]
+}

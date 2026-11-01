@@ -1,0 +1,80 @@
+name: Collect throwaway OTS evidence
+on:
+  push:
+    branches: ['evidence/ots-synthetic-2026-11-01']
+    paths:
+      - '.github/workflows/ots-synthetic-evidence.yml'
+      - 'reviewrecord/tools/ots_evidence_run.py'
+  workflow_dispatch:
+    inputs:
+      verify_rpc:
+        description: 'Use the operator-configured mainnet RPC and operator label'
+        type: boolean
+        default: false
+  schedule:
+    - cron: '23 * * * *'
+# GitHub cron is inactive until this file exists on the default branch.
+# This experiment never changes main, PR #2 or the published verifier pin.
+permissions:
+  contents: write
+concurrency:
+  group: ots-synthetic-2026-11-01
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: evidence/ots-synthetic-2026-11-01
+          fetch-depth: 1
+      - uses: actions/checkout@v4
+        with:
+          ref: d54432f3e4c67f11ea53c16ebb383c1aec1f9224
+          path: pinned-verifier
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the pinned candidate and OTS client
+        run: python -m pip install -e ./pinned-verifier/reviewrecord
+      - name: Submit missing targets or upgrade retained proofs
+        id: collect
+        env:
+          VERIFY_RPC: ${{ inputs.verify_rpc || false }}
+          RR_BITCOIN_RPC: ${{ secrets.RR_BITCOIN_RPC }}
+          RR_BITCOIN_RPC_OPERATOR: ${{ vars.RR_BITCOIN_RPC_OPERATOR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          rpc_args=()
+          if [ "$VERIFY_RPC" = "true" ]; then rpc_args+=(--verify-rpc); fi
+          python reviewrecord/tools/ots_evidence_run.py collect \
+            --source pinned-verifier/reviewrecord \
+            --run-root reviewrecord/evidence/ots-synthetic-2026-11-01 \
+            "${rpc_args[@]}"
+      - name: Commit only synthetic evidence to the evidence branch
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- reviewrecord/evidence/ots-synthetic-2026-11-01
+          if ! git diff --cached --quiet; then
+            git commit -m 'Retain synthetic OTS proof bytes and literal verifier report'
+            git push origin HEAD:refs/heads/evidence/ots-synthetic-2026-11-01
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ots-synthetic-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reviewrecord/evidence/ots-synthetic-2026-11-01/targets.json
+            reviewrecord/evidence/ots-synthetic-2026-11-01/targets/
+            reviewrecord/evidence/ots-synthetic-2026-11-01/initial/
+            reviewrecord/evidence/ots-synthetic-2026-11-01/proof-history/
+            reviewrecord/evidence/ots-synthetic-2026-11-01/runs/
+            reviewrecord/evidence/ots-synthetic-2026-11-01/report.json
+            reviewrecord/evidence/ots-synthetic-2026-11-01/summary.txt
