@@ -254,5 +254,74 @@ class StewardIntakeTests(unittest.TestCase):
         self.assertEqual(self.files(),before)
 
 
+    def test_attested_withdrawal_is_signer_attributed_to_steward(self):
+        self.init()
+        from reference_round import pub,rid
+        reviewer=pub("reviewer-a")
+        decl,_=self.pick("declarations",reviewer)
+        self.assertEqual(self.intake(decl),0,self.stderr.getvalue())
+        self.stdout=io.StringIO();self.stderr=io.StringIO()
+        args=["--reviewer-key",reviewer]
+        self.assertEqual(self.invoke("attest-withdrawal",args),0,self.stderr.getvalue())
+        folder=self.workspace/"bundle"/"withdrawals"/rid(reviewer)
+        obj=dsse.decode(next(folder.glob("*.json")).read_bytes())
+        self.assertEqual(obj.value["steward_attested"],True)
+        self.assertTrue(dsse.verify_signature(obj,self.meta["steward_key"]))
+        self.assertFalse(dsse.verify_signature(obj,reviewer))
+        self.assertEqual(self.invoke("close"),0,self.stderr.getvalue())
+        close=dsse.decode((self.workspace/"bundle"/"close.json").read_bytes())
+        self.assertEqual(close.value["withdrawn"][0]["reviewer_key"],reviewer)
+        self.assertNotIn("status",close.value)
+
+    def test_steward_cannot_attest_without_prior_declaration(self):
+        self.init()
+        from reference_round import pub
+        before=self.files()
+        self.assertEqual(self.invoke("attest-withdrawal",["--reviewer-key",pub("reviewer-b")]),2)
+        self.assertEqual(self.files(),before)
+
+    def test_cross_key_commitment_copy_is_rejected_before_any_write(self):
+        from reference_round import pub
+        self.init()
+        for role in ("reviewer-a","reviewer-b"):
+            declaration,_=self.pick("declarations",pub(role))
+            self.assertEqual(self.intake(declaration),0,self.stderr.getvalue())
+        original,_=self.pick("commits",pub("reviewer-a"))
+        self.assertEqual(self.intake(original),0,self.stderr.getvalue())
+        from_ref=dsse.decode(original.read_bytes())
+        copy=from_ref.value.copy()
+        copy["reviewer_key"]=pub("reviewer-b")
+        forged=self.root/"copied-commit.json"
+        forged.write_bytes(envelope(copy,"reviewer-b"))
+        before=self.files()
+        self.assertEqual(self.intake(forged),2)
+        self.assertEqual(self.files(),before)
+        self.assertIn("already used",self.stderr.getvalue())
+
+    def test_empty_close_is_signed_but_under_minimum_when_checked(self):
+        self.init()
+        self.assertEqual(self.invoke("close"),0,self.stderr.getvalue())
+        close=dsse.decode((self.workspace/"bundle"/"close.json").read_bytes())
+        self.assertEqual(close.value["locked_count"],0)
+        self.assertEqual(close.value["tree_size"],0)
+        self.assertNotIn("status",close.value)
+        self.assertIn("closed_at",close.value)
+
+    def test_interrupted_reveal_write_remains_halted_without_auto_repair(self):
+        self.prepare_full_close()
+        from rr.verify import rid
+        assessment,_=self.pick("assessments")
+        record=dsse.decode(assessment.read_bytes())
+        bundle=self.workspace/"bundle"
+        path=bundle/"assessments"/rid(record.value["reviewer_key"])
+        path.mkdir(parents=True,mode=0o700)
+        (path/(record.object_hash[7:]+".json")).write_bytes(assessment.read_bytes())
+        other=next(p for p in (self.ref/"assessments").rglob("*.json") if p!=assessment)
+        before=self.files()
+        self.assertEqual(self.reveal(other),2)
+        self.assertEqual(self.files(),before)
+
+
+
 if __name__=="__main__":
     unittest.main()
