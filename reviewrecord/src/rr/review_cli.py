@@ -62,6 +62,21 @@ def _save_new(path, content):
         raise
 
 
+def _private_assessment_path(path, *, must_exist=False):
+    """Reject a public immediate parent directory for pre-close assessment files."""
+    path=Path(path)
+    parent=path.parent
+    if parent.is_symlink() or not parent.is_dir():
+        raise ReviewerError("Assessment directory must be an existing local, non-symlink directory.")
+    if os.name!="posix":
+        raise ReviewerError("Assessment private-directory permissions need a qualified POSIX runner.")
+    info=parent.stat()
+    if stat.S_IMODE(info.st_mode)&0o077 or info.st_uid!=os.geteuid():
+        raise ReviewerError("Assessment directory must be owned by this user and mode 0700.")
+    if must_exist and (path.is_symlink() or not path.is_file()):
+        raise ReviewerError("Assessment input must be a local regular file, not a symlink.")
+
+
 def _read_key(path):
     path = Path(path)
     if path.is_symlink() or not path.is_file():
@@ -225,6 +240,9 @@ def main(argv=None):
             elif args.command == "sign":
                 payload = _read_json(args.input)
                 _validate_review(payload, public)
+                if payload["type"]=="assessment":
+                    _private_assessment_path(args.input,must_exist=True)
+                    _private_assessment_path(args.output)
                 validate_context(registration=args.registration,
                     expected_author_key=args.expected_author_key,
                     expected_registration_hash=args.expected_registration_hash,
@@ -237,6 +255,7 @@ def main(argv=None):
                 if payload["type"] == "assessment":
                     print("WITHHOLD this assessment until the close is published.", file=sys.stderr)
             else:
+                _private_assessment_path(args.assessment,must_exist=True)
                 record = dsse.decode(args.assessment.read_bytes())
                 if record.value.get("type") != "assessment":
                     raise ReviewerError("Commit source must be a signed assessment.")
