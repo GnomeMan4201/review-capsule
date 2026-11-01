@@ -15,6 +15,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 from . import canon, dsse
 from .constants import JUDGMENTS
+from .review_context import validate_context
 
 
 class ReviewerError(ValueError):
@@ -192,6 +193,17 @@ def main(argv=None):
     commit.add_argument("--private-key", type=Path, required=True)
     commit.add_argument("--assessment", type=Path, required=True)
     commit.add_argument("--output", type=Path, required=True)
+    for item in (signing,commit):
+        item.add_argument("--registration",type=Path,required=True,
+                          help="Author-signed registration DSSE envelope.")
+        item.add_argument("--expected-author-key",required=True,
+                          help="Author public key confirmed outside this file exchange.")
+        item.add_argument("--expected-registration-hash",
+                          help="Optional independently obtained exact registration envelope SHA256.")
+        item.add_argument("--packet",type=Path,
+                          help="Frozen packet (required for assessment sign/commit).")
+        item.add_argument("--policy",type=Path,
+                          help="Frozen policy (required for assessment sign/commit).")
     args = parser.parse_args(argv)
     try:
         if args.command == "keygen":
@@ -213,6 +225,13 @@ def main(argv=None):
             elif args.command == "sign":
                 payload = _read_json(args.input)
                 _validate_review(payload, public)
+                validate_context(registration=args.registration,
+                    expected_author_key=args.expected_author_key,
+                    expected_registration_hash=args.expected_registration_hash,
+                    reviewer_key=public,round_id=payload["round_id"],
+                    registration_hash=payload["registration_hash"],
+                    packet=args.packet,policy=args.policy,
+                    assessment=payload if payload["type"]=="assessment" else None)
                 _save_new(args.output, _envelope(payload, key))
                 print("Signed " + payload["type"] + " written locally.", file=sys.stderr)
                 if payload["type"] == "assessment":
@@ -224,6 +243,13 @@ def main(argv=None):
                 _validate_review(record.value, public)
                 if not dsse.verify_signature(record, public):
                     raise ReviewerError("Assessment signature does not match the local reviewer key.")
+                validate_context(registration=args.registration,
+                    expected_author_key=args.expected_author_key,
+                    expected_registration_hash=args.expected_registration_hash,
+                    reviewer_key=public,round_id=record.value["round_id"],
+                    registration_hash=record.value["registration_hash"],
+                    packet=args.packet,policy=args.policy,
+                    assessment=record.value)
                 payload = {
                     "type": "commit",
                     "round_id": record.value["round_id"],
