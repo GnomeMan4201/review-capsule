@@ -2,7 +2,7 @@
 import hashlib,re,stat,zipfile,sys,zlib
 from datetime import datetime
 from pathlib import Path,PurePosixPath
-from . import canon,dsse,merkle,anchors
+from . import canon,dsse,merkle,anchors,anchor_evidence
 from .constants import SPEC,LIMITS,JUDGMENTS
 from .report import Report,TOOL_TEXT
 MAX_FILE=1024*1024;MAX_TOTAL=24*1024*1024;MAX_FILES=4096;MAX_ZIP_RATIO=200
@@ -75,7 +75,7 @@ def read_bundle(path,report):
         report.add('BUNDLE_UNREADABLE','fail')
     return result
 
-def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,registries=None,network=False,bitcoin_rpc=None,tsa_ca=None):
+def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,registries=None,network=False,bitcoin_rpc=None,tsa_ca=None,tsa_policy=None,tsa_untrusted=None):
     report=Report()
     if sys.flags.optimize:
         report.add('RUNTIME_UNSUPPORTED','fail',detail='Run without Python optimization so all schema guards execute.')
@@ -293,10 +293,11 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         for ref in sorted(concerns):
             if ref not in dispositions:missing('DISPOSITION_MISSING','/'.join(ref))
     targets={x for x in (registration_hash,close_record.object_hash if close_record else None,record_hash) if x}
-    anchor_evidence={}
+    anchor_metadata={}
     for target in sorted(targets):
         observed_types=set()
         confirmed_types=set()
+        qualified={}
         # Descriptor authority labels are unauthenticated because anchors/ is excluded
         # from record_hash. Never use the label to satisfy an independence gate.
         for name,descriptor in parsed.items():
@@ -308,8 +309,19 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
             if not all(type(descriptor.get(k)) is str and descriptor[k].strip() for k in ('authority','proof','evidence_format','validation_backend')) or type(descriptor.get('confirmation_policy')) is not dict:
                 report.add('ANCHOR_INVALID','fail',name);continue
             observed_types.add(kind)
-            status,detail=anchors.check(descriptor,files,network=network,bitcoin_rpc=bitcoin_rpc,tsa_ca=tsa_ca)
-            report.data['anchors'].append({k:descriptor[k] for k in ('type','authority','target','evidence_format','validation_backend','confirmation_policy')}|{'status':status,'detail':detail,'authority_basis':'descriptor label only; unauthenticated'})
+            evidence=anchor_evidence.inspect(descriptor,files,network=network,
+                bitcoin_rpc=bitcoin_rpc,tsa_ca=tsa_ca,tsa_policy=tsa_policy,
+                tsa_untrusted=tsa_untrusted)
+            status,detail=evidence["status"],evidence["detail"]
+            details={k:descriptor[k] for k in ('type','authority','target','evidence_format','validation_backend','confirmation_policy')}
+            details.update(status=status,detail=detail,
+                           authority_basis='proof-derived' if evidence.get('authority') else 'descriptor label only; unauthenticated')
+            if evidence.get('authority'):
+                details.update(verified_authority=evidence['authority'],
+                               attested_time=evidence['attested_time'],
+                               evidence_basis=evidence['basis'])
+                qualified.setdefault(kind,[]).append(evidence)
+            report.data['anchors'].append(details)
             mapping={'confirmed':('ANCHOR_CONFIRMED','pass'),'pending':('ANCHOR_PENDING','pending'),'invalid':('ANCHOR_INVALID','fail'),'unverifiable_offline':('ANCHOR_UNVERIFIABLE_OFFLINE','unverifiable'),'missing':('ANCHOR_MISSING','missing')}
             code,state=mapping[status];report.add(code,state,name,detail)
             if status=='confirmed':confirmed_types.add(kind)
@@ -320,13 +332,36 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         # is not authenticated. Do not use descriptor strings for identity.
         if not {'ots','rfc3161'}<=confirmed_types:
             report.add('ANCHOR_GATE_UNCONFIRMED','pending',target,detail='Required anchor types are not both confirmed for this target.')
-        else:
+        elif not all(qualified.get(kind) for kind in ('ots','rfc3161')):
             report.add('ANCHOR_AUTHORITY_NOT_CHECKED','not_checked',target,detail='Proof-derived authorities are not available; declared labels cannot establish independence.')
-        anchor_evidence[target]=confirmed_types
-    # A2: self-reported dates, Git dates and descriptor timestamps cannot establish
-    # external ordering. This becomes checkable only when verified anchor evidence
-    # supplies attested times from independently validated proofs.
-    report.add('ANCHOR_ORDER_NOT_CHECKED','not_checked','registration -> close',detail='Verified attested times for registration and close have not been established.')
+        else:
+            identities={e['authority'] for kind in ('ots','rfc3161') for e in qualified[kind]}
+            if len(identities)<2:
+                report.add('ANCHOR_NOT_INDEPENDENT','fail',target,detail='Distinct verified proof authorities are required.')
+            else:
+                report.add('ANCHOR_AUTHORITY_CONFIRMED','pass',target,
+                           detail='Two proof-derived identities; trust assumptions are recorded per anchor.')
+        anchor_metadata[target]=qualified
+    # Compare only authenticated proof-reported times, never signed clock strings.
+    reg_times=[e.get('attested_time') for group in anchor_metadata.get(registration_hash,{}).values() for e in group]
+    cls_hash=close_record.object_hash if close_record else None
+    close_times=[e.get('attested_time') for group in anchor_metadata.get(cls_hash,{}).values() for e in group]
+    if reg_times and close_times and all(reg_times) and all(close_times):
+        try:
+            from datetime import datetime
+            latest_registration=max(datetime.fromisoformat(x.replace('Z','+00:00')) for x in reg_times)
+            earliest_close=min(datetime.fromisoformat(x.replace('Z','+00:00')) for x in close_times)
+            if latest_registration<=earliest_close:
+                report.add('ANCHOR_ORDER_ATTESTED','pass','registration -> close',
+                           detail='Proof-reported registration time <= close time; does not prove packet release order.')
+            else:
+                report.add('ANCHOR_ORDER_INCONSISTENT','fail','registration -> close',
+                           detail='Proof-reported registration time is later than a close time.')
+        except (ValueError,TypeError):
+            report.add('ANCHOR_ORDER_NOT_CHECKED','not_checked','registration -> close',
+                       detail='Verified attested times were not comparable.')
+    else:
+        report.add('ANCHOR_ORDER_NOT_CHECKED','not_checked','registration -> close',detail='Verified attested times for registration and close have not been established.')
     if len(targets)!=3:report.add('ANCHOR_TARGET_NOT_CHECKED','not_checked','targets')
     if not registries:report.add('REGISTRY_NOT_CHECKED','not_checked','registries')
     for registry in registries or []:
