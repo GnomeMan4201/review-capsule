@@ -323,5 +323,21 @@ class StewardIntakeTests(unittest.TestCase):
 
 
 
+    def test_intake_crash_orphan_aborts_without_rewriting_evidence(self):
+        self.init()
+        from rr.verify import rid
+        declaration,value=self.pick("declarations")
+        signature=dsse.decode(declaration.read_bytes())
+        bundle=self.workspace/"bundle"
+        folder=bundle/"declarations"/rid(value["reviewer_key"])
+        folder.mkdir(parents=True,mode=0o700)
+        (folder/(signature.object_hash[7:]+".json")).write_bytes(declaration.read_bytes())
+        snapshot=self.files()
+        self.assertEqual(self.intake(declaration),2)
+        self.assertEqual(self.invoke("close"),2)
+        self.assertEqual(self.files(),snapshot)
+        self.assertFalse((bundle/"close.json").exists())
+
+
 if __name__=="__main__":
     unittest.main()
