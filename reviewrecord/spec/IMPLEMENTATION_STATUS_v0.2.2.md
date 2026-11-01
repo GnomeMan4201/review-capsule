@@ -36,3 +36,9 @@ No production A2 ordering proof, A3 authenticated authorities, A4 TSA trust poli
 ## A10 bounded archive ingestion
 
 The initial ZIP reader checked declared metadata sizes but called `ZipFile.read` without a bounded application read loop. It now streams at most 64 KiB per iteration under the remaining per-file/total cap, compares received length with declared length, and rejects 200:1+ compression amplification before extraction. Directory reads are also byte-bounded. This is a practical guard, not an adversarial proof against all decompression bombs, metadata races or CPU exhaustion. Regression tests in `tests/test_zip_limits.py` cover representative hostile ZIPs.
+
+## A5 and A13 additional regression checkpoint
+
+The OTS adapter has a *candidate* mainnet preflight: the configured Bitcoin Core RPC must report `chain=main` and return Bitcoin mainnet's known genesis hash. The confirmed branch records block height, hash, time and observed confirmation count in the per-anchor detail. The backend identity remains the caller-configured RPC and its truthfulness is not independently established. The adapter now checks all included Bitcoin header attestations and fails the entire proof if any one fails; tests exercise wrong-chain/wrong-genesis and **mocked** multiple-attestation outcomes. A real, upgraded, six-confirmation attestation has **not** been verified. The proof-derived signer/authority and temporal-order gates remain blocked.
+
+A13 tests now demonstrate the frozen DSSE profile's accepted standard/URL-safe Base64 variants, rejection of mixed alphabets, unpadded URL-safe public-key encoding, and Ed25519 rejection of S+group-order signatures. Tightening payload/signature Base64 to exactly one spelling conflicts with the frozen spec's explicit dual-variant acceptance rule and requires a recorded profile revision; do not silently narrow it.
