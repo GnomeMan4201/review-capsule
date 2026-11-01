@@ -22,6 +22,14 @@ The test-built bundle with **no anchors** remains non-passing (exit 1 due to mis
 
 The `.github/workflows/verify.yml` workflow tests the separate hosted Django Capsule, not Review Record. Earlier local 37-test and CI 94-test snapshots are historical; do not quote them as the current test count.
 
+## Strict TSA binding repair (2026-11-01)
+
+A second AI audit identified a **wrong-target acceptance defect** at `1921ede8`. The strict RFC 3161 verifier matched a token to its original request but did not match the request to the anchor descriptor's SHA-256 target. At red-phase commit `182f0549`, [GitHub Actions](https://github.com/GnomeMan4201/review-capsule/actions/runs/41336315166) ran 121 tests with two expected regressions failing: a valid token confirmed the wrong digest, and a malformed token was treated as unavailable rather than invalid.
+
+The candidate repair introduced bounded DER field extraction of both request and CMS-signed TSTInfo imprints, numeric TSA policy OID and genTime, required both digests to match the target, and separated verified-invalid from backend-unavailable. The local synthetic TSA positive and wrong-target tests pass. A full `rrverify` bundle test additionally rejects a wrong-target token. [GitHub Actions](https://github.com/GnomeMan4201/review-capsule/actions/runs/41336679126) reported **122 tests passing** at `abbdcd18`. This is not a production TSA qualification. See `docs/TSA_BINDING_REMEDIATION.md`.
+
+**Remaining:** revocation/key compromise and backdating, independently sourced CA/signer pins, real FreeTSA strict-path interoperability, a six-deep Bitcoin proof, and external packet-release evidence. An externally attested timestamp is an upper bound on an object's existence, not a record of when a reviewer first saw content. A raw comparison of two such upper bounds does not itself prove packet-release order.
+
 ## Corrected security boundaries
 
 - **A1:** pending/unverifiable anchors do not satisfy the confirmed-type gate; unsigned labels do not prove two authorities. `ANCHOR_GATE_UNCONFIRMED`, `ANCHOR_AUTHORITY_NOT_CHECKED` and `ANCHOR_ORDER_NOT_CHECKED` are not passing outcomes. A2/A3 remain unqualified.
