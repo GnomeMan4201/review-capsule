@@ -8,8 +8,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 from cryptography.hazmat.primitives import serialization
-from reference_round import create,key,canon
-from rr import dsse
+from reference_round import create,key
+from rr import canon,dsse
 from rr.steward_cli import initialize,intake,close,reveal
 from rr.bundle_cli import assemble
 from rr.verify import verify_bundle
