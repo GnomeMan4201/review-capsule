@@ -206,6 +206,64 @@ def initialize(root,reg_path,packet_path,policy_path,expected_author_key,steward
     return reg_hash
 
 
+def _append(bundle,reg,state,previous,log_count,rec,raw,kind,key,steward_private):
+    from .verify import rid
+    folder={"declaration":"declarations","commit":"commits","withdrawal":"withdrawals"}[kind]
+    entry={
+        "type":"logentry","round_id":reg["round_id"],
+        "registration_hash":state["registration_hash"],"seq":log_count+1,
+        "kind":kind,"ref_hash":rec.object_hash,"prev_entry_hash":previous
+    }
+    signer=_read_key(steward_private)
+    if _public(signer)!=reg["steward_key"]:
+        raise StewardError("Local signing key is not the registered steward key.")
+    receipt=_envelope(entry,signer)
+    if not dsse.verify_signature(dsse.decode(receipt),reg["steward_key"]):
+        raise StewardError("Steward acknowledgement failed local signature check.")
+    p=bundle/folder/rid(key);_directory(bundle/folder);_directory(p)
+    obj_path=p/(rec.object_hash[7:]+".json")
+    _store(obj_path,raw)
+    _directory(bundle/"log")
+    _store(bundle/"log"/(str(log_count+1)+".json"),receipt)
+    return log_count+1,canon.digest(receipt)
+
+
+def attest_withdrawal(root,reviewer_key,expected_author_key,steward_private,reason_file=None):
+    """A steward declaration about a reviewer; NEVER a reviewer-signed claim."""
+    try:dsse.public_bytes(reviewer_key)
+    except ValueError:raise StewardError("Invalid reviewer public key.") from None
+    with _lock(root):
+        state,reg,bundle=_valid_reg(root,expected_author_key)
+        if (bundle/"close.json").exists():
+            raise StewardError("Round closed; no further withdrawal may be logged.")
+        previous,entries,objects,declarations,commits,first,withdrawals=_scan(
+            bundle,reg,state["registration_hash"])
+        if reviewer_key not in declarations:
+            raise StewardError("Steward may attest only for an existing declared reviewer.")
+        if reviewer_key in withdrawals:
+            raise StewardError("Withdrawal already logged for this reviewer.")
+        if reviewer_key in (reg["author_key"],reg["steward_key"]):
+            raise StewardError("Role signing-key conflict.")
+        value={
+            "type":"withdrawal","round_id":reg["round_id"],
+            "registration_hash":state["registration_hash"],"reviewer_key":reviewer_key,
+            "steward_attested":True
+        }
+        if reason_file is not None:
+            try:reason=_read(reason_file).decode("utf-8").strip()
+            except UnicodeDecodeError:
+                raise StewardError("Withdrawal reason must be UTF-8.") from None
+            if not reason:raise StewardError("Withdrawal reason file is empty.")
+            value["reason"]=reason
+        signer=_read_key(steward_private)
+        if _public(signer)!=reg["steward_key"]:
+            raise StewardError("Steward private key mismatch.")
+        raw=_envelope(value,signer)
+        rec=dsse.decode(raw)
+        return _append(bundle,reg,state,previous,len(entries),rec,raw,
+                       "withdrawal",reviewer_key,steward_private)
+
+
 def intake(root,source,expected_author_key,steward_private):
     # Reject leaked assessments before reading or writing the workspace.
     raw=_read(source)
@@ -246,26 +304,7 @@ def intake(root,source,expected_author_key,steward_private):
             raise StewardError("Repeated withdrawal refused.")
         if kind=="withdrawal" and "steward_attested" in v:
             raise StewardError("Steward attestation cannot use reviewer intake.")
-        from .verify import rid
-        folder={"declaration":"declarations","commit":"commits","withdrawal":"withdrawals"}[kind]
-        p=bundle/folder/rid(key);_directory(bundle/folder);_directory(p)
-        obj_path=p/(rec.object_hash[7:]+".json")
-        seq=len(entries)+1
-        entry={
-            "type":"logentry","round_id":reg["round_id"],
-            "registration_hash":state["registration_hash"],
-            "seq":seq,"kind":kind,"ref_hash":rec.object_hash,
-            "prev_entry_hash":previous
-        }
-        receipt=_envelope(entry,_read_key(steward_private))
-        if not dsse.verify_signature(dsse.decode(receipt),reg["steward_key"]):
-            raise StewardError("Steward signing key mismatch.")
-        # Object first; if receipt cannot be written, future scans fail closed
-        # because the unacknowledged object is an orphan, not silently repaired.
-        _store(obj_path,raw)
-        _directory(bundle/"log")
-        _store(bundle/"log"/(str(seq)+".json"),receipt)
-        return seq,canon.digest(receipt)
+        return _append(bundle,reg,state,previous,len(entries),rec,raw,kind,key,steward_private)
 
 
 def close(root,expected_author_key,steward_private):
@@ -425,11 +464,14 @@ def main(argv=None):
     intake_p=sub.add_parser("intake",help="Accept signed reviewer metadata only; reject assessments.")
     intake_p.add_argument("--input",type=Path,required=True)
     sub.add_parser("close",help="Sign immutable close from the checked log.")
+    attested=sub.add_parser("attest-withdrawal",help="Sign a clearly steward-attested withdrawal.")
+    attested.add_argument("--reviewer-key",required=True)
+    attested.add_argument("--reason-file",type=Path,help="Optional UTF-8 file; do not put private reason in shell history.")
     post=sub.add_parser("reveal",help="Accept reviewer assessment only after signed close.")
     post.add_argument("--input",type=Path,required=True)
     post.add_argument("--workspace",type=Path,required=True)
     post.add_argument("--expected-author-key",required=True)
-    for command in (init,intake_p,sub.choices["close"]):
+    for command in (init,intake_p,sub.choices["close"],attested):
         command.add_argument("--workspace",type=Path,required=True)
         command.add_argument("--expected-author-key",required=True)
         command.add_argument("--steward-private-key",type=Path,required=True)
@@ -446,6 +488,10 @@ def main(argv=None):
         elif args.command=="close":
             print("Signed close: "+close(args.workspace,args.expected_author_key,
                                          args.steward_private_key))
+        elif args.command=="attest-withdrawal":
+            seq,receipt=attest_withdrawal(args.workspace,args.reviewer_key,
+                args.expected_author_key,args.steward_private_key,args.reason_file)
+            print("Steward-attested withdrawal acknowledgement seq="+str(seq)+" hash="+receipt)
         else:
             print("Post-close reveal: "+reveal(args.workspace,args.input,args.expected_author_key))
         return 0
