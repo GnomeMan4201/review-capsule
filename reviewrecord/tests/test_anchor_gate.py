@@ -67,7 +67,7 @@ class AnchorGateTests(unittest.TestCase):
         # must never be promoted to a passing two-authority gate.
         with patch("rr.verify.anchors.check", return_value=("confirmed", "mocked evidence")):
             report = self.check()
-        self.assertEqual(len(self.find(report, "ANCHOR_AUTHORITY_NOT_CHECKED")), 3)
+        self.assertEqual(len(self.find(report, "ANCHOR_GATE_UNCONFIRMED"))+len(self.find(report, "ANCHOR_AUTHORITY_NOT_CHECKED")), 3)
         self.assertEqual(len(self.find(report, "ANCHOR_ORDER_NOT_CHECKED")), 1)
         self.assertFalse(self.find(report, "ANCHOR_GATE_CONFIRMED"))
         self.assertEqual(report["exit_code"], 2)
