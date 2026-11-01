@@ -39,9 +39,14 @@ def inspect(descriptor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None,
     # Legacy RFC3161 digest-only checks cannot qualify archival tokens whose
     # signer certificate has expired since the signed genTime.
     if kind=="rfc3161":
-        status,detail="confirmed","Raw token present; strict qualification required."
-        if not isinstance(descriptor.get("proof"),str) or descriptor["proof"] not in files:
-            status,detail="missing","RFC3161 proof file is missing."
+        if not tsa_ca or not tsa_policy:
+            status,detail=anchors.check(descriptor,files,network=network,bitcoin_rpc=bitcoin_rpc,tsa_ca=tsa_ca)
+            if status=="confirmed":
+                status,detail="unverifiable_offline","TSA requires externally pinned CA/signer/policy and original request."
+        else:
+            status,detail="confirmed","Raw token present; strict qualification required."
+            if not isinstance(descriptor.get("proof"),str) or descriptor["proof"] not in files:
+                status,detail="missing","RFC3161 proof file is missing."
     else:
         status,detail=anchors.check(descriptor,files,network=network,bitcoin_rpc=bitcoin_rpc,tsa_ca=tsa_ca)
     result={"status":status,"detail":detail,"authority":None,"attested_time":None,
