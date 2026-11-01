@@ -35,24 +35,34 @@ def check(anchor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None):
                 if (type(chain_info) is not dict or chain_info.get('chain')!='main'
                         or genesis!=main_genesis):
                     return 'invalid','Configured Bitcoin RPC is not a checked mainnet-genesis backend.'
-                tip=proxy.getblockcount();low_depth=False
+                tip=proxy.getblockcount();low_depth=False;invalid=False;confirmed=[]
+                # Fail closed if any included Bitcoin attestation is invalid. A valid
+                # earlier entry cannot hide a later invalid entry (or vice versa).
                 for message,attestation in bitcoin:
-                    block_hash=proxy.getblockhash(attestation.height)
-                    header=proxy.getblockheader(block_hash)
-                    try:attestation.verify_against_blockheader(message,header)
-                    except Exception:return 'invalid','Bitcoin attestation does not match the fetched header.'
-                    confirmations=tip-attestation.height+1
-                    if confirmations>=6:
-                        try:
+                    try:
+                        block_hash=proxy.getblockhash(attestation.height)
+                        header=proxy.getblockheader(block_hash)
+                        attestation.verify_against_blockheader(message,header)
+                        confirmations=tip-attestation.height+1
+                        if confirmations<1:
+                            invalid=True;continue
+                        if confirmations>=6:
                             timestamp=datetime.fromtimestamp(int(header.nTime),tz=timezone.utc).isoformat().replace('+00:00','Z')
                             block_hex=proxy.call('getblockhash',attestation.height)
-                        except (ValueError,TypeError,OverflowError,AttributeError):
-                            return 'unverifiable_offline','Bitcoin block metadata could not be retrieved.'
-                        return 'confirmed',('Bitcoin mainnet genesis checked against configured RPC; '
-                            f'height={attestation.height}; block_hash={block_hex}; '
-                            f'block_time={timestamp}; confirmations={confirmations}; '
-                            'node data are trusted to this configured RPC backend.')
-                    low_depth=True
+                            confirmed.append((attestation.height,block_hex,timestamp,confirmations))
+                        else:low_depth=True
+                    except (IndexError,ValueError,TypeError,OverflowError,AttributeError):
+                        invalid=True
+                    except Exception:
+                        invalid=True
+                if invalid:
+                    return 'invalid','At least one included Bitcoin attestation was invalid under the configured RPC.'
+                if confirmed:
+                    height,block_hex,timestamp,confirmations=sorted(confirmed,key=lambda x:(-x[3],x[0]))[0]
+                    return 'confirmed',('Bitcoin mainnet genesis checked against configured RPC; '
+                        f'height={height}; block_hash={block_hex}; '
+                        f'block_time={timestamp}; confirmations={confirmations}; '
+                        'node data are trusted to this configured RPC backend.')
                 return ('pending','Bitcoin confirmation threshold is not met.') if low_depth else ('invalid','No valid Bitcoin attestation.')
         except (ValueError,TypeError,KeyError,AssertionError):return 'invalid','Timestamp proof did not parse or bind correctly.'
         except Exception:return 'unverifiable_offline','Timestamp validation backend could not complete.'
