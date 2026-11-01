@@ -76,6 +76,7 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         assert reg['type']=='registration' and reg['spec']==SPEC and reg['canon']=='canon-v1'
         for field in ('round_id','work_id'):assert type(reg[field]) is str and reg[field].strip()
         dsse.public_bytes(reg['author_key']);dsse.public_bytes(reg['steward_key'])
+        if reg['author_key']==reg['steward_key']:report.add('ROLE_KEY_REUSED','fail','registration.json',detail='Author and steward must use distinct signing keys.')
         for field in ('packet_hash','policy_hash','withheld_commitment'):canon.hash_bytes(reg[field])
         assert type(reg['prior_rounds']) is list and all(type(x) is str for x in reg['prior_rounds']) and len(reg['prior_rounds'])==len(set(reg['prior_rounds']))
         assert type(reg['reviewers_target']) is int and reg['reviewers_target']>=1
@@ -120,6 +121,9 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
                 add('RID_MISMATCH',right_rid,name)
                 right_hash=len(parts)==3 and parts[2]==record.object_hash[7:]+'.json';add('PATH_HASH_MISMATCH',right_hash,name)
                 ok=ok and right_rid and right_hash
+                if key_value in (reg.get('author_key'),reg.get('steward_key')):
+                    report.add('ROLE_KEY_REUSED','fail',name,detail='A reviewer signing key cannot be the author or steward signing key.')
+                    ok=False
                 if kind=='declaration':
                     complete=all(type(value.get(k)) is str and bool(value[k].strip()) for k in ('relationship_to_author','stake_in_result','prior_exposure')) and value.get('identity_disclosure') in ('real','pseudonym','anonymous') and type(value.get('credit_consent')) is bool
                     complete=complete and key_value!=reg.get('steward_key')
