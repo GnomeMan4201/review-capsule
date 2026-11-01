@@ -962,6 +962,12 @@
       "detail": "No externally configured TSA CA was supplied."
     },
     {
+      "code": "ANCHOR_GATE_UNCONFIRMED",
+      "status": "pending",
+      "subject": "sha256:2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+      "detail": "Required anchor types are not both confirmed for this target."
+    },
+    {
       "code": "ANCHOR_PENDING",
       "status": "pending",
       "subject": "anchors/record-ots.json",
@@ -974,6 +980,12 @@
       "detail": "No externally configured TSA CA was supplied."
     },
     {
+      "code": "ANCHOR_GATE_UNCONFIRMED",
+      "status": "pending",
+      "subject": "sha256:3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+      "detail": "Required anchor types are not both confirmed for this target."
+    },
+    {
       "code": "ANCHOR_PENDING",
       "status": "pending",
       "subject": "anchors/close-ots.json",
@@ -984,6 +996,18 @@
       "status": "unverifiable",
       "subject": "anchors/close-tsa.json",
       "detail": "No externally configured TSA CA was supplied."
+    },
+    {
+      "code": "ANCHOR_GATE_UNCONFIRMED",
+      "status": "pending",
+      "subject": "sha256:71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+      "detail": "Required anchor types are not both confirmed for this target."
+    },
+    {
+      "code": "ANCHOR_ORDER_NOT_CHECKED",
+      "status": "not_checked",
+      "subject": "registration -> close",
+      "detail": "Verified attested times for registration and close have not been established."
     },
     {
       "code": "REGISTRY_NOT_CHECKED",
@@ -1055,7 +1079,8 @@
         "min_confirmations": 6
       },
       "status": "pending",
-      "detail": "Calendar reference has no checked Bitcoin attestation."
+      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "authority_basis": "descriptor label only; unauthenticated"
     },
     {
       "type": "rfc3161",
@@ -1067,7 +1092,8 @@
         "ca_required": true
       },
       "status": "unverifiable_offline",
-      "detail": "No externally configured TSA CA was supplied."
+      "detail": "No externally configured TSA CA was supplied.",
+      "authority_basis": "descriptor label only; unauthenticated"
     },
     {
       "type": "ots",
@@ -1079,7 +1105,8 @@
         "min_confirmations": 6
       },
       "status": "pending",
-      "detail": "Calendar reference has no checked Bitcoin attestation."
+      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "authority_basis": "descriptor label only; unauthenticated"
     },
     {
       "type": "rfc3161",
@@ -1091,7 +1118,8 @@
         "ca_required": true
       },
       "status": "unverifiable_offline",
-      "detail": "No externally configured TSA CA was supplied."
+      "detail": "No externally configured TSA CA was supplied.",
+      "authority_basis": "descriptor label only; unauthenticated"
     },
     {
       "type": "ots",
@@ -1103,7 +1131,8 @@
         "min_confirmations": 6
       },
       "status": "pending",
-      "detail": "Calendar reference has no checked Bitcoin attestation."
+      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "authority_basis": "descriptor label only; unauthenticated"
     },
     {
       "type": "rfc3161",
@@ -1115,7 +1144,8 @@
         "ca_required": true
       },
       "status": "unverifiable_offline",
-      "detail": "No externally configured TSA CA was supplied."
+      "detail": "No externally configured TSA CA was supplied.",
+      "authority_basis": "descriptor label only; unauthenticated"
     }
   ],
   "registry_coverage": [],
@@ -1127,10 +1157,10 @@
     "pass": 158,
     "fail": 0,
     "missing": 0,
-    "pending": 3,
+    "pending": 6,
     "unverifiable": 3,
-    "not_checked": 1
+    "not_checked": 2
   },
   "exit_code": 2,
-  "summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 3 pending, 3 unverifiable, 1 not checked"
+  "summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 6 pending, 3 unverifiable, 2 not checked"
 }
