@@ -86,8 +86,10 @@ def collect(source,root,*,allow_rpc=False):
     options=[x for url in CALENDARS for x in ('-c',url)]
     if missing:
         journal['commands'].append(command([ots,'stamp',*options,'-m','2','--timeout','20',*map(str,missing)]))
-    if existing:
-        journal['commands'].append(command([ots,'upgrade',*options,'--timeout','20',*map(str,existing)]))
+    # The client exits on an incomplete first file. Invoke once per proof so
+    # one pending calendar response does not skip the other two targets.
+    for proof in existing:
+        journal['commands'].append(command([ots,'upgrade',*options,'--timeout','20',str(proof)]))
     for row in targets['targets']:
         name=row['name'];p=root/row['preimage'];proof=Path(str(p)+'.ots')
         if not proof.exists():

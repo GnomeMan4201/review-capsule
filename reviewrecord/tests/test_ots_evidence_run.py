@@ -49,6 +49,16 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(len(list((self.root/'initial').glob('*.ots'))),3)
         for row in json.loads((self.root/'targets.json').read_bytes())['targets']:
             self.assertEqual((self.root/(row['preimage']+'.ots')).read_bytes(),(self.root/'bundle/anchors'/(row['name']+'.ots')).read_bytes())
+    def test_incomplete_upgrade_does_not_skip_other_targets(self):
+        _,targets=run.prepare(ROOT,self.root)
+        for row in targets['targets']:(self.root/(row['preimage']+'.ots')).write_bytes(pending(row['target']))
+        calls=[]
+        def incomplete(argv,timeout=150):
+            calls.append(argv);return dict(argv=argv,exit_code=1,stdout='',stderr='Mock incomplete calendar proof')
+        with patch.object(run,'command',side_effect=incomplete),contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):run.collect(ROOT,self.root)
+        self.assertEqual(len(calls),3)
+        for argv in calls:self.assertEqual(argv[1],'upgrade');self.assertEqual(sum(str(x).endswith('.ots') for x in argv),1)
+        self.assertEqual(json.loads((self.root/'report.json').read_bytes())['exit_code'],2)
     def test_no_rpc_is_chosen_implicitly(self):
         with patch.dict(run.os.environ,{'RR_BITCOIN_RPC':'http://example.invalid','RR_BITCOIN_RPC_OPERATOR':'test-only'},clear=False),patch.object(run,'command',return_value=dict(argv=['mock'],exit_code=1,stdout='',stderr='unavailable')),contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):
             run.collect(ROOT,self.root)

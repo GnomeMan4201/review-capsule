@@ -15,3 +15,11 @@ No Bitcoin node has been selected for the initial run. No RPC check is performed
 The workflow includes workflow_dispatch and hourly cron. GitHub schedules run only when the workflow is on the default branch; this evidence-only branch does **not** activate cron or change main. After the first push, the existing workflow job can be rerun to upgrade proofs. A separate scheduled follow-up may rerun it without merging PR #2. See the conversation for the actual schedule result; the presence of YAML is not evidence a timer is active.
 
 The source and output limits are process integrity only. All unconfirmed/unavailable evidence stays non-passing. No production deployment, merge or real use is authorized by this run.
+
+## First actual submission
+
+Actions run 41346438636, attempt 1, completed calendar submission with client exit 0. All three returned proof files contain calendar references (alice/bob calendar endpoints) and no Bitcoin attestation yet. Proof commit: 2c0e52a9d988076e21abd50d1052f28e016d4cb2. The literal pinned report at that commit is retained as report.json; its exit code is 2. The collection time recorded in runs/41346438636-1.json is advisory Actions-clock metadata.
+
+An hourly follow-up task was created for up to twelve checks to rerun the existing Actions collect job. This is separate from GitHub cron, which remains inactive on the evidence-only branch. The follow-up must pause for an operator choice if Bitcoin attestations appear but no RPC has been selected. No automatic selection of a public node is authorized.
+
+The OTS 0.8.0 upgrade command exits when its first file is incomplete. Therefore the collector upgrades each retained proof in a separate invocation, preserving all exit codes and calendar output rather than letting a pending first file skip the others. Client exit 1 can mean an incomplete proof; consult the recorded stderr before calling it a calendar-access failure. In either case, the pinned report remains the evidence outcome.
