@@ -261,17 +261,33 @@ class StewardIntakeTests(unittest.TestCase):
         decl,_=self.pick("declarations",reviewer)
         self.assertEqual(self.intake(decl),0,self.stderr.getvalue())
         self.stdout=io.StringIO();self.stderr=io.StringIO()
-        args=["--reviewer-key",reviewer]
+        reason=self.root/"attestation-reason.txt"
+        reason.write_text("Steward states reviewer withdrew; this is not reviewer consent.",encoding="utf-8")
+        args=["--reviewer-key",reviewer,"--reason-file",str(reason)]
         self.assertEqual(self.invoke("attest-withdrawal",args),0,self.stderr.getvalue())
         folder=self.workspace/"bundle"/"withdrawals"/rid(reviewer)
         obj=dsse.decode(next(folder.glob("*.json")).read_bytes())
         self.assertEqual(obj.value["steward_attested"],True)
+        self.assertIn("not reviewer consent",obj.value["reason"])
         self.assertTrue(dsse.verify_signature(obj,self.meta["steward_key"]))
         self.assertFalse(dsse.verify_signature(obj,reviewer))
         self.assertEqual(self.invoke("close"),0,self.stderr.getvalue())
         close=dsse.decode((self.workspace/"bundle"/"close.json").read_bytes())
         self.assertEqual(close.value["withdrawn"][0]["reviewer_key"],reviewer)
         self.assertNotIn("status",close.value)
+
+    def test_steward_attestation_without_reason_is_refused(self):
+        self.init()
+        from reference_round import pub
+        reviewer=pub("reviewer-a")
+        declaration,_=self.pick("declarations",reviewer)
+        self.assertEqual(self.intake(declaration),0)
+        snapshot=self.files()
+        # The CLI parser must fail before it can create a signed withdrawal.
+        with self.assertRaises(SystemExit) as exc:
+            self.invoke("attest-withdrawal",["--reviewer-key",reviewer])
+        self.assertEqual(exc.exception.code,2)
+        self.assertEqual(self.files(),snapshot)
 
     def test_steward_cannot_attest_without_prior_declaration(self):
         self.init()
