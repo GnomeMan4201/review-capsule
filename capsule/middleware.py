@@ -42,5 +42,5 @@ class PrivateResponses:
         response['Cache-Control']='no-store, private'
         response['X-Content-Type-Options']='nosniff'
         response['X-Frame-Options']='DENY'
-        response['Content-Security-Policy']="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'none'; img-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
+        response['Content-Security-Policy']="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
         return response

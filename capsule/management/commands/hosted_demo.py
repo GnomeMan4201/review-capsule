@@ -35,8 +35,10 @@ class Command(BaseCommand):
                 {'id': 'item-1', 'evidence': ['A laboratory note records that Sensor A displayed 18 at noon.', 'The same note records that Sensor B displayed 18 at noon.'], 'candidate': 'The matching readings establish that both sensors used the same power supply.'},
                 {'id': 'item-2', 'evidence': ['A stipulated authentic maintenance record identifies Pump K as serviced on Monday.'], 'candidate': 'According to the maintenance record, Pump K was serviced on Monday.'},
             ],
-            withheld={'item-1': 'NOT_ESTABLISHED', 'item-2': 'SUPPORTED', 'notice': 'Synthetic author-expected labels; not independent adjudication.'},
+            withheld={'item-1': 'NOT_ESTABLISHED', 'item-2': 'ESTABLISHED', 'notice': 'Synthetic author-expected labels; not independent adjudication.'},
             deadline=timezone.now() + timedelta(days=7),
         )
-        Assignment.objects.bulk_create([Assignment(round=review_round, reviewer=u) for u in users[2:]])
+        [Assignment.objects.create(round=review_round, reviewer=u) for u in users[2:]]
+        from capsule.services import event
+        event(review_round,users[0],'draft_created',synthetic=True)
         self.stdout.write('Created one synthetic DRAFT and four demo roles. No real reviewer records.')

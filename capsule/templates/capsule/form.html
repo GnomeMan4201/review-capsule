@@ -1,1 +1,8 @@
-{% extends 'capsule/base.html' %}{% block content %}<div class="eyebrow">Review preparation</div><h1>{{title}}</h1><p class="muted">{{intro}}</p><form method="post" class="card">{% csrf_token %}{{form.as_p}}<button>Save</button></form>{% endblock %}
+{% extends 'capsule/base.html' %}
+{% block content %}<div class="eyebrow">Review preparation</div><h1>{{title}}</h1><p class="muted">{{intro}}</p>
+<form method="post" class="card">{% csrf_token %}{{form.as_p}}
+{% if reviewers %}<fieldset><legend>Reviewers</legend>{{reviewers.management_form}}{{reviewers.non_form_errors}}
+{% for row in reviewers %}<div class="reviewer-row">{{row.as_p}}</div>{% endfor %}
+<button class="secondary" name="add_reviewer" value="1" formnovalidate>Add reviewer row</button>
+<p class="helptext">Check Delete to remove a row when saving. At least two reviewers must remain.</p></fieldset>{% endif %}
+<p><button>Save</button></p></form>{% endblock %}

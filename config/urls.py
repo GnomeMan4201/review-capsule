@@ -1,7 +1,9 @@
 from django.urls import path
 from django.contrib.auth import views as auth
 from capsule import views as v
-urlpatterns=[path('healthz/',v.health,name='health'),path('',v.home,name='home'),path('login/',auth.LoginView.as_view(),name='login'),path('logout/',auth.LogoutView.as_view(),name='logout'),
+urlpatterns=[path('assets/enhancements.js',v.enhancements,name='enhancements'),
+path('rounds/<uuid:rid>/open/',v.open_round,name='open_round'),path('rounds/<uuid:rid>/correction/',v.correction,name='correction'),
+path('rounds/<uuid:rid>/feedback-export/',v.feedback_export,name='feedback_export'),path('assignments/<uuid:aid>/peers.json',v.peers,name='peers'),path('healthz/',v.health,name='health'),path('',v.home,name='home'),path('login/',auth.LoginView.as_view(),name='login'),path('logout/',auth.LogoutView.as_view(),name='logout'),
 path('studies/new/',v.create_study,name='create'),path('desk/<uuid:sid>/',v.desk,name='desk'),
 path('rounds/<uuid:rid>/freeze/',v.freeze,name='freeze'),path('rounds/<uuid:rid>/close/',v.close,name='close'),
 path('rounds/<uuid:rid>/private-export/',v.export_round,name='export'),path('rounds/<uuid:rid>/feedback/',v.feedback,name='feedback'),
