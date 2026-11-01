@@ -1,5 +1,5 @@
 # Pre-close steward intake/close CLI; Python 3.12+, cryptography==50.0.2 [needs Linux runner].
-"""Offline candidate only. No reveal intake, network, anchors or full bundle export."""
+"""Offline candidate only. Pre-close intake, close, post-close reveal; no network or anchors."""
 import argparse
 import contextlib
 import fcntl
