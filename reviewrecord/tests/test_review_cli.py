@@ -11,6 +11,7 @@ from unittest.mock import patch
 
 from rr import canon, dsse
 from rr.review_cli import main
+from reference_round import create
 
 
 PASSWORD = "synthetic test passphrase - never use for a participant"
@@ -24,8 +25,18 @@ class ReviewerToolTests(unittest.TestCase):
         self.secret = self.folder / "reviewer.key"
         self.out = io.StringIO()
         self.err = io.StringIO()
+        self.metadata=create(self.folder/"round")
+        self.registration=self.folder/"round"/"registration.json"
+        self.packet=self.folder/"round"/"packet.json"
+        self.policy=self.folder/"round"/"policy.json"
 
     def run_cli(self, args, passwords=None):
+        if args[0] in ("sign","commit"):
+            args=list(args)+[
+                "--registration",str(self.registration),
+                "--expected-author-key",self.metadata["author_key"],
+                "--packet",str(self.packet),
+                "--policy",str(self.policy)]
         with patch("rr.review_cli.getpass.getpass", side_effect=passwords or []):
             with contextlib.redirect_stdout(self.out), contextlib.redirect_stderr(self.err):
                 return main(args)
@@ -45,12 +56,11 @@ class ReviewerToolTests(unittest.TestCase):
         path.write_text(json.dumps(obj), encoding="utf-8")
         return path
 
-    @staticmethod
-    def base(public, kind="assessment"):
+    def base(self, public, kind="assessment"):
         return {
             "type": kind,
-            "round_id": "synthetic-round",
-            "registration_hash": "sha256:" + "b" * 64,
+            "round_id": self.metadata["round_id"],
+            "registration_hash": self.metadata["registration_hash"],
             "reviewer_key": public,
         }
 
@@ -58,7 +68,7 @@ class ReviewerToolTests(unittest.TestCase):
         return self.base(public) | {
             "locked_at": "2026-11-01T12:00:00Z",
             "items": [{
-                "id": "i-1", "judgment": "not_established",
+                "id": "item-1", "judgment": "not_established",
                 "reasoning": "Unpublished sensitive synthetic reviewer comment",
                 "concerns": [{"cid": "c1", "text": "Synthetic issue"}],
             }],
