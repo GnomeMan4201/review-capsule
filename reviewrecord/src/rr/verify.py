@@ -246,24 +246,40 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         for ref in sorted(concerns):
             if ref not in dispositions:missing('DISPOSITION_MISSING','/'.join(ref))
     targets={x for x in (registration_hash,close_record.object_hash if close_record else None,record_hash) if x}
+    anchor_evidence={}
     for target in sorted(targets):
-        counted={};types=set()
+        observed_types=set()
+        confirmed_types=set()
+        # Descriptor authority labels are unauthenticated because anchors/ is excluded
+        # from record_hash. Never use the label to satisfy an independence gate.
         for name,descriptor in parsed.items():
             if not name.startswith('anchors/') or type(descriptor) is not dict or descriptor.get('target')!=target:continue
             kind=descriptor.get('type')
             if kind=='git':report.add('GIT_PUBLICATION_TIME_IGNORED','not_checked',name,detail='Git dates have no time weight.');continue
             if kind=='archive':report.add('OPTIONAL_ANCHOR','not_checked',name,detail='Archive evidence does not count for this profile.');continue
             if kind not in ('ots','rfc3161'):report.add('ANCHOR_INVALID','fail',name);continue
-            authority=descriptor.get('authority')
             if not all(type(descriptor.get(k)) is str and descriptor[k].strip() for k in ('authority','proof','evidence_format','validation_backend')) or type(descriptor.get('confirmation_policy')) is not dict:
                 report.add('ANCHOR_INVALID','fail',name);continue
-            counted.setdefault(authority,set()).add(kind);types.add(kind)
+            observed_types.add(kind)
             status,detail=anchors.check(descriptor,files,network=network,bitcoin_rpc=bitcoin_rpc,tsa_ca=tsa_ca)
-            report.data['anchors'].append({k:descriptor[k] for k in ('type','authority','target','evidence_format','validation_backend','confirmation_policy')}|{'status':status,'detail':detail})
+            report.data['anchors'].append({k:descriptor[k] for k in ('type','authority','target','evidence_format','validation_backend','confirmation_policy')}|{'status':status,'detail':detail,'authority_basis':'descriptor label only; unauthenticated'})
             mapping={'confirmed':('ANCHOR_CONFIRMED','pass'),'pending':('ANCHOR_PENDING','pending'),'invalid':('ANCHOR_INVALID','fail'),'unverifiable_offline':('ANCHOR_UNVERIFIABLE_OFFLINE','unverifiable'),'missing':('ANCHOR_MISSING','missing')}
             code,state=mapping[status];report.add(code,state,name,detail)
-        if not {'ots','rfc3161'}<=types:missing('ANCHOR_MISSING',target)
-        elif not any(a!=b and 'ots' in kinds and 'rfc3161' in other for a,kinds in counted.items() for b,other in counted.items()):report.add('ANCHOR_NOT_INDEPENDENT','fail',target)
+            if status=='confirmed':confirmed_types.add(kind)
+        if not {'ots','rfc3161'}<=observed_types:
+            missing('ANCHOR_MISSING',target)
+        # A1: only independently proven confirmations can satisfy the target gate.
+        # A3: confirmation itself is insufficient while the proof authority identity
+        # is not authenticated. Do not use descriptor strings for identity.
+        if not {'ots','rfc3161'}<=confirmed_types:
+            report.add('ANCHOR_GATE_UNCONFIRMED','pending',target,detail='Required anchor types are not both confirmed for this target.')
+        else:
+            report.add('ANCHOR_AUTHORITY_NOT_CHECKED','not_checked',target,detail='Proof-derived authorities are not available; declared labels cannot establish independence.')
+        anchor_evidence[target]=confirmed_types
+    # A2: self-reported dates, Git dates and descriptor timestamps cannot establish
+    # external ordering. This becomes checkable only when verified anchor evidence
+    # supplies attested times from independently validated proofs.
+    report.add('ANCHOR_ORDER_NOT_CHECKED','not_checked','registration -> close',detail='Verified attested times for registration and close have not been established.')
     if len(targets)!=3:report.add('ANCHOR_TARGET_NOT_CHECKED','not_checked','targets')
     if not registries:report.add('REGISTRY_NOT_CHECKED','not_checked','registries')
     for registry in registries or []:
