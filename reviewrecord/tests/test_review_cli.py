@@ -273,5 +273,49 @@ class ReviewerToolTests(unittest.TestCase):
 
 
 
+    def test_assessment_output_refuses_world_readable_directory(self):
+        public=self.keygen()
+        dest_dir=self.folder/"public"
+        dest_dir.mkdir(mode=0o755)
+        dest_dir.chmod(0o755)
+        target=dest_dir/"leak.json"
+        result=self.run_cli(["sign","--private-key",str(self.secret),
+                             "--input",str(self.draft(self.assessment(public))),
+                             "--output",str(target)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(target.exists())
+        self.assertIn("mode 0700",self.err.getvalue())
+
+    def test_assessment_input_refuses_symlinked_file(self):
+        public=self.keygen()
+        original=self.draft(self.assessment(public),"private-draft.json")
+        linked=self.folder/"linked-draft.json"
+        linked.symlink_to(original)
+        target=self.folder/"not-signed.json"
+        result=self.run_cli(["sign","--private-key",str(self.secret),
+                             "--input",str(linked),"--output",str(target)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(target.exists())
+
+    def test_commit_refuses_assessment_in_public_directory(self):
+        public=self.keygen()
+        src=self.draft(self.assessment(public))
+        signed=self.folder/"private-assessment.json"
+        self.assertEqual(self.run_cli(["sign","--private-key",str(self.secret),
+                "--input",str(src),"--output",str(signed)],[PASSWORD]),0)
+        dest_dir=self.folder/"public"
+        dest_dir.mkdir(mode=0o755)
+        dest_dir.chmod(0o755)
+        moved=dest_dir/"assessment.json"
+        signed.replace(moved)
+        self.out=io.StringIO()
+        self.err=io.StringIO()
+        target=self.folder/"not-committed.json"
+        result=self.run_cli(["commit","--private-key",str(self.secret),
+                             "--assessment",str(moved),"--output",str(target)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(target.exists())
+
+
 if __name__ == "__main__":
     unittest.main()
