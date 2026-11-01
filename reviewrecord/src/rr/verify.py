@@ -269,7 +269,13 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         present=k in revealed
         report.data['reviewers'].append(dict(reviewer_key=k,commitment=commitment,revealed=present,withdrawn=k in withdrawals,withdrawal_basis=withdrawals.get(k)))
         if not present:missing('REVEAL_MISSING',commitment)
-        if k in withdrawals:report.add('WITHDRAWN','pass',k,detail='Withdrawal is retained; it does not remove the lock.')
+        if k in withdrawals:
+            if withdrawals[k]=='attested':
+                report.data['reviewers'][-1]['withdrawal_attestor']=reg.get('steward_key')
+                report.add('WITHDRAWAL_STEWARD_ATTESTED','pass',k,
+                    detail='Steward signed this withdrawal allegation; reviewer consent is not established.')
+            else:
+                report.add('WITHDRAWN','pass',k,detail='Reviewer-stated withdrawal is retained; it does not remove the lock.')
     locked=len(first);reveals=len(revealed);report.data.update(locked_count=locked,tree_size=len(commits),verified_reveals=reveals)
     if policy_ok:
         add('LOCKS_BELOW_MINIMUM',locked>=policy['min_locks'],'round')
