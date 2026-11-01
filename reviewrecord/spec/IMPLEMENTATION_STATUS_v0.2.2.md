@@ -21,6 +21,14 @@ Nine new regression tests cover signing, exact commitment linkage, key permissio
 - Library behavior on an iPhone/a-Shell is untested. GitHub Actions uses Python 3.12; no fallback Ed25519 implementation is claimed.
 - The protocol and local key-handling workflow have not been reviewed by a cryptographer. Do not describe this implementation as secure.
 
-Spec changes still needed: none identified and silently applied. Any future byte-level correction requires updating both normative documents and replacing the baseline explicitly, rather than rewriting the frozen vectors.
+Spec changes silently applied: none. A2/A3's eventual proof-derived authority and timing semantics may require an explicit, versioned normative revision; the frozen baseline must not be edited in place. Any future byte-level correction requires updating both normative documents and replacing the baseline explicitly, rather than rewriting the frozen vectors.
 
 Next acceptance gates: checked author-local and steward-local signing/receipt/close tools; a full synthetic round built only through participant tools and an explicit privacy-leakage negative test; real OTS pending-to-six-confirmation evidence; pinned TSA policy; CI checks for those paths. The hosted Capsule remains separate and its receipts remain legacy-v0.
+
+## Correction audit checkpoint (A1–A3, A6, A8, A4 historical test)
+
+An external code review report found the type/authority presence gate incorrectly used unconfirmed descriptors. The candidate verifier now emits `ANCHOR_GATE_UNCONFIRMED` when either required type lacks confirmed evidence, and `ANCHOR_AUTHORITY_NOT_CHECKED` when adapters claim both types are confirmed but verified authority identity is unavailable. `ANCHOR_ORDER_NOT_CHECKED` is always emitted pending a proof-derived timing model. These are **containment, not A2/A3 completion**. Unsigned descriptor authority labels have no gate power; see `docs/ANCHOR_GATE_AUDIT.md` for proof requirements and the claim-boundary counterexample.
+
+The verifier rejects signing-key reuse across reviewer/author/steward roles using `ROLE_KEY_REUSED`. The signed limits statement is compared to the built-in normative constant and has new byte-sync tests against spec/limits.txt and specification section 8. A4 retained real synthetic FreeTSA evidence has been run through the current adapter via CI tests: positive digest under historical FreeTSA CA, wrong digest, and wrong CA. This is not an endorsement of the service, nor a nonce/policy/expiration/signer identity qualification.
+
+No production A2 ordering proof, A3 authenticated authorities, A4 TSA trust policy, A5 OTS six-confirmation path or full synthetic round made through actor tools has been demonstrated. Round 1 stays blocked. The two GitHub workflows have distinct scopes: `reviewrecord-vectors.yml` tests this protocol; `verify.yml` tests the hosted Capsule application.
