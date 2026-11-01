@@ -5,12 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "portable-review-record"
 version = "0.2.2"
-description = "Per-check review-record bundle verifier"
+description = "Per-check review-record bundle verifier and local reviewer utility"
 requires-python = ">=3.12"
 dependencies = ["cryptography==50.0.2", "opentimestamps-client==0.8.0"]
 
 [project.scripts]
 rrverify = "rr.cli:main"
+rrreview = "rr.review_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
