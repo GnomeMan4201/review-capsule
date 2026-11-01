@@ -103,17 +103,23 @@ def inspect(descriptor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None,
             response=folder/"response.tsr";request=folder/"request.tsq";token=folder/"token.der"
             response.write_bytes(files[descriptor["proof"]])
             request.write_bytes(files[request_path])
-            rq=_invoke("ts","-query","-in",request,"-text")
-            if not re.search(r"^\s*Nonce:\s*(?!unspecified|none|0x0\s*$)\S+",rq,re.M|re.I):
-                raise EvidenceError("Original TSA query has no nonce.")
-            reply=_invoke("ts","-reply","-in",response,"-text")
-            match=re.search(r"^\s*Policy OID:\s*(\S+)",reply,re.M)
-            if not match or match.group(1)!=policy["policy_oid"]:
-                raise EvidenceError("Signed TSA token policy OID does not match external pin.")
-            moment,time_value=_gen_time(reply)
+            from .tsa_der import DERError,request_imprint,token_tstinfo
+            from .canon import hash_bytes
+            target=hash_bytes(descriptor["target"])
+            # A token and its request can be self-consistent yet address an
+            # unrelated target. Check BOTH request and signed TSTInfo imprints.
+            if request_imprint(request.read_bytes())!=target:
+                raise EvidenceError("TSA request imprint does not bind to the anchor target.")
             token_run=subprocess.run(["openssl","ts","-reply","-in",str(response),
                           "-token_out","-out",str(token)],capture_output=True,timeout=20)
-            if token_run.returncode!=0:raise EvidenceError("TSA token extraction failed.")
+            if token_run.returncode!=0:
+                raise EvidenceError("TSA token extraction failed.")
+            info=token_tstinfo(token.read_bytes())
+            if info["imprint"]!=target:
+                raise EvidenceError("Signed TSTInfo imprint does not bind to the anchor target.")
+            if info["policy_oid"]!=policy["policy_oid"]:
+                raise EvidenceError("Signed TSA token policy OID does not match external pin.")
+            moment,time_value=info["stamp"],info["attested_time"]
             candidates=[]
             for cert in pkcs7.load_der_pkcs7_certificates(token.read_bytes()):
                 try:
@@ -138,7 +144,11 @@ def inspect(descriptor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None,
                           ca_sha256=policy["ca_sha256"],
                           basis="signed RFC3161 token with original nonce request and external signer/CA pins")
             return result
-    except (OSError,ValueError,subprocess.TimeoutExpired,ImportError,TypeError,KeyError):
-        result.update(status="unverifiable_offline",
-                      detail="TSA proof could not be qualified under the externally pinned policy.")
+    except (EvidenceError,ValueError,TypeError,KeyError):
+        result.update(status="invalid",authority=None,attested_time=None,
+                      detail="TSA evidence failed target, signature, policy, nonce or pin validation.")
+        return result
+    except (OSError,subprocess.TimeoutExpired,ImportError):
+        result.update(status="unverifiable_offline",authority=None,attested_time=None,
+                      detail="TSA backend or externally supplied trust material was unavailable.")
         return result
