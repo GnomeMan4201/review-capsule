@@ -128,6 +128,9 @@ def _objects(bundle,reg,registration_hash):
 
 
 def _scan(bundle,reg,registration_hash):
+    if not (bundle/"close.json").exists() and (
+            (bundle/"assessments").exists() or (bundle/"proofs").exists()):
+        raise StewardError("Pre-close assessment/proof directory present; stop for leakage investigation.")
     objects=_objects(bundle,reg,registration_hash)
     directory=bundle/"log"
     entries=sorted(directory.glob("*.json"),key=lambda p: int(p.stem) if p.stem.isdecimal() else -1) if directory.exists() else []
@@ -279,8 +282,126 @@ def close(root,expected_author_key,steward_private):
         return canon.digest(data)
 
 
+def _proof_path(leaves,index):
+    """RFC 9162 balanced inclusion proof, left-to-right bottom-up."""
+    if len(leaves)==1:return []
+    k=1<<((len(leaves)-1).bit_length()-1)
+    if index<k:
+        return _proof_path(leaves[:k],index)+[merkle.root(leaves[k:])]
+    return _proof_path(leaves[k:],index-k)+[merkle.root(leaves[:k])]
+
+
+def _checked_close(bundle,reg,reg_hash,previous,entries,commits,first,withdrawals):
+    source=bundle/"close.json"
+    if not source.exists():raise StewardError("No signed close exists; reveals are forbidden.")
+    rec=dsse.decode(_read(source));v=rec.value
+    leaves=[canon.hash_bytes(commitment) for _,commitment in commits]
+    if (v.get("type")!="close" or not dsse.verify_signature(rec,reg["steward_key"]) or
+        v.get("registration_hash")!=reg_hash or v.get("round_id")!=reg["round_id"] or
+        v.get("final_seq")!=len(entries) or v.get("last_entry_hash")!=previous or
+        v.get("tree_size")!=len(leaves) or v.get("locked_count")!=len(first) or
+        v.get("tree_head")!="sha256:"+merkle.root(leaves).hex() or "status" in v):
+        raise StewardError("Stored close signature, log binding or Merkle/counting fields failed.")
+    try:
+        withdrawn={x["reviewer_key"] for x in v["withdrawn"]}
+    except (KeyError,TypeError):
+        raise StewardError("Malformed signed withdrawal summary.") from None
+    if withdrawn!=set(withdrawals):
+        raise StewardError("Close withdrawal summary does not match signed log.")
+    return leaves
+
+
+def _check_existing_reveals(bundle,reg,reg_hash,commits,leaves):
+    assessments=bundle/"assessments"
+    proofs=bundle/"proofs"
+    files=[];proof_files=[]
+    for directory,listing in ((assessments,files),(proofs,proof_files)):
+        if directory.exists():
+            if directory.is_symlink():raise StewardError("Linked reveal directory.")
+            for p in directory.rglob("*"):
+                if p.is_symlink():raise StewardError("Linked reveal file.")
+                if p.is_file():listing.append(p)
+    expected=set()
+    for path in files:
+        rec=dsse.decode(_read(path));v=rec.value
+        key=v.get("reviewer_key")
+        if (v.get("type")!="assessment" or type(key) is not str or
+            key in (reg["author_key"],reg["steward_key"]) or
+            not dsse.verify_signature(rec,key) or
+            v.get("round_id")!=reg["round_id"] or
+            v.get("registration_hash")!=reg_hash):
+            raise StewardError("Stored reveal failed signature, role or round binding.")
+        first_commit=next(((i,x[1]) for i,x in enumerate(commits) if x[0]==key),None)
+        if first_commit is None or rec.object_hash!=first_commit[1]:
+            raise StewardError("Reveal does not match the first counting commitment.")
+        from .verify import rid
+        relative="assessments/"+rid(key)+"/"+rec.object_hash[7:]+".json"
+        proof_relative="proofs/"+rid(key)+"/"+rec.object_hash[7:]+".json"
+        if path.relative_to(bundle).as_posix()!=relative:
+            raise StewardError("Reveal is at an incorrect hash-bound path.")
+        proof_path=bundle/proof_relative
+        proof=canon.loads(_read(proof_path))
+        index=first_commit[0]
+        siblings=_proof_path(leaves,index)
+        wanted={"leaf_index":index,"tree_size":len(leaves),
+                "hashes":["sha256:"+x.hex() for x in siblings]}
+        if (proof!=wanted or _read(proof_path)!=canon.dumps(proof) or
+            not merkle.inclusion(leaves[index],index,len(leaves),siblings,merkle.root(leaves))):
+            raise StewardError("Stored reveal inclusion proof is invalid.")
+        expected.add(proof_path.relative_to(bundle).as_posix())
+    if expected!={p.relative_to(bundle).as_posix() for p in proof_files}:
+        raise StewardError("Unexpected or orphaned inclusion proof in workspace.")
+
+
+def reveal(root,source,expected_author_key):
+    # Reviewer assessment may enter this workflow only after checked close.
+    with _lock(root):
+        state,reg,bundle=_valid_reg(root,expected_author_key)
+        previous,entries,objects,declarations,commits,first,withdrawals=_scan(
+            bundle,reg,state["registration_hash"])
+        leaves=_checked_close(bundle,reg,state["registration_hash"],previous,
+                              entries,commits,first,withdrawals)
+        _check_existing_reveals(bundle,reg,state["registration_hash"],commits,leaves)
+        raw=_read(source)
+        rec=dsse.decode(raw);v=rec.value
+        key=v.get("reviewer_key")
+        if (v.get("type")!="assessment" or type(key) is not str or
+            not dsse.verify_signature(rec,key)):
+            raise StewardError("Post-close reveal is not a valid reviewer-signed assessment.")
+        from .review_context import validate_context
+        validate_context(registration=bundle/"registration.json",
+                         expected_author_key=expected_author_key,
+                         reviewer_key=key,round_id=v.get("round_id"),
+                         registration_hash=v.get("registration_hash"),
+                         packet=bundle/"packet.json",policy=bundle/"policy.json",
+                         assessment=v,expected_registration_hash=state["registration_hash"])
+        first_commit=next(((i,x[1]) for i,x in enumerate(commits) if x[0]==key),None)
+        if first_commit is None or first_commit[1]!=rec.object_hash:
+            raise StewardError("Reveal is not the reviewer's first counting commitment.")
+        from .verify import rid
+        folder=rid(key)
+        assessment_dir=bundle/"assessments";proof_dir=bundle/"proofs"
+        _directory(assessment_dir);_directory(proof_dir)
+        _directory(assessment_dir/folder);_directory(proof_dir/folder)
+        assessment_path=assessment_dir/folder/(rec.object_hash[7:]+".json")
+        proof_path=proof_dir/folder/(rec.object_hash[7:]+".json")
+        if assessment_path.exists() or proof_path.exists():
+            raise StewardError("Replay or partial reveal already exists.")
+        siblings=_proof_path(leaves,first_commit[0])
+        if not merkle.inclusion(leaves[first_commit[0]],first_commit[0],
+                                len(leaves),siblings,merkle.root(leaves)):
+            raise StewardError("Generated Merkle proof failed local self-check.")
+        proof=canon.dumps({"leaf_index":first_commit[0],"tree_size":len(leaves),
+                          "hashes":["sha256:"+x.hex() for x in siblings]})
+        # Two-file publication is not atomic. If interrupted, the next reveal
+        # halts on inconsistent assessment/proof state instead of repairing it.
+        _store(assessment_path,raw)
+        _store(proof_path,proof)
+        return rec.object_hash
+
+
 def main(argv=None):
-    p=argparse.ArgumentParser(description="Offline steward candidate: init, pre-close intake, close.")
+    p=argparse.ArgumentParser(description="Offline steward candidate: init, intake, close, post-close reveal.")
     sub=p.add_subparsers(dest="command",required=True)
     init=sub.add_parser("init",help="Register a new local workspace; never overwrite.")
     init.add_argument("--registration",type=Path,required=True)
@@ -289,6 +410,10 @@ def main(argv=None):
     intake_p=sub.add_parser("intake",help="Accept signed reviewer metadata only; reject assessments.")
     intake_p.add_argument("--input",type=Path,required=True)
     sub.add_parser("close",help="Sign immutable close from the checked log.")
+    post=sub.add_parser("reveal",help="Accept reviewer assessment only after signed close.")
+    post.add_argument("--input",type=Path,required=True)
+    post.add_argument("--workspace",type=Path,required=True)
+    post.add_argument("--expected-author-key",required=True)
     for command in (init,intake_p,sub.choices["close"]):
         command.add_argument("--workspace",type=Path,required=True)
         command.add_argument("--expected-author-key",required=True)
@@ -303,9 +428,11 @@ def main(argv=None):
             seq,hash_value=intake(args.workspace,args.input,args.expected_author_key,
                                   args.steward_private_key)
             print("Steward acknowledgement seq="+str(seq)+" hash="+hash_value)
-        else:
+        elif args.command=="close":
             print("Signed close: "+close(args.workspace,args.expected_author_key,
                                          args.steward_private_key))
+        else:
+            print("Post-close reveal: "+reveal(args.workspace,args.input,args.expected_author_key))
         return 0
     except (OSError,ValueError,TypeError,dsse.EnvelopeError,canon.CanonError) as exc:
         # Never echo untrusted assessment bodies or raw signed payloads.
