@@ -368,6 +368,8 @@ def reveal(root,source,expected_author_key):
         if (v.get("type")!="assessment" or type(key) is not str or
             not dsse.verify_signature(rec,key)):
             raise StewardError("Post-close reveal is not a valid reviewer-signed assessment.")
+        from .review_cli import _validate_review
+        _validate_review(v,key)
         from .review_context import validate_context
         validate_context(registration=bundle/"registration.json",
                          expected_author_key=expected_author_key,
