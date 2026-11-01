@@ -1,2 +1,2 @@
-Integrity checks: 158 pass, 0 fail, 0 missing, 6 pending, 3 unverifiable, 2 not checked
+Integrity checks: 158 pass, 0 fail, 0 missing, 3 pending, 6 unverifiable, 2 not checked
 rrverify exit_code=2

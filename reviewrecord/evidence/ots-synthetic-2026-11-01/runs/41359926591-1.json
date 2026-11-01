@@ -1,0 +1,106 @@
+{
+  "source_pin": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224",
+  "advisory_collected_at": "2026-11-01T23:00:40.474983Z",
+  "github_run_id": "41359926591-1",
+  "calendars": [
+    "https://a.pool.opentimestamps.org",
+    "https://b.pool.opentimestamps.org"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/opt/hostedtoolcache/Python/3.12.15/x64/bin/ots",
+        "upgrade",
+        "--timeout",
+        "20",
+        "reviewrecord/evidence/ots-synthetic-2026-11-01/targets/registration.preimage.ots"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org\nGot 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org\nSuccess! Timestamp complete\n",
+      "elapsed_seconds": 0.968
+    },
+    {
+      "argv": [
+        "/opt/hostedtoolcache/Python/3.12.15/x64/bin/ots",
+        "upgrade",
+        "--timeout",
+        "20",
+        "reviewrecord/evidence/ots-synthetic-2026-11-01/targets/close.preimage.ots"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Got 1 attestation(s) from cache\nSuccess! Timestamp complete\n",
+      "elapsed_seconds": 0.208
+    },
+    {
+      "argv": [
+        "/opt/hostedtoolcache/Python/3.12.15/x64/bin/ots",
+        "upgrade",
+        "--timeout",
+        "20",
+        "reviewrecord/evidence/ots-synthetic-2026-11-01/targets/record.preimage.ots"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Got 1 attestation(s) from cache\nSuccess! Timestamp complete\n",
+      "elapsed_seconds": 0.201
+    }
+  ],
+  "proofs": {
+    "registration": {
+      "proof_sha256": "sha256:9ec3da60fd602c9498d4f305e48ea69b839fe3dbc442d5d97ef146ba54266e3f",
+      "calendar_references": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": [
+        974172
+      ],
+      "confirmation_basis": "not established by parsing; requires configured mainnet RPC"
+    },
+    "close": {
+      "proof_sha256": "sha256:53e475ae4d2b1808a6e5bc1616f199294f1d2af599ae4b66529463260c72f427",
+      "calendar_references": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": [
+        974172
+      ],
+      "confirmation_basis": "not established by parsing; requires configured mainnet RPC"
+    },
+    "record": {
+      "proof_sha256": "sha256:f3ff6c11703ecfd8e151ef86cecbb9f22c727a4f4e71df56347e01f5780089e7",
+      "calendar_references": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": [
+        974172
+      ],
+      "confirmation_basis": "not established by parsing; requires configured mainnet RPC"
+    }
+  },
+  "rpc": {
+    "used": false,
+    "operator": null,
+    "trust_assumption": "No operator-chosen node was used. Calendar status cannot satisfy the anchor gate."
+  },
+  "stamp_calendars": [
+    "https://a.pool.opentimestamps.org",
+    "https://b.pool.opentimestamps.org"
+  ],
+  "upgrade_policy": "Use embedded allowlisted calendar URIs; no -c pool overrides.",
+  "upgrade_calendars": [
+    "https://alice.btc.calendar.opentimestamps.org",
+    "https://bob.btc.calendar.opentimestamps.org"
+  ],
+  "verifier_exit_code": 2,
+  "verifier_summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 3 pending, 6 unverifiable, 2 not checked",
+  "not_run": [
+    "Strict production TSA qualification (no external CA/signer/policy selection)",
+    "Packet release chronology / first disclosure observation",
+    "Bitcoin RPC verification and six-confirmation check; no node was selected"
+  ]
+}

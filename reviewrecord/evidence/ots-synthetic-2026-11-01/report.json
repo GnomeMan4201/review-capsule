@@ -950,10 +950,10 @@
       "detail": "Check matched."
     },
     {
-      "code": "ANCHOR_PENDING",
-      "status": "pending",
+      "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
+      "status": "unverifiable",
       "subject": "anchors/registration-ots.json",
-      "detail": "Calendar reference has no checked Bitcoin attestation."
+      "detail": "Bitcoin validation backend was not enabled."
     },
     {
       "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
@@ -968,10 +968,10 @@
       "detail": "Required anchor types are not both confirmed for this target."
     },
     {
-      "code": "ANCHOR_PENDING",
-      "status": "pending",
+      "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
+      "status": "unverifiable",
       "subject": "anchors/record-ots.json",
-      "detail": "Calendar reference has no checked Bitcoin attestation."
+      "detail": "Bitcoin validation backend was not enabled."
     },
     {
       "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
@@ -986,10 +986,10 @@
       "detail": "Required anchor types are not both confirmed for this target."
     },
     {
-      "code": "ANCHOR_PENDING",
-      "status": "pending",
+      "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
+      "status": "unverifiable",
       "subject": "anchors/close-ots.json",
-      "detail": "Calendar reference has no checked Bitcoin attestation."
+      "detail": "Bitcoin validation backend was not enabled."
     },
     {
       "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
@@ -1074,12 +1074,12 @@
       "authority": "bitcoin-mainnet (declared; proof-derived identity required)",
       "target": "sha256:2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
       "evidence_format": "ots-detached",
-      "validation_backend": "Bitcoin Core",
+      "validation_backend": "none configured",
       "confirmation_policy": {
         "min_confirmations": 6
       },
-      "status": "pending",
-      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "status": "unverifiable_offline",
+      "detail": "Bitcoin validation backend was not enabled.",
       "authority_basis": "descriptor label only; unauthenticated"
     },
     {
@@ -1100,12 +1100,12 @@
       "authority": "bitcoin-mainnet (declared; proof-derived identity required)",
       "target": "sha256:3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
       "evidence_format": "ots-detached",
-      "validation_backend": "Bitcoin Core",
+      "validation_backend": "none configured",
       "confirmation_policy": {
         "min_confirmations": 6
       },
-      "status": "pending",
-      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "status": "unverifiable_offline",
+      "detail": "Bitcoin validation backend was not enabled.",
       "authority_basis": "descriptor label only; unauthenticated"
     },
     {
@@ -1126,12 +1126,12 @@
       "authority": "bitcoin-mainnet (declared; proof-derived identity required)",
       "target": "sha256:71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
       "evidence_format": "ots-detached",
-      "validation_backend": "Bitcoin Core",
+      "validation_backend": "none configured",
       "confirmation_policy": {
         "min_confirmations": 6
       },
-      "status": "pending",
-      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "status": "unverifiable_offline",
+      "detail": "Bitcoin validation backend was not enabled.",
       "authority_basis": "descriptor label only; unauthenticated"
     },
     {
@@ -1157,10 +1157,10 @@
     "pass": 158,
     "fail": 0,
     "missing": 0,
-    "pending": 6,
-    "unverifiable": 3,
+    "pending": 3,
+    "unverifiable": 6,
     "not_checked": 2
   },
   "exit_code": 2,
-  "summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 6 pending, 3 unverifiable, 2 not checked"
+  "summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 3 pending, 6 unverifiable, 2 not checked"
 }
