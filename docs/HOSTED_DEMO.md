@@ -26,7 +26,7 @@ The owner has authorized uploading this source and deploying the synthetic demo 
 
 `python manage.py test -v 1`: 20 tests, OK, on Python 3.12 with SQLite. `python manage.py check`: no issues. `python manage.py makemigrations --check --dry-run`: no changes detected.
 
-These tests cover the existing protected-review boundary and the added setup/throttle behavior. They do not qualify a deployed database, multiple workers under concurrent attack, infrastructure, or a browser. The PostgreSQL workflow in `.github/workflows/verify.yml` has been supplied but not run.
+These tests cover the existing protected-review boundary and the added setup/throttle behavior. They do not qualify a deployed database, multiple workers under concurrent attack, infrastructure, or a browser. The PostgreSQL 16 workflow in `.github/workflows/verify.yml` passed all 20 tests in [run 41295540261](https://github.com/GnomeMan4201/review-capsule/actions/runs/41295540261) on November 1, 2026. The suite does not test concurrent transactions.
 
 ## Required hosted checks before handoff
 

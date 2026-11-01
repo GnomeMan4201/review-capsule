@@ -55,6 +55,8 @@ A generated development secret is process-local; sessions reset on restart unles
 
 Twenty Django tests passed on Python 3.12 with SQLite in this session. Five added checks cover hosted setup, restart preservation, shared sign-in throttling and the demo notice. They exercise the full declaration → steward admission → packet → lock → closure → export path and adversarial access cases. `python manage.py check` also passed.
 
+The same 20-test suite also passed on PostgreSQL 16 in [GitHub Actions run 41295540261](https://github.com/GnomeMan4201/review-capsule/actions/runs/41295540261) on November 1, 2026. This extends database coverage but does not test simultaneous transitions.
+
 The tests are **not** independent security review, proof of no leakage, unique-human verification, scientific review or a production concurrency qualification. Browser layout and PostgreSQL concurrent close/submit behavior have not been tested. There are no real reviewer observations or research results in this package.
 
 See [the hosted demo plan](docs/HOSTED_DEMO.md) for the exact proposed source transfer, resources and verification limits.
