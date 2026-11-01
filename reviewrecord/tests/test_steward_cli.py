@@ -293,7 +293,10 @@ class StewardIntakeTests(unittest.TestCase):
         self.init()
         from reference_round import pub
         before=self.files()
-        self.assertEqual(self.invoke("attest-withdrawal",["--reviewer-key",pub("reviewer-b")]),2)
+        reason=self.root/"unrequested-withdrawal-reason.txt"
+        reason.write_text("Steward claim only; reviewer did not request this.")
+        self.assertEqual(self.invoke("attest-withdrawal",["--reviewer-key",pub("reviewer-b"),
+                         "--reason-file",str(reason)]),2)
         self.assertEqual(self.files(),before)
 
     def test_cross_key_commitment_copy_is_rejected_before_any_write(self):
