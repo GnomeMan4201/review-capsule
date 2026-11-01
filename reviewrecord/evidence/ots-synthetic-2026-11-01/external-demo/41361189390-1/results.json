@@ -1,0 +1,570 @@
+{
+  "scope": "Throwaway synthetic evidence only",
+  "advisory_run_time": "2026-11-01T23:15:32.037476+00:00",
+  "source_pin": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224",
+  "ots_height": 974172,
+  "ots_internal_merkle_root": "242bfb950a1d3535cf247d50d36fdcd22163f6ce20b6a3745ba58f148c1317a8",
+  "ots_display_merkle_root": "a817138c148fa55b74a3b620cef66321d2dc6fd3507d24cf35351d0a95fb2b24",
+  "bitcoin_rpc_backend": "none configured",
+  "node_header_depth_gate_run": false,
+  "explorers": [
+    {
+      "source": "https://blockstream.info/api",
+      "trust_basis": "Explorer-operated API; not an operator-chosen Bitcoin node",
+      "status": "matching explorer data",
+      "responses": [
+        {
+          "url": "https://blockstream.info/api/block-height/974172",
+          "final_url": "https://blockstream.info/api/block-height/974172",
+          "http_status": 200,
+          "body_sha256": "sha256:611ed9204dbd1080d66901e2a5fed248c91613f915fd9ab15f48f8806a92ce76",
+          "bytes": 64
+        },
+        {
+          "url": "https://blockstream.info/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84",
+          "final_url": "https://blockstream.info/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84",
+          "http_status": 200,
+          "body_sha256": "sha256:9916ce15b48997817b51063b67c9c557ac9f4ee42a98e95dae64bca129f2b9f5",
+          "bytes": 439
+        },
+        {
+          "url": "https://blockstream.info/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/header",
+          "final_url": "https://blockstream.info/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/header",
+          "http_status": 200,
+          "body_sha256": "sha256:77f45981f499045bdc0d2004669f3224654caa9f56d641ffe57af6b426ea7519",
+          "bytes": 160
+        },
+        {
+          "url": "https://blockstream.info/api/blocks/tip/height",
+          "final_url": "https://blockstream.info/api/blocks/tip/height",
+          "http_status": 200,
+          "body_sha256": "sha256:98b4e7d9ad3db2f230e18cd7e373d10267841a6b9982dc9a1d4b3e60a846d28f",
+          "bytes": 6
+        },
+        {
+          "url": "https://blockstream.info/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/status",
+          "final_url": "https://blockstream.info/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/status",
+          "http_status": 200,
+          "body_sha256": "sha256:19dcbeaebab5c985f8957d3bcfb80187536b3f1d0dbb0536a04d50120bc62b51",
+          "bytes": 117
+        }
+      ],
+      "block_hash": "000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84",
+      "reported_height": 974172,
+      "reported_merkle_root": "a817138c148fa55b74a3b620cef66321d2dc6fd3507d24cf35351d0a95fb2b24",
+      "reported_tip": 974190,
+      "reported_depth": 19,
+      "explorer_reports_best_chain": true,
+      "explorer_reported_depth_at_least_six": true,
+      "header_hash_matches": true,
+      "header_merkle_root_matches": true,
+      "header_merkle_root_display": "a817138c148fa55b74a3b620cef66321d2dc6fd3507d24cf35351d0a95fb2b24",
+      "pow_or_chain_validation_run": false
+    },
+    {
+      "source": "https://mempool.space/api",
+      "trust_basis": "Explorer-operated API; not an operator-chosen Bitcoin node",
+      "status": "matching explorer data",
+      "responses": [
+        {
+          "url": "https://mempool.space/api/block-height/974172",
+          "final_url": "https://mempool.space/api/block-height/974172",
+          "http_status": 200,
+          "body_sha256": "sha256:611ed9204dbd1080d66901e2a5fed248c91613f915fd9ab15f48f8806a92ce76",
+          "bytes": 64
+        },
+        {
+          "url": "https://mempool.space/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84",
+          "final_url": "https://mempool.space/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84",
+          "http_status": 200,
+          "body_sha256": "sha256:9916ce15b48997817b51063b67c9c557ac9f4ee42a98e95dae64bca129f2b9f5",
+          "bytes": 439
+        },
+        {
+          "url": "https://mempool.space/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/header",
+          "final_url": "https://mempool.space/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/header",
+          "http_status": 200,
+          "body_sha256": "sha256:77f45981f499045bdc0d2004669f3224654caa9f56d641ffe57af6b426ea7519",
+          "bytes": 160
+        },
+        {
+          "url": "https://mempool.space/api/blocks/tip/height",
+          "final_url": "https://mempool.space/api/blocks/tip/height",
+          "http_status": 200,
+          "body_sha256": "sha256:98b4e7d9ad3db2f230e18cd7e373d10267841a6b9982dc9a1d4b3e60a846d28f",
+          "bytes": 6
+        },
+        {
+          "url": "https://mempool.space/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/status",
+          "final_url": "https://mempool.space/api/block/000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84/status",
+          "http_status": 200,
+          "body_sha256": "sha256:19dcbeaebab5c985f8957d3bcfb80187536b3f1d0dbb0536a04d50120bc62b51",
+          "bytes": 117
+        }
+      ],
+      "block_hash": "000000000000000000006e38ea42eeb0dbba4966108924968274723f69d2bc84",
+      "reported_height": 974172,
+      "reported_merkle_root": "a817138c148fa55b74a3b620cef66321d2dc6fd3507d24cf35351d0a95fb2b24",
+      "reported_tip": 974190,
+      "reported_depth": 19,
+      "explorer_reports_best_chain": true,
+      "explorer_reported_depth_at_least_six": true,
+      "header_hash_matches": true,
+      "header_merkle_root_matches": true,
+      "header_merkle_root_display": "a817138c148fa55b74a3b620cef66321d2dc6fd3507d24cf35351d0a95fb2b24",
+      "pow_or_chain_validation_run": false
+    }
+  ],
+  "tsa": {
+    "registration": {
+      "target": "sha256:2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+      "evidence_state": "real token received",
+      "production_pin_policy": "not selected",
+      "commands": [
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-query",
+            "-digest",
+            "2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+            "-sha256",
+            "-cert",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/request.tsq"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-reply",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/response.tsr",
+            "-token_out",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/token.der"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-reply",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/response.tsr",
+            "-text"
+          ],
+          "exit_code": 0,
+          "stdout": "Status info:\nStatus: Granted.\nStatus description: unspecified\nFailure info: unspecified\n\nTST info:\nVersion: 1\nPolicy OID: tsa_policy1\nHash Algorithm: sha256\nMessage data:\n    0000 - 2e e2 13 78 7e 7a ec e0-bf c1 62 f1 5b ec 3c a6   ...x~z....b.[.<.\n    0010 - e2 ea a9 34 4c ce 30 e6-ea e2 0b bc d0 77 2f de   ...4L.0......w/.\nSerial number: 0x09A2C71A\nTime stamp: Nov  1 23:15:35 2026 GMT\nAccuracy: unspecified\nOrdering: yes\nNonce: 0x8B9CE8F8B2241012\nTSA: DirName:/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern\nExtensions:\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/response.tsr",
+            "-queryfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/request.tsq",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 0,
+          "stdout": "Verification: OK\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/response.tsr",
+            "-digest",
+            "0000000000000000000000000000000000000000000000000000000000000000",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 1,
+          "stdout": "Verification: FAILED\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n802B7320FF7E0000:error:17800067:time stamp routines:ts_check_imprints:message imprint mismatch:../crypto/ts/ts_rsp_verify.c:512:\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-query",
+            "-digest",
+            "2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+            "-sha256",
+            "-cert",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/different-nonce.tsq"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/response.tsr",
+            "-queryfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/registration/different-nonce.tsq",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 1,
+          "stdout": "Verification: FAILED\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n80BB2510367F0000:error:17800068:time stamp routines:ts_check_nonces:nonce mismatch:../crypto/ts/ts_rsp_verify.c:527:\n"
+        }
+      ],
+      "http": {
+        "url": "https://freetsa.org/tsr",
+        "final_url": "https://freetsa.org/tsr",
+        "http_status": 200,
+        "body_sha256": "sha256:73701555a019e9862ff5b9f046ffef3f4345a11b1edf18fb0567ab8acf650507",
+        "bytes": 4645
+      },
+      "token_imprint": "sha256:2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+      "imprint_matches_target": true,
+      "reported_policy_oid": "1.2.3.4.1",
+      "reported_gen_time": "2026-11-01T23:15:35Z",
+      "request_sha256": "sha256:2eea89393effdff19a405f063b1a4bda2b18d46f35cbd6c1cfac79ddde18155a",
+      "response_sha256": "sha256:73701555a019e9862ff5b9f046ffef3f4345a11b1edf18fb0567ab8acf650507",
+      "token_tsa_signer_sha256": [
+        "32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc"
+      ],
+      "request_signature_chain_nonce_match_under_service_ca": true,
+      "wrong_target_rejected": true,
+      "different_nonce_rejected": true,
+      "trust_limit": "CA and signer files came from this same TSA over HTTPS. No independent pin governance, revocation or clock qualification was performed."
+    },
+    "close": {
+      "target": "sha256:71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+      "evidence_state": "real token received",
+      "production_pin_policy": "not selected",
+      "commands": [
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-query",
+            "-digest",
+            "71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+            "-sha256",
+            "-cert",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/request.tsq"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-reply",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/response.tsr",
+            "-token_out",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/token.der"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-reply",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/response.tsr",
+            "-text"
+          ],
+          "exit_code": 0,
+          "stdout": "Status info:\nStatus: Granted.\nStatus description: unspecified\nFailure info: unspecified\n\nTST info:\nVersion: 1\nPolicy OID: tsa_policy1\nHash Algorithm: sha256\nMessage data:\n    0000 - 71 fe 60 6c 74 aa ba ed-30 e7 a3 62 5a 83 e7 40   q.`lt...0..bZ..@\n    0010 - 96 48 aa fb d6 c7 81 c3-09 f2 79 3e e8 0b 03 23   .H........y>...#\nSerial number: 0x09A2C721\nTime stamp: Nov  1 23:15:37 2026 GMT\nAccuracy: unspecified\nOrdering: yes\nNonce: 0x47B91B359E171B55\nTSA: DirName:/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern\nExtensions:\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/response.tsr",
+            "-queryfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/request.tsq",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 0,
+          "stdout": "Verification: OK\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/response.tsr",
+            "-digest",
+            "0000000000000000000000000000000000000000000000000000000000000000",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 1,
+          "stdout": "Verification: FAILED\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n807B88E62D7F0000:error:17800067:time stamp routines:ts_check_imprints:message imprint mismatch:../crypto/ts/ts_rsp_verify.c:512:\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-query",
+            "-digest",
+            "71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+            "-sha256",
+            "-cert",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/different-nonce.tsq"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/response.tsr",
+            "-queryfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/close/different-nonce.tsq",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 1,
+          "stdout": "Verification: FAILED\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n801B63AA917F0000:error:17800068:time stamp routines:ts_check_nonces:nonce mismatch:../crypto/ts/ts_rsp_verify.c:527:\n"
+        }
+      ],
+      "http": {
+        "url": "https://freetsa.org/tsr",
+        "final_url": "https://freetsa.org/tsr",
+        "http_status": 200,
+        "body_sha256": "sha256:f332246f17b528240bc859e81c06aa983f76ae59600910248816b0770d8576dd",
+        "bytes": 4642
+      },
+      "token_imprint": "sha256:71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+      "imprint_matches_target": true,
+      "reported_policy_oid": "1.2.3.4.1",
+      "reported_gen_time": "2026-11-01T23:15:37Z",
+      "request_sha256": "sha256:9cbde619e75e87418a57e898aa8415001027c09abe4cbf811c154867a64eaf30",
+      "response_sha256": "sha256:f332246f17b528240bc859e81c06aa983f76ae59600910248816b0770d8576dd",
+      "token_tsa_signer_sha256": [
+        "32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc"
+      ],
+      "request_signature_chain_nonce_match_under_service_ca": true,
+      "wrong_target_rejected": true,
+      "different_nonce_rejected": true,
+      "trust_limit": "CA and signer files came from this same TSA over HTTPS. No independent pin governance, revocation or clock qualification was performed."
+    },
+    "record": {
+      "target": "sha256:3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+      "evidence_state": "real token received",
+      "production_pin_policy": "not selected",
+      "commands": [
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-query",
+            "-digest",
+            "3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+            "-sha256",
+            "-cert",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/request.tsq"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-reply",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/response.tsr",
+            "-token_out",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/token.der"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-reply",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/response.tsr",
+            "-text"
+          ],
+          "exit_code": 0,
+          "stdout": "Status info:\nStatus: Granted.\nStatus description: unspecified\nFailure info: unspecified\n\nTST info:\nVersion: 1\nPolicy OID: tsa_policy1\nHash Algorithm: sha256\nMessage data:\n    0000 - 3e be 68 f4 fc f3 bf 6d-5f db e4 08 ef 26 63 dd   >.h....m_....&c.\n    0010 - 16 72 3e 8a 41 f2 5a 81-0d 18 f8 6e 9e 4f 4c be   .r>.A.Z....n.OL.\nSerial number: 0x09A2C72C\nTime stamp: Nov  1 23:15:38 2026 GMT\nAccuracy: unspecified\nOrdering: yes\nNonce: 0xAE81890579D5D3DD\nTSA: DirName:/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern\nExtensions:\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/response.tsr",
+            "-queryfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/request.tsq",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 0,
+          "stdout": "Verification: OK\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/response.tsr",
+            "-digest",
+            "0000000000000000000000000000000000000000000000000000000000000000",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 1,
+          "stdout": "Verification: FAILED\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n80CB4A9A837F0000:error:17800067:time stamp routines:ts_check_imprints:message imprint mismatch:../crypto/ts/ts_rsp_verify.c:512:\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-query",
+            "-digest",
+            "3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+            "-sha256",
+            "-cert",
+            "-out",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/different-nonce.tsq"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\n"
+        },
+        {
+          "argv": [
+            "openssl",
+            "ts",
+            "-verify",
+            "-in",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/response.tsr",
+            "-queryfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/tsa/record/different-nonce.tsq",
+            "-CAfile",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/cacert.pem",
+            "-untrusted",
+            "reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt"
+          ],
+          "exit_code": 1,
+          "stdout": "Verification: FAILED\n",
+          "stderr": "Using configuration from /usr/lib/ssl/openssl.cnf\nWarning: certificate from 'reviewrecord/evidence/ots-synthetic-2026-11-01/external-demo/41361189390-1/service-sourced-certificates/tsa.crt' with subject '/O=Free TSA/OU=TSA/description=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services/CN=www.freetsa.org/emailAddress=busilezas@mailbox.org/L=Wuerzburg/C=DE/ST=Bayern' is not a CA cert\n808B914BBB7F0000:error:17800068:time stamp routines:ts_check_nonces:nonce mismatch:../crypto/ts/ts_rsp_verify.c:527:\n"
+        }
+      ],
+      "http": {
+        "url": "https://freetsa.org/tsr",
+        "final_url": "https://freetsa.org/tsr",
+        "http_status": 200,
+        "body_sha256": "sha256:f2661d86d8c250c1434b50f24b97d85f3ac04ed35dfe4f36ada441827305ed2b",
+        "bytes": 4644
+      },
+      "token_imprint": "sha256:3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+      "imprint_matches_target": true,
+      "reported_policy_oid": "1.2.3.4.1",
+      "reported_gen_time": "2026-11-01T23:15:38Z",
+      "request_sha256": "sha256:520479cdde3c5b24318c9eb9222fada44730225d02a2ff1deb6d9f5beb903f9e",
+      "response_sha256": "sha256:f2661d86d8c250c1434b50f24b97d85f3ac04ed35dfe4f36ada441827305ed2b",
+      "token_tsa_signer_sha256": [
+        "32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc"
+      ],
+      "request_signature_chain_nonce_match_under_service_ca": true,
+      "wrong_target_rejected": true,
+      "different_nonce_rejected": true,
+      "trust_limit": "CA and signer files came from this same TSA over HTTPS. No independent pin governance, revocation or clock qualification was performed."
+    }
+  },
+  "certificate_sources": [
+    {
+      "url": "https://freetsa.org/files/cacert.pem",
+      "final_url": "https://freetsa.org/files/cacert.pem",
+      "http_status": 200,
+      "body_sha256": "sha256:2151b61137ffa86bf664691ba67e7da0b19f98c758e3d228d5d8ebf27e044438",
+      "bytes": 2833,
+      "file": "cacert.pem",
+      "der_sha256": "a6379e7cecc05faa3cbf076013d745e327bbbaa38c0b9af22469d4701d18aabc",
+      "trust": "same-service HTTPS download; provisional only"
+    },
+    {
+      "url": "https://freetsa.org/files/tsa.crt",
+      "final_url": "https://freetsa.org/files/tsa.crt",
+      "http_status": 200,
+      "body_sha256": "sha256:8bfb0305bb64e2571ca507552ef3245cb1c2fee8728e0ff8689225081ea13467",
+      "bytes": 2273,
+      "file": "tsa.crt",
+      "der_sha256": "32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",
+      "trust": "same-service HTTPS download; provisional only"
+    }
+  ],
+  "pinned_verifier_exit_code": 2,
+  "pinned_verifier_summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 3 pending, 6 unverifiable, 2 not checked",
+  "explorer_agreement_is_node_confirmation": false,
+  "proof_files_unchanged": true,
+  "production_tsa_policy_used": false
+}
