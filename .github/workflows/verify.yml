@@ -1,0 +1,36 @@
+name: Verify review boundaries
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: capsule
+          POSTGRES_USER: capsule
+          POSTGRES_PASSWORD: synthetic-ci-only
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
+    env:
+      CAPSULE_PG_DATABASE: capsule
+      CAPSULE_PG_USER: capsule
+      CAPSULE_PG_PASSWORD: synthetic-ci-only
+      CAPSULE_PG_HOST: localhost
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-hosted.txt
+      - run: python manage.py check
+      - run: python manage.py makemigrations --check --dry-run
+      - name: Run PostgreSQL boundary tests
+        run: set -o pipefail; python manage.py test -v 2 2>&1 | tee verification.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-log
+          path: verification.log
