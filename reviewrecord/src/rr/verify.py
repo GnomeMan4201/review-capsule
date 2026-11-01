@@ -275,7 +275,7 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
                 report.add('WITHDRAWAL_STEWARD_ATTESTED','pass',k,
                     detail='Steward signed this withdrawal allegation; reviewer consent is not established.')
             else:
-                report.add('WITHDRAWN','pass',k,detail='Reviewer-stated withdrawal is retained; it does not remove the lock.')
+                report.add('WITHDRAWN','pass',k,detail='Withdrawal is retained; it does not remove the lock.')
     locked=len(first);reveals=len(revealed);report.data.update(locked_count=locked,tree_size=len(commits),verified_reveals=reveals)
     if policy_ok:
         add('LOCKS_BELOW_MINIMUM',locked>=policy['min_locks'],'round')
