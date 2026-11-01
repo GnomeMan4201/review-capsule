@@ -1,0 +1,62 @@
+{
+  "scope": "Offline parsing and target/file-byte binding only",
+  "parser": "opentimestamps 0.5.0",
+  "client": "opentimestamps-client 0.8.0",
+  "bitcoin_rpc_backend": "none configured",
+  "bitcoin_header_check_run": false,
+  "confirmation_depth_check_run": false,
+  "tsa_signer_policy_check_run": false,
+  "proofs": [
+    {
+      "name": "registration",
+      "proof_file": "targets/registration.preimage.ots",
+      "proof_bytes": 567,
+      "proof_sha256": "sha256:af92c789ddc38740a308d4d9ce1c9618ae9ad9ecc91f9cd835cd37c486f711b4",
+      "matches_retained_journal": true,
+      "starting_digest": "sha256:2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+      "target": "sha256:2ee213787e7aece0bfc162f15bec3ca6e2eaa9344cce30e6eae20bbcd0772fde",
+      "sha256_algorithm": true,
+      "starting_digest_matches_target": true,
+      "preimage_hash_matches_target": true,
+      "pending_calendar_attestations": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": []
+    },
+    {
+      "name": "close",
+      "proof_file": "targets/close.preimage.ots",
+      "proof_bytes": 567,
+      "proof_sha256": "sha256:a064c61404e20d6869bae417ba449551f6ff4eac4d1721e8c6b1df5e7a9983cb",
+      "matches_retained_journal": true,
+      "starting_digest": "sha256:71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+      "target": "sha256:71fe606c74aabaed30e7a3625a83e7409648aafbd6c781c309f2793ee80b0323",
+      "sha256_algorithm": true,
+      "starting_digest_matches_target": true,
+      "preimage_hash_matches_target": true,
+      "pending_calendar_attestations": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": []
+    },
+    {
+      "name": "record",
+      "proof_file": "targets/record.preimage.ots",
+      "proof_bytes": 532,
+      "proof_sha256": "sha256:805bd3db24d47b860f07a701e1a1d22b88674f5c784829003d145705c968d7cb",
+      "matches_retained_journal": true,
+      "starting_digest": "sha256:3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+      "target": "sha256:3ebe68f4fcf3bf6d5fdbe408ef2663dd16723e8a41f25a810d18f86e9e4f4cbe",
+      "sha256_algorithm": true,
+      "starting_digest_matches_target": true,
+      "preimage_hash_matches_target": true,
+      "pending_calendar_attestations": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": []
+    }
+  ]
+}
