@@ -37,8 +37,9 @@ class StewardIntakeTests(unittest.TestCase):
 
     def invoke(self,kind,extra=()):
         args=[kind,"--workspace",str(self.workspace),
-              "--steward-private-key",str(self.private),
               "--expected-author-key",self.meta["author_key"],*extra]
+        if kind!="reveal":
+            args+=["--steward-private-key",str(self.private)]
         with patch("rr.review_cli.getpass.getpass",return_value=PASSWORD):
             with contextlib.redirect_stdout(self.stdout),contextlib.redirect_stderr(self.stderr):
                 return main(args)
