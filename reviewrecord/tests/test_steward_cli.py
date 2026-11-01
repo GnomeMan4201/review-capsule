@@ -166,5 +166,92 @@ class StewardIntakeTests(unittest.TestCase):
         self.assertNotIn(secret,self.stdout.getvalue()+self.stderr.getvalue())
 
 
+    def prepare_full_close(self):
+        self.init()
+        for path in sorted((self.ref/"declarations").rglob("*.json")):
+            self.assertEqual(self.intake(path),0,self.stderr.getvalue())
+            self.stdout=io.StringIO();self.stderr=io.StringIO()
+        for path in sorted((self.ref/"commits").rglob("*.json")):
+            self.assertEqual(self.intake(path),0,self.stderr.getvalue())
+            self.stdout=io.StringIO();self.stderr=io.StringIO()
+        for path in sorted((self.ref/"withdrawals").rglob("*.json")):
+            self.assertEqual(self.intake(path),0,self.stderr.getvalue())
+            self.stdout=io.StringIO();self.stderr=io.StringIO()
+        self.assertEqual(self.invoke("close"),0,self.stderr.getvalue())
+        self.stdout=io.StringIO();self.stderr=io.StringIO()
+
+    def reveal(self,path):
+        return self.invoke("reveal",["--input",str(path)])
+
+    def test_postclose_reveals_generate_valid_proofs_for_three_reviewers(self):
+        self.prepare_full_close()
+        from rr.verify import rid
+        bundle=self.workspace/"bundle"
+        close=dsse.decode((bundle/"close.json").read_bytes())
+        for assessment in sorted((self.ref/"assessments").rglob("*.json")):
+            obj=dsse.decode(assessment.read_bytes())
+            self.assertEqual(self.reveal(assessment),0,self.stderr.getvalue())
+            self.stdout=io.StringIO();self.stderr=io.StringIO()
+            key=obj.value["reviewer_key"]
+            proof_path=bundle/"proofs"/rid(key)/(obj.object_hash[7:]+".json")
+            stored=bundle/"assessments"/rid(key)/(obj.object_hash[7:]+".json")
+            self.assertEqual(stored.read_bytes(),assessment.read_bytes())
+            proof=canon.loads(proof_path.read_bytes())
+            self.assertEqual(proof["tree_size"],3)
+            self.assertTrue(merkle.inclusion(
+                canon.hash_bytes(obj.object_hash),
+                proof["leaf_index"],proof["tree_size"],
+                [canon.hash_bytes(x) for x in proof["hashes"]],
+                canon.hash_bytes(close.value["tree_head"])))
+        self.assertEqual(len(list((bundle/"assessments").rglob("*.json"))),3)
+
+    def test_withdrawn_reviewers_valid_reveal_is_not_vetoed(self):
+        self.prepare_full_close()
+        from reference_round import pub
+        path,_=self.pick("assessments",pub("reviewer-c"))
+        self.assertEqual(self.reveal(path),0,self.stderr.getvalue())
+
+    def test_reveal_before_close_has_no_effect(self):
+        self.init()
+        path,_=self.pick("assessments")
+        before=self.files()
+        self.assertEqual(self.reveal(path),2)
+        self.assertEqual(self.files(),before)
+        self.assertFalse((self.workspace/"bundle"/"assessments").exists())
+
+    def test_uncommitted_postclose_assessment_is_refused(self):
+        self.init()
+        self.declaration_and_commit()
+        self.assertEqual(self.invoke("close"),0)
+        committed=self.pick("assessments",None)
+        from rr import canon
+        original=dsse.decode(committed[0].read_bytes())
+        edited=original.value.copy()
+        edited["items"]=[dict(x) for x in edited["items"]]
+        edited["items"][0]["reasoning"]="Modified after close"
+        from reference_round import pub
+        role=next(role for role in ("reviewer-a","reviewer-b","reviewer-c")
+                  if pub(role)==edited["reviewer_key"])
+        source=self.root/"different-assessment.json"
+        source.write_bytes(envelope(edited,role))
+        before=self.files()
+        self.assertEqual(self.reveal(source),2)
+        self.assertEqual(self.files(),before)
+
+    def test_replay_and_orphan_proof_are_refused(self):
+        self.prepare_full_close()
+        assessment,_=self.pick("assessments")
+        self.assertEqual(self.reveal(assessment),0,self.stderr.getvalue())
+        self.assertEqual(self.reveal(assessment),2)
+        from rr.verify import rid
+        obj=dsse.decode(assessment.read_bytes())
+        proof=self.workspace/"bundle"/"proofs"/rid(obj.value["reviewer_key"])/(obj.object_hash[7:]+".json")
+        proof.unlink()
+        next_assessment=next(p for p in (self.ref/"assessments").rglob("*.json") if p!=assessment)
+        before=self.files()
+        self.assertEqual(self.reveal(next_assessment),2)
+        self.assertEqual(self.files(),before)
+
+
 if __name__=="__main__":
     unittest.main()
