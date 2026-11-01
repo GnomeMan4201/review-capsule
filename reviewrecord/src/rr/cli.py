@@ -12,12 +12,14 @@ def main(argv=None):
     parser.add_argument('--registry',action='append',type=Path,default=[],help='Local normalized registry snapshot JSON (repeatable).')
     parser.add_argument('--network',action='store_true',help='Enable the configured Bitcoin RPC backend; does not fetch arbitrary bundle URLs.')
     parser.add_argument('--bitcoin-rpc-env',default='RR_BITCOIN_RPC',help='Name of environment variable holding the Bitcoin Core RPC URL.')
-    parser.add_argument('--tsa-ca',type=Path,help='External TSA CA policy file, never a root selected from the bundle.')
+    parser.add_argument('--tsa-ca',type=Path,help='Externally supplied pinned TSA CA PEM.')
+    parser.add_argument('--tsa-policy',type=Path,help='External JSON pin file: CA SHA256, TSA signer SHA256 and policy OID.')
+    parser.add_argument('--tsa-untrusted',type=Path,help='Optional external intermediate certificates; not a trusted CA.')
     args=parser.parse_args(argv);registries=[]
     try:
         for path in args.registry:registries.append(loads(path.read_bytes()))
     except (OSError,CanonError):parser.error('A registry snapshot could not be read as canon-v1 input.')
-    report=verify_bundle(args.bundle,expected_author_key=args.expected_author_key,expected_steward_key=args.expected_steward_key,registries=registries,network=args.network,bitcoin_rpc=os.environ.get(args.bitcoin_rpc_env) if args.network else None,tsa_ca=args.tsa_ca)
+    report=verify_bundle(args.bundle,expected_author_key=args.expected_author_key,expected_steward_key=args.expected_steward_key,registries=registries,network=args.network,bitcoin_rpc=os.environ.get(args.bitcoin_rpc_env) if args.network else None,tsa_ca=args.tsa_ca,tsa_policy=args.tsa_policy,tsa_untrusted=args.tsa_untrusted)
     rendered=json.dumps(report,ensure_ascii=False,indent=2)+'\n'
     if args.json:
         try:args.json.write_text(rendered,encoding='utf-8')
