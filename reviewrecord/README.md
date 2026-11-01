@@ -13,7 +13,7 @@ Current documents: spec/REVIEW_RECORD_SPEC_v0.2.2.md and spec/BUILD_BRIEF_v0.2.2
 - Ten new counting and twelve path-function cases agree in Python and JavaScript. These are semantic test inputs, not signature findings. They cover duplicate leaves versus distinct lock counts, withdrawn/missing/valid reveals, first-commit retention and path hash/rid mismatches.
 - The earlier real synthetic FreeTSA RFC 3161 request verified under the fetched FreeTSA root; changed-target verification failed. No new TSA request is implied by this version update.
 
-Separate implementations are not separate human review. A candidate rrverify CLI now checks signed synthetic bundles. Six kill tests and additional adversarial/vector/CLI tests run in CI. The test-first red output is retained. Participant signing/steward/bundle CLI tools and confirmed anchor qualification remain unfinished. See spec/IMPLEMENTATION_STATUS_v0.2.2.md for the exact boundary.
+Separate implementations are not separate human review. A candidate rrverify CLI now checks signed synthetic bundles. Six kill tests and additional adversarial/vector/CLI tests run in CI. The test-first red output is retained. A reviewer-local signing/commit CLI now exists with synthetic regression tests; author/steward signing, bundle construction and confirmed anchor qualification remain unfinished. See spec/IMPLEMENTATION_STATUS_v0.2.2.md for the exact boundary.
 
 ## Reproduce [needs Linux runner]
 
@@ -35,7 +35,7 @@ These checks read existing fixtures. Explicit --write regenerates vectors and mu
 
 ## Current acceptance boundary
 
-The baseline freeze is a reproducible checkpoint, not a completed verifier or permission to run a real review round. Round 1 requires passing full kill tests and checked CLI tools. A complete synthetic signed-object fixture and its expected unresolved report are under examples/. It is not a confirmed anchored record. GitHub CI results are recorded separately from local outputs.
+The baseline freeze is a reproducible checkpoint, not a completed qualification or permission to run a real review round. Round 1 requires passing full kill tests and checked CLI tools. A complete synthetic signed-object fixture and its expected unresolved report are under examples/. It is not a confirmed anchored record. GitHub CI results are recorded separately from local outputs.
 
 OpenTimestamps has not been submitted or confirmed here. Its documented verification path requires Bitcoin verification infrastructure; no Bitcoin service has been provisioned and the six-confirmation path is untested. Offline/unavailable checks cannot be reported as confirmed.
 
@@ -57,3 +57,7 @@ Offline is the default. `--network` permits only the configured Bitcoin Core RPC
 `--registry PATH` accepts a local JSON snapshot: `{"source":"named URL or snapshot","work_id":"...","prior_rounds":["..."]}`. It may be repeated. This checks supplied content, not its provenance, and names precisely the snapshots used.
 
 The example's OTS references and RFC 3161 placeholders remain unresolved; the tool never promotes descriptor status assertions to confirmations. See examples/README.md for reproduction. Historical binary TSA evidence is transported as .b64 on GitHub; it is separate from the example round. The root repository workflow runs the frozen baseline checks plus verifier tests from reviewrecord/.
+
+## Reviewer-local signing (candidate, no network)
+
+`rrreview keygen --private-key my-review-key.pem` creates a local encrypted Ed25519 key; `rrreview pubkey --private-key my-review-key.pem` displays its public key. A reviewer can `rrreview sign` a declaration or private assessment and `rrreview commit` that signed assessment locally; only the resulting signed commit is transmitted before close. The tool does **not** publish or upload anything. See [docs/REVIEWER_LOCAL_CLI.md](docs/REVIEWER_LOCAL_CLI.md) for command details, role restrictions, storage precautions and remaining gates. Nine additional regression tests were added to CI. This tool has not been audited or verified on a-Shell.
