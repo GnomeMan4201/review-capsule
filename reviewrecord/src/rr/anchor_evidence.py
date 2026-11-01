@@ -35,7 +35,15 @@ def _gen_time(info):
 def inspect(descriptor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None,
             tsa_policy=None,tsa_untrusted=None):
     # Existing low-level adapter verifies imprint and/or Bitcoin header first.
-    status,detail=anchors.check(descriptor,files,network=network,bitcoin_rpc=bitcoin_rpc,tsa_ca=tsa_ca)
+    kind=descriptor.get("type")
+    # Legacy RFC3161 digest-only checks cannot qualify archival tokens whose
+    # signer certificate has expired since the signed genTime.
+    if kind=="rfc3161":
+        status,detail="confirmed","Raw token present; strict qualification required."
+        if not isinstance(descriptor.get("proof"),str) or descriptor["proof"] not in files:
+            status,detail="missing","RFC3161 proof file is missing."
+    else:
+        status,detail=anchors.check(descriptor,files,network=network,bitcoin_rpc=bitcoin_rpc,tsa_ca=tsa_ca)
     result={"status":status,"detail":detail,"authority":None,"attested_time":None,
             "basis":"unqualified"}
     if status!="confirmed":return result
@@ -82,6 +90,7 @@ def inspect(descriptor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None,
         if hashlib.sha256(Path(tsa_ca).read_bytes()).hexdigest()!=policy["ca_sha256"]:
             raise EvidenceError("TSA CA file does not match external pinned fingerprint.")
         from cryptography import x509
+        from cryptography.hazmat.primitives import hashes
         from cryptography.x509.oid import ExtensionOID,ExtendedKeyUsageOID
         from cryptography.hazmat.primitives.serialization import pkcs7
         with tempfile.TemporaryDirectory() as work:
@@ -109,7 +118,7 @@ def inspect(descriptor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None,
                 except x509.ExtensionNotFound:pass
             if len(candidates)!=1:raise EvidenceError("Token does not identify exactly one TSA-signing certificate.")
             signer=candidates[0]
-            fingerprint=signer.fingerprint(__import__("cryptography").hazmat.primitives.hashes.SHA256()).hex()
+            fingerprint=signer.fingerprint(hashes.SHA256()).hex()
             if fingerprint!=policy["signer_sha256"]:
                 raise EvidenceError("Signed token TSA fingerprint is not externally pinned.")
             # The token time is untrusted until the following signature/path/nonce check.
@@ -117,7 +126,9 @@ def inspect(descriptor,files,*,network=False,bitcoin_rpc=None,tsa_ca=None,
                  "-CAfile",Path(tsa_ca),"-attime",str(int(moment.timestamp()))]
             if tsa_untrusted:cmd.extend(("-untrusted",Path(tsa_untrusted)))
             _invoke(*cmd)
-            result.update(authority="tsa-signer-sha256:"+fingerprint,
+            result.update(status="confirmed",
+                          detail="RFC3161 signature, nonce, TSA policy and pins checked at token time.",
+                          authority="tsa-signer-sha256:"+fingerprint,
                           attested_time=time_value,policy_oid=policy["policy_oid"],
                           ca_sha256=policy["ca_sha256"],
                           basis="signed RFC3161 token with original nonce request and external signer/CA pins")
