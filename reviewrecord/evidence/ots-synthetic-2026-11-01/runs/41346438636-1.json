@@ -1,0 +1,73 @@
+{
+  "source_pin": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224",
+  "advisory_collected_at": "2026-11-01T20:21:43.163427Z",
+  "github_run_id": "41346438636-1",
+  "calendars": [
+    "https://a.pool.opentimestamps.org",
+    "https://b.pool.opentimestamps.org"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/opt/hostedtoolcache/Python/3.12.15/x64/bin/ots",
+        "stamp",
+        "-c",
+        "https://a.pool.opentimestamps.org",
+        "-c",
+        "https://b.pool.opentimestamps.org",
+        "-m",
+        "2",
+        "--timeout",
+        "20",
+        "reviewrecord/evidence/ots-synthetic-2026-11-01/targets/registration.preimage",
+        "reviewrecord/evidence/ots-synthetic-2026-11-01/targets/close.preimage",
+        "reviewrecord/evidence/ots-synthetic-2026-11-01/targets/record.preimage"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Submitting to remote calendar https://a.pool.opentimestamps.org\nSubmitting to remote calendar https://b.pool.opentimestamps.org\n",
+      "elapsed_seconds": 1.105
+    }
+  ],
+  "proofs": {
+    "registration": {
+      "proof_sha256": "sha256:af92c789ddc38740a308d4d9ce1c9618ae9ad9ecc91f9cd835cd37c486f711b4",
+      "calendar_references": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": [],
+      "confirmation_basis": "not established by parsing; requires configured mainnet RPC"
+    },
+    "close": {
+      "proof_sha256": "sha256:a064c61404e20d6869bae417ba449551f6ff4eac4d1721e8c6b1df5e7a9983cb",
+      "calendar_references": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": [],
+      "confirmation_basis": "not established by parsing; requires configured mainnet RPC"
+    },
+    "record": {
+      "proof_sha256": "sha256:805bd3db24d47b860f07a701e1a1d22b88674f5c784829003d145705c968d7cb",
+      "calendar_references": [
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://alice.btc.calendar.opentimestamps.org"
+      ],
+      "bitcoin_attestation_heights": [],
+      "confirmation_basis": "not established by parsing; requires configured mainnet RPC"
+    }
+  },
+  "rpc": {
+    "used": false,
+    "operator": null,
+    "trust_assumption": "No operator-chosen node was used. Calendar status cannot satisfy the anchor gate."
+  },
+  "verifier_exit_code": 2,
+  "verifier_summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 6 pending, 3 unverifiable, 2 not checked",
+  "not_run": [
+    "Strict production TSA qualification (no external CA/signer/policy selection)",
+    "Packet release chronology / first disclosure observation",
+    "Bitcoin RPC verification and six-confirmation check; no node was selected"
+  ]
+}
