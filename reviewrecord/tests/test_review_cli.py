@@ -196,5 +196,82 @@ class ReviewerToolTests(unittest.TestCase):
         self.assertEqual(record.value, d)
 
 
+    def test_reject_packet_mutation_before_assessment_signing(self):
+        public=self.keygen()
+        original=canon.loads(self.packet.read_bytes())
+        original[0]["candidate"]="Different conclusion after registration."
+        self.packet.write_bytes(canon.dumps(original))
+        src=self.draft(self.assessment(public))
+        dest=self.folder/"wrong-packet.json"
+        result=self.run_cli(["sign","--private-key",str(self.secret),
+                             "--input",str(src),"--output",str(dest)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(dest.exists())
+        self.assertIn("Packet or policy digest",self.err.getvalue())
+
+    def test_reject_wrong_round_even_with_signed_registration(self):
+        public=self.keygen()
+        value=self.assessment(public)
+        value["round_id"]="a-different-round"
+        dest=self.folder/"wrong-round.json"
+        result=self.run_cli(["sign","--private-key",str(self.secret),
+                             "--input",str(self.draft(value)),"--output",str(dest)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(dest.exists())
+
+    def test_reject_mismatched_policy_even_with_valid_registration(self):
+        public=self.keygen()
+        policy=canon.loads(self.policy.read_bytes())
+        policy["judgment_options"]=["established"]
+        self.policy.write_bytes(canon.dumps(policy))
+        dest=self.folder/"wrong-policy.json"
+        result=self.run_cli(["sign","--private-key",str(self.secret),
+                             "--input",str(self.draft(self.assessment(public))),
+                             "--output",str(dest)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(dest.exists())
+
+    def test_reject_missing_or_altered_assessment_item(self):
+        public=self.keygen()
+        value=self.assessment(public)
+        value["items"][0]["id"]="not-in-packet"
+        dest=self.folder/"wrong-item.json"
+        result=self.run_cli(["sign","--private-key",str(self.secret),
+                             "--input",str(self.draft(value)),"--output",str(dest)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(dest.exists())
+
+    def test_reject_foreign_expected_author_key(self):
+        from rr.review_context import validate_registration,ContextError
+        from reference_round import pub
+        with self.assertRaises(ContextError):
+            validate_registration(self.registration,pub("reviewer-b"))
+
+    def test_commit_refuses_when_packet_has_changed_since_signing(self):
+        public=self.keygen()
+        assessment=self.folder/"signed-assessment.json"
+        result=self.run_cli(["sign","--private-key",str(self.secret),
+                             "--input",str(self.draft(self.assessment(public))),
+                             "--output",str(assessment)],[PASSWORD])
+        self.assertEqual(result,0)
+        packet=canon.loads(self.packet.read_bytes())
+        packet[0]["evidence"].append("New text was added.")
+        self.packet.write_bytes(canon.dumps(packet))
+        self.out=io.StringIO()
+        self.err=io.StringIO()
+        commit=self.folder/"should-not-exist.json"
+        result=self.run_cli(["commit","--private-key",str(self.secret),
+                             "--assessment",str(assessment),"--output",str(commit)],[PASSWORD])
+        self.assertEqual(result,2)
+        self.assertFalse(commit.exists())
+
+    def test_reject_untrusted_registration_anchor_hash(self):
+        from rr.review_context import validate_registration,ContextError
+        with self.assertRaises(ContextError):
+            validate_registration(self.registration,self.metadata["author_key"],
+                                  "sha256:"+"0"*64)
+
+
+
 if __name__ == "__main__":
     unittest.main()
