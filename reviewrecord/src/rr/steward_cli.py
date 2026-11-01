@@ -249,12 +249,15 @@ def attest_withdrawal(root,reviewer_key,expected_author_key,steward_private,reas
             "registration_hash":state["registration_hash"],"reviewer_key":reviewer_key,
             "steward_attested":True
         }
-        if reason_file is not None:
-            try:reason=_read(reason_file).decode("utf-8").strip()
-            except UnicodeDecodeError:
-                raise StewardError("Withdrawal reason must be UTF-8.") from None
-            if not reason:raise StewardError("Withdrawal reason file is empty.")
-            value["reason"]=reason
+        if reason_file is None:
+            raise StewardError("A steward-attested withdrawal requires an explicit --reason-file.")
+        try:reason=_read(reason_file).decode("utf-8").strip()
+        except UnicodeDecodeError:
+            raise StewardError("Withdrawal reason must be UTF-8.") from None
+        if not reason:raise StewardError("Withdrawal reason file is empty.")
+        if len(reason.encode("utf-8"))>2048:
+            raise StewardError("Withdrawal reason exceeds 2048 UTF-8 bytes.")
+        value["reason"]=reason
         signer=_read_key(steward_private)
         if _public(signer)!=reg["steward_key"]:
             raise StewardError("Steward private key mismatch.")
@@ -466,7 +469,7 @@ def main(argv=None):
     sub.add_parser("close",help="Sign immutable close from the checked log.")
     attested=sub.add_parser("attest-withdrawal",help="Sign a clearly steward-attested withdrawal.")
     attested.add_argument("--reviewer-key",required=True)
-    attested.add_argument("--reason-file",type=Path,help="Optional UTF-8 file; do not put private reason in shell history.")
+    attested.add_argument("--reason-file",type=Path,required=True,help="Required reason in UTF-8; avoid including private reviewer data.")
     post=sub.add_parser("reveal",help="Accept reviewer assessment only after signed close.")
     post.add_argument("--input",type=Path,required=True)
     post.add_argument("--workspace",type=Path,required=True)
