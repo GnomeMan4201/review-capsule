@@ -204,7 +204,7 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         v=record.value
         if v['type']!='logentry' or type(v.get('seq')) is not int or v['seq']<1:report.add('LOG_CHAIN_BROKEN','fail',name)
         else:log.append((v['seq'],name,record))
-    log.sort(key=lambda x:x[0]);previous=registration_hash;commits=[];first={};withdrawals={};ack=set();declared_keys=set()
+    log.sort(key=lambda x:x[0]);previous=registration_hash;commits=[];first={};withdrawals={};ack=set();declared_keys=set();commitment_owners={}
     for expected,(seq,name,record) in enumerate(log,1):
         value=record.value;add('LOG_CHAIN_BROKEN',seq==expected and value.get('prev_entry_hash')==previous and name=='log/'+str(seq)+'.json',name)
         previous=record.object_hash;ref=value.get('ref_hash');kind=value.get('kind');referenced=by_hash.get(ref)
@@ -217,6 +217,11 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
             try:leaf=canon.hash_bytes(v['commitment'])
             except (ValueError,KeyError):report.add('COMMIT_NOT_IN_TREE','fail',object_name);continue
             if k not in declared_keys:report.add('ACK_MISSING','fail',object_name,detail='A logged declaration must precede the commit.')
+            owner=commitment_owners.get(v['commitment'])
+            if owner is not None and owner!=k:
+                report.add('COMMITMENT_REUSED_ACROSS_KEYS','fail',object_name,
+                           detail='The same assessment commitment appears under different reviewer signing keys.')
+            commitment_owners.setdefault(v['commitment'],k)
             commits.append((k,v['commitment'],object_name,seq))
             if k in first:report.add('DUPLICATE_COMMIT','fail',object_name)
             else:first[k]=(v['commitment'],len(commits)-1)
