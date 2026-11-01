@@ -64,5 +64,64 @@ class OTSChainPreflightTests(unittest.TestCase):
         self.assertIn("mainnet-genesis",detail)
 
 
+    def _two_attestation_proof(self):
+        timestamp=Timestamp(bytes.fromhex(self.target[7:]))
+        timestamp.attestations.add(BitcoinBlockHeaderAttestation(500000))
+        timestamp.attestations.add(BitcoinBlockHeaderAttestation(500001))
+        detached=DetachedTimestampFile(OpSHA256(),timestamp)
+        ctx=BytesSerializationContext()
+        detached.serialize(ctx)
+        self.files={"proof.ots":ctx.getbytes()}
+
+    def test_invalid_second_attestation_blocks_earlier_valid_one(self):
+        self._two_attestation_proof()
+        from types import SimpleNamespace
+        class MainRPC(FakeRPC):
+            chain="main"
+            def getblockcount(self):
+                return 500010
+            def getblockhash(self,height):
+                return "fake-block-"+str(height)
+            def getblockheader(self,block_hash):
+                return SimpleNamespace(nTime=1690000000)
+            def call(self,method,*args):
+                if method=="getblockhash" and args!=(0,):
+                    return "fake-block-"+str(args[0])
+                return super().call(method,*args)
+        def selective(self,message,header):
+            if self.height==500001:
+                raise ValueError("planted second attestation mismatch")
+            return 1690000000
+        with patch("bitcoin.rpc.Proxy",MainRPC),patch.object(
+                BitcoinBlockHeaderAttestation,"verify_against_blockheader",selective):
+            status,detail=check(self.desc,self.files,network=True,bitcoin_rpc="http://not-real.invalid")
+        self.assertEqual(status,"invalid",detail)
+        self.assertIn("At least one",detail)
+
+    def test_mocked_two_valid_attestations_report_block_metadata(self):
+        self._two_attestation_proof()
+        from types import SimpleNamespace
+        class MainRPC(FakeRPC):
+            chain="main"
+            def getblockcount(self):
+                return 500010
+            def getblockhash(self,height):
+                return "fake-block-"+str(height)
+            def getblockheader(self,block_hash):
+                return SimpleNamespace(nTime=1690000000)
+            def call(self,method,*args):
+                if method=="getblockhash" and args!=(0,):
+                    return "fake-block-"+str(args[0])
+                return super().call(method,*args)
+        with patch("bitcoin.rpc.Proxy",MainRPC),patch.object(
+                BitcoinBlockHeaderAttestation,"verify_against_blockheader",lambda *args:1690000000):
+            status,detail=check(self.desc,self.files,network=True,bitcoin_rpc="http://not-real.invalid")
+        self.assertEqual(status,"confirmed",detail)
+        self.assertIn("block_hash=fake-block-500000",detail)
+        self.assertIn("confirmations=11",detail)
+        self.assertIn("block_time=",detail)
+        # This is a mocked RPC and patched header verifier, not live OTS evidence.
+
+
 if __name__=="__main__":
     unittest.main()
