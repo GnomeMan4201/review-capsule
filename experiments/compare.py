@@ -161,9 +161,14 @@ def execute(src):
                              expected_steward_key=meta["steward_key"])
             tr=round(time.monotonic()-t,4)
             findings=sorted({x["code"] for x in rr["checks"] if x["status"] in ("fail","missing")})
+            # Updating a synthetic manifest changes record_hash and makes old
+            # anchor descriptors mismatch. Exclude all anchor-class findings
+            # from comparative attack detection, not merely pending outcomes.
+            core_findings=[x for x in findings if not x.startswith("ANCHOR_")]
             t=time.monotonic();git_findings=verify_git(g,keys);tg=round(time.monotonic()-t,4)
-            rows.append({"attack":attack,"review_record":{"detected":bool(findings),
+            rows.append({"attack":attack,"review_record":{"detected":bool(core_findings),
                 "exit_code":rr["exit_code"],"failing_codes":findings,
+                "non_anchor_failing_codes":core_findings,
                 "pending_or_unchecked":sum(x["status"] in ("pending","unverifiable","not_checked") for x in rr["checks"]),
                 "verify_seconds":tr},"signed_git":{"detected":bool(git_findings),
                 "failing_codes":git_findings,"verify_seconds":tg}})
