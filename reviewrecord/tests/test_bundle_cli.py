@@ -48,11 +48,13 @@ class BundleConstructionTests(unittest.TestCase):
             reveal(self.workspace,source,self.meta["author_key"])
 
     def assemble(self,out,**kw):
-        return assemble(workspace=self.workspace,
-            expected_author_key=self.meta["author_key"],
-            withheld_path=self.ref/"withheld.json",
-            disposition_dir=self.ref/"dispositions",
-            output=out,**kw)
+        args={"workspace":self.workspace,
+              "expected_author_key":self.meta["author_key"],
+              "withheld_path":self.ref/"withheld.json",
+              "disposition_dir":self.ref/"dispositions",
+              "output":out}
+        args.update(kw)
+        return assemble(**args)
 
     def test_tool_built_synthetic_bundle_is_cryptographically_consistent(self):
         self.build_steward_round()
