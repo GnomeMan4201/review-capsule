@@ -56,8 +56,14 @@ Offline is the default. `--network` permits only the configured Bitcoin Core RPC
 
 `--registry PATH` accepts a local JSON snapshot: `{"source":"named URL or snapshot","work_id":"...","prior_rounds":["..."]}`. It may be repeated. This checks supplied content, not its provenance, and names precisely the snapshots used.
 
-The example's OTS references and RFC 3161 placeholders remain unresolved; the tool never promotes descriptor status assertions to confirmations. See examples/README.md for reproduction. Historical binary TSA evidence is transported as .b64 on GitHub; it is separate from the example round. The root repository workflow runs the frozen baseline checks plus verifier tests from reviewrecord/.
+The example's OTS references and RFC 3161 placeholders remain unresolved; the tool never promotes descriptor status assertions to confirmations. See examples/README.md for reproduction. Historical binary TSA evidence is transported as .b64 on GitHub; it is separate from the example round. The `.github/workflows/reviewrecord-vectors.yml` workflow runs the Review Record frozen baseline, vectors and verifier tests. The separate `.github/workflows/verify.yml` workflow runs the Django/hosted Capsule boundary tests; it does not run Review Record tests.
 
 ## Reviewer-local signing (candidate, no network)
 
 `rrreview keygen --private-key my-review-key.pem` creates a local encrypted Ed25519 key; `rrreview pubkey --private-key my-review-key.pem` displays its public key. A reviewer can `rrreview sign` a declaration or private assessment and `rrreview commit` that signed assessment locally; only the resulting signed commit is transmitted before close. The tool does **not** publish or upload anything. See [docs/REVIEWER_LOCAL_CLI.md](docs/REVIEWER_LOCAL_CLI.md) for command details, role restrictions, storage precautions and remaining gates. Nine additional regression tests were added to CI. This tool has not been audited or verified on a-Shell.
+
+## Anchor-gate correction status (fail closed)
+
+The previous type/authority presence gate could treat pending or unavailable proofs as if the required pair existed. It now reports `ANCHOR_GATE_UNCONFIRMED` for unconfirmed pairs; a label-only pair whose adapters return `confirmed` remains `ANCHOR_AUTHORITY_NOT_CHECKED` until identities are derived from verified proof evidence. External registration/close ordering remains `ANCHOR_ORDER_NOT_CHECKED`. No passing combined anchor gate is emitted yet. This deliberate containment is not an assertion that A2/A3 or production anchoring are finished. See [docs/ANCHOR_GATE_AUDIT.md](docs/ANCHOR_GATE_AUDIT.md).
+
+The verifier now fails on reviewer signing-key reuse by either the author or steward, and on identical author/steward signing keys, with `ROLE_KEY_REUSED`. The frozen limits constant is covered by a new exact-string regression check against `spec/limits.txt` and normative spec section 8. No external human review or real confirmed two-anchor round has occurred.
