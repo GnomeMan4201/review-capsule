@@ -2,7 +2,7 @@
 
 [needs Linux runner] Python 3.12, `cryptography==50.0.2`; run on a trusted local Linux filesystem. iOS/a-Shell compatibility and crash/power-loss resilience are **untested**.
 
-This utility performs **only a subset of C1**. It has no network interface, does not collect full assessments before close, does not produce reveal inclusion proofs, does not publish reviewer-held receipts, and does not assemble a verifiable final bundle. No real participant review round is authorized.
+This utility performs **only a subset of C1**. It has no network interface, rejects full assessments before close, and now imports reviewer-signed assessments only **after** the signed close has been locally checked. It generates RFC 9162 inclusion proofs for first counting commitments. It does not itself publish reviewer-held receipts or assemble a complete anchored final bundle. No real participant review round is authorized.
 
 ## Roles and trust boundary
 
@@ -46,10 +46,25 @@ rrsteward close \
 
 The tool does not generate or accept somebody else's keys on their behalf. The example `local-steward-private.pem` is a locally generated, passphrase-encrypted Ed25519 PKCS8 key that must already match the public key in the signed registration. Real credential or reviewer content must not be put in any CI fixture.
 
+## Post-close reveal import (candidate)
+
+After signed close, the reviewer may choose to publish their signed assessment. The local steward importer requires that the assessment signature verifies against the declared reviewer key, matches the exact registration, covers all packet items, and hashes to that reviewer's **first counting commitment**. It refuses a second commit as replacement. The importer derives the Merkle inclusion proof from all logged commitments (including duplicate log leaves) and checks it against the signed close tree head before writing the assessment and matching proof.
+
+```sh
+rrsteward reveal \
+  --workspace ./steward-work \
+  --input ./reviewer-signed-assessment.json \
+  --expected-author-key 'ed25519:<EXPECTED_AUTHOR_KEY>'
+```
+
+Unlike pre-close intake, `reveal` does not require possession of the steward's private key. A withdrawn reviewer remains eligible to publish a valid first-commit reveal. The importer is still controlled by the workspace operator; a reviewer can retain and publish their own signed reveal independently if an operator suppresses it. The verifier must be able to consume that external evidence in the final bundle.
+
+The assessment/proof file pair is not transactionally atomic. If a crash occurs between their writes, subsequent reveal operations halt on inconsistency. SIGKILL/power-loss recovery is untested. This is not a public hosting/publishing endpoint.
+
 ## Negative checks and hard limitations
 
 The CI test suite uses only known synthetic keys and exercises refusal of (a) assessment submitted before close without persistence, (b) wrong reviewer signing key, (c) intake after close, (d) exact commit replay, (e) altered prior log entry, and (f) repeated close. The test fixture's actual assessment is intentionally never written to the steward workspace during intake.
 
-Unresolved: proof of log completeness under malicious truncation without an external checkpoint or reviewer-held acknowledgement; crash recovery under SIGKILL/power loss; trusted registration-time anchoring; steward-attested withdrawals; controlled post-close assessment/reveal intake, Merkle proof building and bundle assembly; external TSA/OTS verification; second verifier and independent human review. A compromised steward key or a malicious operator who edits the entire unanchored workspace can equivocate; the tool is not a substitute for external anchoring.
+Unresolved: proof of log completeness under malicious truncation without an external checkpoint or reviewer-held acknowledgement; crash recovery under SIGKILL/power loss; trusted registration-time anchoring; steward-attested withdrawals; final manifest/bundle assembly and author dispositions; external TSA/OTS verification; second verifier and independent human review. A compromised steward key or a malicious operator who edits the entire unanchored workspace can equivocate; the tool is not a substitute for external anchoring.
 
 **Stop criterion:** If any rejected pre-close assessment appears in the steward workspace, a foreign-key object obtains a signed acknowledgement, or the tool appends after close, the workflow must not be used for Round 1. A CI pass is only evidence for the tested synthetic path.
