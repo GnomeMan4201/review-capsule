@@ -1,0 +1,27 @@
+{
+  "baseline": {
+    "exit_code": 2,
+    "summary": "Integrity checks: 158 pass, 0 fail, 0 missing, 3 pending, 6 unverifiable, 2 not checked",
+    "report": "baseline.json"
+  },
+  "service_derived_pins": {
+    "exit_code": 2,
+    "summary": "Integrity checks: 162 pass, 0 fail, 0 missing, 3 pending, 3 unverifiable, 1 not checked",
+    "report": "report.json"
+  },
+  "wrong_policy_control": {
+    "exit_code": 1,
+    "summary": "Integrity checks: 158 pass, 3 fail, 0 missing, 3 pending, 3 unverifiable, 2 not checked",
+    "report": "wrong-policy-report.json"
+  },
+  "source_pin": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224",
+  "input_snapshot": "41011fe3f20ebb03dcfad04fb502b0549c7734b3",
+  "network_enabled": false,
+  "bitcoin_rpc": "none configured",
+  "pin_basis": "Derived from retained FreeTSA service material and tokens; not an author-approved production trust profile",
+  "policy": {
+    "ca_sha256": "2151b61137ffa86bf664691ba67e7da0b19f98c758e3d228d5d8ebf27e044438",
+    "signer_sha256": "32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",
+    "policy_oid": "1.2.3.4.1"
+  }
+}

@@ -1,0 +1,2 @@
+Integrity checks: 158 pass, 3 fail, 0 missing, 3 pending, 3 unverifiable, 2 not checked
+rrverify exit_code=1
