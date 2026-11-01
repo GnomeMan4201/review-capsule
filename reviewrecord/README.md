@@ -34,7 +34,7 @@ rrverify /path/to/bundle --json report.json
 
 The frozen vectors check canon-v1 JSON, RFC 9162 Merkle tree/inclusion proofs, DSSE PAE and published RFC 8032 Ed25519 cases. `--write` on vector tools regenerates output and must not silently replace the accepted freeze.
 
-GitHub Actions: `.github/workflows/reviewrecord-vectors.yml` checks frozen hashes, vectors and the Python regression suite. At commit `4290ac84`, the Review Record run reported **113 synthetic tests passing**. The separate `.github/workflows/verify.yml` checks the Django/hosted Capsule, **not** Review Record. The stored red-first kill-test evidence and all current limitations are described in `spec/IMPLEMENTATION_STATUS_v0.2.2.md`.
+GitHub Actions: `.github/workflows/reviewrecord-vectors.yml` checks frozen hashes, vectors and the Python regression suite. At commit `abbdcd18`, the Review Record run reported **122 synthetic tests passing**, including a locally generated RFC 3161 positive and wrong-target rejection through the full verifier. Historical 113-test results at `4290ac84` are recorded in `spec/IMPLEMENTATION_STATUS_v0.2.2.md`. The separate `.github/workflows/verify.yml` checks the Django/hosted Capsule, **not** Review Record. The stored red-first kill-test evidence and all current limitations are described in `spec/IMPLEMENTATION_STATUS_v0.2.2.md`.
 
 ## Anchor and identity boundary
 
@@ -42,7 +42,7 @@ GitHub Actions: `.github/workflows/reviewrecord-vectors.yml` checks frozen hashe
 
 Supply `--expected-author-key` and `--expected-steward-key` obtained by a separately authenticated channel. Otherwise identity is `not_checked`. `--registry PATH` provides a locally supplied registry snapshot; freshness, origin and undisclosed rounds are not established. Offline is the default. `--network` enables only configured Bitcoin Core RPC; `--tsa-ca PATH` selects externally supplied TSA CA policy material. Nothing automatically trusts an unverified CA from the bundle.
 
-The synthetic fixture has pending OTS and unverified RFC 3161 placeholders. **No real six-confirmation OTS proof or externally qualified two-authority ordering has been demonstrated.** Descriptor authority strings cannot qualify a gate. `ANCHOR_GATE_UNCONFIRMED`, `ANCHOR_AUTHORITY_NOT_CHECKED` and `ANCHOR_ORDER_NOT_CHECKED` deliberately remain non-passing. The historical real *synthetic* FreeTSA evidence demonstrates only a narrow digest/CA feasibility check, not nonce/policy/signer/time or service integrity.
+The synthetic fixture has pending OTS and unverified RFC 3161 placeholders. **No real six-confirmation OTS proof or externally qualified two-authority ordering has been demonstrated.** Descriptor authority strings cannot qualify a gate. `ANCHOR_GATE_UNCONFIRMED`, `ANCHOR_AUTHORITY_NOT_CHECKED` and `ANCHOR_ORDER_NOT_CHECKED` deliberately remain non-passing. The historical real *synthetic* FreeTSA evidence demonstrates only a narrow digest/CA feasibility check. The strict-path local TSA regression now checks target/request/TSTInfo imprint equality, numeric DER policy, nonce, external signer/CA pins and token time. **This does not qualify FreeTSA or any real authority**, check revocation or key compromise, or establish anchoring before packet release. See `docs/TSA_BINDING_REMEDIATION.md`.
 
 ## Protocol workflow and limitations
 
