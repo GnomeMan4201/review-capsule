@@ -9,3 +9,11 @@ The library converts HTTP 404 into CommitmentNotFoundError and sanitizes respons
 Each results.json contains literal ots info stdout for all files plus requested URLs and response status/body. A parsed Bitcoin attestation in a calendar response is still unqualified without an operator-chosen mainnet backend and depth check. Existing proof histories, non-anchor targets, the pinned verifier and PR #2 are unchanged.
 
 The separate hourly follow-up task remains bounded to twelve checks; native GitHub cron remains inactive on this branch. A read-only diagnostic is not a resubmission and does not reset the submission clock.
+
+## Observed routing defect and repair
+
+Actions diagnostic run 41359711322 captured HTTP 404 with body `Not found\n` for the four pool-host lookups. The matching native Alice and Bob lookups returned HTTP 200 and timestamp responses containing a BitcoinBlockHeaderAttestation for height 974172. This is evidence of a request-routing problem in the collector, not evidence that the original commitments were lost. Calendar-supplied block height remains unqualified until a chosen node checks it.
+
+The collector had incorrectly forced its submission pool URLs onto upgrade requests. The repair removes upgrade `-c` overrides and permits only the exact embedded Alice/Bob URIs observed in the retained proofs. Submission behavior and all preimages/targets are unchanged. Unexpected embedded calendar URLs are refused before network access. Prior proof bytes are retained by hash before upgrade. The OTS descriptor now says `none configured` when no Bitcoin RPC was selected; this changes anchor metadata only, not the pinned verifier or its literal output rules.
+
+No resubmission is required to correct the demonstrated routing error. No claim is made about confirmation depth or Bitcoin-mainnet inclusion based only on these calendar responses.

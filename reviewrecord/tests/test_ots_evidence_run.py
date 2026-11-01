@@ -10,7 +10,7 @@ def pending(target):
     from opentimestamps.core.op import OpSHA256
     from opentimestamps.core.notary import PendingAttestation
     from opentimestamps.core.serialize import BytesSerializationContext
-    t=Timestamp(bytes.fromhex(target[7:]));t.attestations.add(PendingAttestation('https://example.invalid/test-only'))
+    t=Timestamp(bytes.fromhex(target[7:]));t.attestations.add(PendingAttestation('https://alice.btc.calendar.opentimestamps.org'))
     proof=DetachedTimestampFile(OpSHA256(),t);ctx=BytesSerializationContext();proof.serialize(ctx);return ctx.getbytes()
 
 class CollectorTests(unittest.TestCase):
@@ -57,8 +57,14 @@ class CollectorTests(unittest.TestCase):
             calls.append(argv);return dict(argv=argv,exit_code=1,stdout='',stderr='Mock incomplete calendar proof')
         with patch.object(run,'command',side_effect=incomplete),contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):run.collect(ROOT,self.root)
         self.assertEqual(len(calls),3)
-        for argv in calls:self.assertEqual(argv[1],'upgrade');self.assertEqual(sum(str(x).endswith('.ots') for x in argv),1)
+        for argv in calls:self.assertEqual(argv[1],'upgrade');self.assertNotIn('-c',argv);self.assertEqual(sum(str(x).endswith('.ots') for x in argv),1)
         self.assertEqual(json.loads((self.root/'report.json').read_bytes())['exit_code'],2)
+    def test_unknown_embedded_calendar_refused_before_network(self):
+        _,targets=run.prepare(ROOT,self.root)
+        for row in targets['targets']:(self.root/(row['preimage']+'.ots')).write_bytes(pending(row['target']))
+        with patch.object(run,'UPGRADE_CALENDARS',set()),patch.object(run,'command') as request:
+            with self.assertRaises(ValueError):run.collect(ROOT,self.root)
+            request.assert_not_called()
     def test_no_rpc_is_chosen_implicitly(self):
         with patch.dict(run.os.environ,{'RR_BITCOIN_RPC':'http://example.invalid','RR_BITCOIN_RPC_OPERATOR':'test-only'},clear=False),patch.object(run,'command',return_value=dict(argv=['mock'],exit_code=1,stdout='',stderr='unavailable')),contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):
             run.collect(ROOT,self.root)

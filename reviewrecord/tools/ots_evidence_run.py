@@ -12,6 +12,7 @@ from rr.verify import verify_bundle
 
 PIN='d54432f3e4c67f11ea53c16ebb383c1aec1f9224'
 CALENDARS=['https://a.pool.opentimestamps.org','https://b.pool.opentimestamps.org']
+UPGRADE_CALENDARS={'https://alice.btc.calendar.opentimestamps.org','https://bob.btc.calendar.opentimestamps.org'}
 NAMES=('registration','close','record')
 
 def save_json(path,value):
@@ -78,10 +79,18 @@ def collect(source,root,*,allow_rpc=False):
     journal=dict(source_pin=PIN,advisory_collected_at=now,github_run_id=run_id,calendars=CALENDARS,commands=[],proofs={},rpc=dict(used=False,operator=None,trust_assumption='No operator-chosen node was used. Calendar status cannot satisfy the anchor gate.'))
     ots=shutil.which('ots')
     if not ots:raise ValueError('opentimestamps-client executable is unavailable.')
+    journal['stamp_calendars']=CALENDARS
+    journal['upgrade_policy']='Use embedded allowlisted calendar URIs; no -c pool overrides.'
+    journal['upgrade_calendars']=[]
     existing=[];missing=[]
     for row in targets['targets']:
         p=root/row['preimage'];proof=Path(str(p)+'.ots')
-        if proof.exists():inspect_proof(proof.read_bytes(),row['target']);existing.append(proof)
+        if proof.exists():
+            raw=proof.read_bytes();info=inspect_proof(raw,row['target'])
+            if any(uri not in UPGRADE_CALENDARS for uri in info['calendar_references']):raise ValueError('Unexpected embedded calendar; inspect before contacting it.')
+            journal['upgrade_calendars']=sorted(set(journal['upgrade_calendars'])|set(info['calendar_references']))
+            same_or_new(root/'proof-history'/(digest(raw)[7:]+'.ots'),raw)
+            existing.append(proof)
         else:missing.append(p)
     options=[x for url in CALENDARS for x in ('-c',url)]
     if missing:
@@ -89,7 +98,7 @@ def collect(source,root,*,allow_rpc=False):
     # The client exits on an incomplete first file. Invoke once per proof so
     # one pending calendar response does not skip the other two targets.
     for proof in existing:
-        journal['commands'].append(command([ots,'upgrade',*options,'--timeout','20',str(proof)]))
+        journal['commands'].append(command([ots,'upgrade','--timeout','20',str(proof)]))
     for row in targets['targets']:
         name=row['name'];p=root/row['preimage'];proof=Path(str(p)+'.ots')
         if not proof.exists():
@@ -104,6 +113,7 @@ def collect(source,root,*,allow_rpc=False):
         (bundle/'anchors'/(name+'.ots')).write_bytes(raw)
         descriptor=canon.loads((bundle/'anchors'/(name+'-ots.json')).read_bytes())
         descriptor['authority']='bitcoin-mainnet (declared; proof-derived identity required)'
+        descriptor['validation_backend']='none configured' if not allow_rpc else 'operator-configured Bitcoin Core RPC; execution requires a Bitcoin attestation'
         (bundle/'anchors'/(name+'-ots.json')).write_bytes(canon.dumps(descriptor))
     rpc=os.environ.get('RR_BITCOIN_RPC') if allow_rpc else None
     operator=os.environ.get('RR_BITCOIN_RPC_OPERATOR') if allow_rpc else None
