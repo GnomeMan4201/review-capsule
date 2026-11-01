@@ -144,6 +144,7 @@ def disposition(*,private_key,registration_path,close_path,assessment_path,
         raise AuthorError("Disposition draft has missing or extra fields.")
     ref=draft["concern_ref"]
     if (type(ref) is not dict or set(ref)!={"assessment_commitment","item_id","cid"} or
+        any(type(ref[k]) is not str or not ref[k].strip() for k in ("assessment_commitment","item_id","cid")) or
         ref["assessment_commitment"]!=assessment.object_hash):
         raise AuthorError("Disposition concern is not bound to the signed assessment.")
     items=a.get("items")
@@ -181,7 +182,11 @@ def main(argv=None):
     make.add_argument("--work-id",required=True)
     make.add_argument("--reviewers-target",required=True,type=int)
     make.add_argument("--deadline",required=True)
-    make.add_argument("--operator-is-author",action="store_true")
+    role=make.add_mutually_exclusive_group(required=True)
+    role.add_argument("--operator-is-author",dest="operator_is_author",action="store_true",
+                      help="Explicitly declare that the steward is operated by the author.")
+    role.add_argument("--operator-is-not-author",dest="operator_is_author",action="store_false",
+                      help="Explicitly declare that the steward is not the author's operator.")
     make.add_argument("--output",type=Path,required=True)
     disp=sub.add_parser("disposition",help="Sign a verified post-close concern disposition.")
     for name in ("private-key","registration","close","assessment","proof","draft","output"):
