@@ -1,11 +1,11 @@
 # Offline-first bundle checks; Python 3.12+, cryptography and optional OTS [needs Linux runner].
-import hashlib,re,stat,zipfile,sys
+import hashlib,re,stat,zipfile,sys,zlib
 from datetime import datetime
 from pathlib import Path,PurePosixPath
 from . import canon,dsse,merkle,anchors
 from .constants import SPEC,LIMITS,JUDGMENTS
 from .report import Report,TOOL_TEXT
-MAX_FILE=1024*1024;MAX_TOTAL=24*1024*1024;MAX_FILES=4096
+MAX_FILE=1024*1024;MAX_TOTAL=24*1024*1024;MAX_FILES=4096;MAX_ZIP_RATIO=200
 
 def valid_time(value):
     if type(value) is not str or not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z',value):return False
@@ -16,25 +16,63 @@ def rid(key):return 'r-'+hashlib.sha256(key.encode()).hexdigest()[:16]
 def safe_path(name):
     return type(name) is str and bool(name) and '\\' not in name and not name.startswith('/') and all(p not in ('','.','..') for p in name.split('/'))
 def read_bundle(path,report):
+    """Bounded ingestion: never trust a ZIP central-directory size as a read cap."""
     result={};total=0
     try:
         if Path(path).is_dir():
-            entries=[]
             for p in sorted(Path(path).rglob('*')):
-                if p.is_symlink():report.add('BUNDLE_PATH_INVALID','fail',detail='Symlink entries are rejected.');continue
-                if p.is_file():entries.append((p.relative_to(path).as_posix(),p.stat().st_size,p.read_bytes))
-            for name,size,read in entries:
-                if not safe_path(name) or size>MAX_FILE or total+size>MAX_TOTAL or len(result)>=MAX_FILES:report.add('BUNDLE_LIMIT_EXCEEDED','fail');continue
-                result[name]=read();total+=size
+                if p.is_symlink():
+                    report.add('BUNDLE_PATH_INVALID','fail',detail='Symlink entries are rejected.')
+                    continue
+                if not p.is_file():continue
+                name=p.relative_to(path).as_posix()
+                if not safe_path(name):
+                    report.add('BUNDLE_PATH_INVALID','fail',name);continue
+                if len(result)>=MAX_FILES or total>=MAX_TOTAL:
+                    report.add('BUNDLE_LIMIT_EXCEEDED','fail',name);continue
+                size=p.stat().st_size;limit=min(MAX_FILE,MAX_TOTAL-total)
+                if size>limit:
+                    report.add('BUNDLE_LIMIT_EXCEEDED','fail',name);continue
+                with p.open('rb') as stream:
+                    data=stream.read(limit+1)
+                if len(data)>limit:
+                    report.add('BUNDLE_LIMIT_EXCEEDED','fail',name);continue
+                if len(data)!=size:
+                    report.add('BUNDLE_UNREADABLE','fail',name);continue
+                result[name]=data;total+=len(data)
         else:
             with zipfile.ZipFile(path) as z:
                 for info in z.infolist():
                     if info.is_dir():continue
                     name=info.filename
-                    if not safe_path(name) or name in result or stat.S_ISLNK(info.external_attr>>16):report.add('BUNDLE_PATH_INVALID','fail');continue
-                    if info.file_size>MAX_FILE or total+info.file_size>MAX_TOTAL or len(result)>=MAX_FILES:report.add('BUNDLE_LIMIT_EXCEEDED','fail');continue
-                    result[name]=z.read(info);total+=info.file_size
-    except (OSError,ValueError,zipfile.BadZipFile,RuntimeError):report.add('BUNDLE_UNREADABLE','fail')
+                    if not safe_path(name) or name in result or stat.S_ISLNK(info.external_attr>>16):
+                        report.add('BUNDLE_PATH_INVALID','fail',name);continue
+                    if len(result)>=MAX_FILES or total>=MAX_TOTAL:
+                        report.add('BUNDLE_LIMIT_EXCEEDED','fail',name);continue
+                    limit=min(MAX_FILE,MAX_TOTAL-total)
+                    if info.file_size>limit:
+                        report.add('BUNDLE_LIMIT_EXCEEDED','fail',name);continue
+                    if info.file_size>0 and (info.compress_size<=0 or
+                                             info.file_size>info.compress_size*MAX_ZIP_RATIO):
+                        report.add('BUNDLE_LIMIT_EXCEEDED','fail',name,detail='ZIP compression ratio exceeds the allowed ceiling.')
+                        continue
+                    # A lying header or decompressor cannot cause an unbounded read.
+                    chunks=[];received=0
+                    with z.open(info) as stream:
+                        while True:
+                            block=stream.read(min(65536,limit-received+1))
+                            if not block:break
+                            received+=len(block)
+                            if received>limit:
+                                report.add('BUNDLE_LIMIT_EXCEEDED','fail',name)
+                                break
+                            chunks.append(block)
+                    if received>limit:continue
+                    if received!=info.file_size:
+                        report.add('BUNDLE_UNREADABLE','fail',name);continue
+                    result[name]=b''.join(chunks);total+=received
+    except (OSError,EOFError,ValueError,zipfile.BadZipFile,RuntimeError,zlib.error):
+        report.add('BUNDLE_UNREADABLE','fail')
     return result
 
 def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,registries=None,network=False,bitcoin_rpc=None,tsa_ca=None):
