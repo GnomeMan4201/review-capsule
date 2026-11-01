@@ -1,4 +1,4 @@
-name: Review Record baseline vectors
+name: Review Record vectors and verifier
 on: [push, pull_request, workflow_dispatch]
 jobs:
   vectors:
@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: python -m pip install cryptography==50.0.2
+      - run: python -m pip install -e .
       - name: Check frozen baseline hashes
         run: |
           python - <<'PYCODE'
@@ -40,8 +40,15 @@ jobs:
             python tools/rfc8032_vectors.py
             node tools/rfc8032_crosscheck.mjs
           } 2>&1 | tee phase0-vectors.log
+      - name: Run kill, vector and adversarial verifier tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v 2>&1 | tee verifier-tests.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: phase0-vector-log
-          path: phase0-vectors.log
+          path: |
+            reviewrecord/phase0-vectors.log
+            reviewrecord/verifier-tests.log
