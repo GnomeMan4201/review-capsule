@@ -3,7 +3,7 @@
 **Tracker:** [Issue #3](https://github.com/GnomeMan4201/review-capsule/issues/3) (ANP2 Network and Arjun Sharma public comment reports).  
 **Base:** frozen Review Record v0.2.2 at `d54432f3e4c67f11ea53c16ebb383c1aec1f9224`.  
 **Scope:** independent exploratory test branch. No v0.2.2 normative files or primitive vectors changed.  
-**Status:** test added for automated execution; results must be read from the corresponding GitHub Actions run, not assumed.
+**Status [demonstrated in GitHub CI]:** [run 41383186659](https://github.com/GnomeMan4201/review-capsule/actions/runs/41383186659) at candidate test commit `707e0c62dc2e42d37922c982fb9667c45b2858d2` reported 123 tests, `OK`, including `test_pre_enrollment_exclusion_invisible_to_round_completeness ... ok`. The exact job log was inspected on 2026-11-01 (US Central; 2026-11-02 UTC). This is synthetic tool behavior only, **not** a confirmed anchored final record or external human audit.
 
 ## Premise, not a retrieved fact
 
