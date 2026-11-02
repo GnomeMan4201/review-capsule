@@ -100,6 +100,22 @@ source reading at d54432f3, not execution. The supplied brief says Claude also
 read the same three source paths; that prior reading is not counted as a test
 or as independently reproduced here. These new executions are separate.
 
-See the concerns branch register and `DESIGN_NOTES.md`. The root README now uses the supplied introductory draft, narrowed to intended
-workflow and supplied-record checks; it does not assert exposure prevention or
-completeness against an uncommitted roster.
+See the concerns branch register and `DESIGN_NOTES.md`. The root README introduction is now isolated in docs-only [PR #8](https://github.com/GnomeMan4201/review-capsule/pull/8), targeting main. It is removed from this experiment's diff. No README introduction is published to main by this experiment.
+
+## Empty-report guard inspection (2026-11-02)
+
+[demonstrated here] At pinned d54432f3, `Report.finish()` has no explicit guard
+requiring a nonempty check set and returns exit 0 for a freshly constructed
+`Report`. The normal `verify_bundle` flow does not immediately finish an empty
+report: its sole early return is the optimized-runtime rejection, which first
+adds `RUNTIME_UNSUPPORTED` as fail. The other return is at the end of the checks.
+The CLI does not catch arbitrary verifier exceptions and convert them to an
+empty report; it returns the result of the verifier. This is source inspection,
+not a guarantee about every interruption or future call site.
+
+Two ad hoc local CLI checks (not additions to either suite): an empty input
+directory returned process/report exit 1 with 17 checks; a missing input path
+returned process/report exit 1 with 18 checks. A direct empty `Report.finish()`
+returned 0. No end-to-end false-success path was demonstrated by these checks.
+[unknown] Universal protection against interrupted execution; no such protection
+is established by the report class. No guard implementation is added here.
