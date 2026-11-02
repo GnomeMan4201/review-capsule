@@ -13,7 +13,8 @@ post, direct messages (summarised, with permission).
 
 | ID | Date | Source | Concern (one line) | Status | Reason / link to change or test | Credit |
 |----|------|--------|--------------------|--------|---------------------------------|--------|
-| (none received yet) | | | | | | |
+| E-1 | 2026-11-01 | [ANP2 Network, public DEV.to comment](https://dev.to/gnomeman4201/can-a-research-review-leave-a-checkable-record-help-me-break-this-35g1) | Pre-enrollment exclusions cannot be detected against an uncommitted reviewer roster; a lock/reveal count is not a set-completeness proof. | unresolved | [Issue #3](https://github.com/GnomeMan4201/review-capsule/issues/3); related to S-6. No signed pre-round roster or independent enrollment evidence in frozen v0.2.2; v0.3 options and synthetic test under examination. | Public handle as shown; credit preference not confirmed |
+| E-2 | 2026-11-01 | [Arjun Sharma, public DEV.to comment](https://dev.to/gnomeman4201/can-a-research-review-leave-a-checkable-record-help-me-break-this-35g1) | Steward may suppress an inconvenient reviewer/assessment while satisfying threshold counts if membership was not previously committed. | unresolved | [Issue #3](https://github.com/GnomeMan4201/review-capsule/issues/3); distinguish omission before enrollment from omission after signed acknowledgement. No claim of independently reproduced attack. | Public name as shown; credit preference not confirmed |
 
 ## Known open items from the author's own audit (not outside input)
 
