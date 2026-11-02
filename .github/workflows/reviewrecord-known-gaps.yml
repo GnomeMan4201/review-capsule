@@ -1,0 +1,25 @@
+name: Review Record known gaps (separate counts)
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  known-gaps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -e ./reviewrecord
+      - name: Four known-gap observations (not part of the baseline passing suite)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s reviewrecord/experiments/external_concerns -p known_gap_tests.py -v 2>&1 | tee known-gap-tests.log
+      - name: Bounded synthetic mutation and fold probe
+        run: python reviewrecord/experiments/external_concerns/meta_probe.py --write reviewrecord/evidence/external-concerns-2026-11-02/meta-probe.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: external-concerns-known-gap-observations
+          path: |
+            known-gap-tests.log
+            reviewrecord/evidence/external-concerns-2026-11-02/*.json

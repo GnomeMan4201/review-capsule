@@ -1,0 +1,9 @@
+test_known_gap_e3_two_consistent_heads_same_registration (known_gap_tests.KnownGapTests.test_known_gap_e3_two_consistent_heads_same_registration) ... ok
+test_known_gap_e4a_complete_with_unresolved_anchors (known_gap_tests.KnownGapTests.test_known_gap_e4a_complete_with_unresolved_anchors) ... ok
+test_known_gap_e4b_steward_allegation_in_pass_bucket (known_gap_tests.KnownGapTests.test_known_gap_e4b_steward_allegation_in_pass_bucket) ... ok
+test_known_gap_e4c_disabled_disposition_check_is_silent (known_gap_tests.KnownGapTests.test_known_gap_e4c_disabled_disposition_check_is_silent) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.374s
+
+OK
