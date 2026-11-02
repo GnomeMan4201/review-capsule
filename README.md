@@ -2,6 +2,8 @@
 
 ## Review Record (draft)
 
+The specification and verifier code are on [draft pull request #2](https://github.com/GnomeMan4201/review-capsule/pull/2) and are not on `main` yet.
+
 Independent researchers rarely have a lab or team to check their work. When I ask people to review an investigation, two things can go wrong: if I tell a reviewer my theory first, I may influence their answer, and afterwards nobody may be able to check how the review was handled, such as whether an answer was changed, dropped or cherry-picked.
 
 Review Record is a draft protocol and offline verifier intended to make the recorded parts of that process checkable. Its intended workflow asks reviewers to lock in their own judgment before assessments are revealed. Anyone with the supplied records can later check whether a published assessment matches its recorded commitment.
