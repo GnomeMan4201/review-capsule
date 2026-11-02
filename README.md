@@ -1,12 +1,4 @@
-# Review Record (draft)
-
-Independent researchers rarely have a lab or team to check their work. When I ask people to review an investigation, two things can go wrong: if I tell a reviewer my theory first, I may influence their answer, and afterwards nobody may be able to check how the review was handled, such as whether an answer was changed, dropped or cherry-picked.
-
-Review Record is a draft protocol and offline verifier intended to make the recorded parts of that process checkable. Its intended workflow asks reviewers to lock in their own judgment before assessments are revealed. Anyone with the supplied records can later check whether a published assessment matches its recorded commitment.
-
-It does not show that reviewers were independent, that blinding worked, or that the research is correct. It cannot establish that nobody saw an assessment early, or that an intended reviewer was included when the roster was never committed. It is an unfinished draft with no outside cryptographic review. Known gaps are tracked in [REVIEWRECORD_CONCERNS.md](https://github.com/GnomeMan4201/review-capsule/blob/concerns/reviewrecord-disposition-list/REVIEWRECORD_CONCERNS.md).
-
-## Review Capsule — separate hosted prototype
+# Review Capsule
 
 A small research-review workflow that separates the evidence a reviewer needs from the answers they should not see yet.
 
