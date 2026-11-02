@@ -22,7 +22,7 @@ python reviewrecord/experiments/external_concerns/meta_probe.py --help
 python reviewrecord/experiments/external_concerns/meta_probe.py --write reviewrecord/evidence/external-concerns-2026-11-02/meta-probe.json
 ```
 
-The four unittest observations write synthetic reports under
+The five unittest observations write synthetic reports under
 `reviewrecord/evidence/external-concerns-2026-11-02/`. The meta-probe writes only
 when `--write` is supplied; otherwise it prints JSON. Its exit 0 means the
 experiment completed, not that the protocol passed. The dedicated Actions
@@ -31,14 +31,15 @@ workflow uploads reports and logs; the existing baseline workflow is unchanged.
 ## Results from this session
 
 [demonstrated here] Local Python 3.12.14: **122 existing tests OK**;
-separately **4 known-gap observations reproduced**. Do not call this a
-126-test assurance suite. Raw output is retained alongside the JSON reports.
+separately **5 known-gap observations reproduced**. Do not call this a
+127-test assurance suite. Raw output is retained alongside the JSON reports.
 
 | Known-gap observation | Result | Limits |
 |---|---|---|
 | E-4a | `round_status=complete`, exit 2; three pending OTS and three offline-unverifiable TSA descriptors. CLI also returned 2. | Count thresholds only; this behavior follows frozen spec section 4.3. |
 | E-4b | `WITHDRAWAL_STEWARD_ATTESTED` has status `pass`, and the detail says reviewer consent is not established. | The steward signature is checked; the allegation itself is not reviewer consent. |
 | E-4c | Three retained concerns and zero dispositions under a properly rebound/signed `disposition_required=false` policy; no disposition-check line. Strict-policy control reports three `DISPOSITION_MISSING` rows and exit 1. | False is accepted by the schema; the frozen Round-1 profile requires true. This is silent policy weakening/reporting, not a demonstrated signature bypass. |
+| Report aggregation (not an external concern or end-to-end bypass) | Empty `Report.finish()` and a report with only one unrelated synthetic passing row both return exit 0. | No nonempty or expected-structural-check guard in the report class; no verifier bypass demonstrated. |
 | E-3 | Two different steward-signed log/close heads for the exact same registration. Full log has three commitments, alternate omits reviewer C and has two. Both are threshold-complete, zero fail/missing, exit 2. | Real offline checks do **not** accept either as an overall pass. Synthetic anchors are unresolved. No live split audience or real timestamp uniqueness test. |
 
 E-3 exit 2 is **not fork detection**. It is caused by unresolved anchors. With
@@ -119,3 +120,17 @@ returned process/report exit 1 with 18 checks. A direct empty `Report.finish()`
 returned 0. No end-to-end false-success path was demonstrated by these checks.
 [unknown] Universal protection against interrupted execution; no such protection
 is established by the report class. No guard implementation is added here.
+
+### Fifth known-gap observation (2026-11-02)
+
+[demonstrated here] `test_known_gap_report_can_exit_zero_without_structural_checks`
+now retains two report-class cases in `empty-report.json`: no checks, and one
+unrelated synthetic passing row. Both return exit 0 with `round_status=incomplete`.
+This is one separately counted known-gap test with two subcases. Local rerun:
+**5 known-gap observations reproduced**. The existing suite remains separate at
+122 tests from the retained baseline run; it was not rerun for this report-class
+test addition. No guard is implemented and no expected structural-check set is
+selected. A future guard must define required check coverage, rather than merely
+require one arbitrary passing row. Whether any normal verifier path can return
+an empty/insufficient report as exit 0 remains [unknown]. This test does not
+establish an end-to-end false-success path.

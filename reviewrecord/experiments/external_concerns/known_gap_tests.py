@@ -11,11 +11,27 @@ from pathlib import Path
 from fixtures import create, rebuild, refresh_manifest, pub, rid
 from rr.verify import verify_bundle
 from rr import dsse
+from rr.report import Report
 
 OUTPUT = Path(__file__).resolve().parents[2] / 'evidence/external-concerns-2026-11-02'
 
 
 class KnownGapTests(unittest.TestCase):
+    def test_known_gap_report_can_exit_zero_without_structural_checks(self):
+        observations = []
+        for label, add_unrelated_row in [('empty', False), ('unrelated-pass-only', True)]:
+            with self.subTest(case=label):
+                report = Report()
+                if add_unrelated_row:
+                    report.add('SYNTHETIC_UNRELATED_CHECK', 'pass')
+                result = report.finish()
+                self.assertEqual(result['exit_code'], 0)
+                self.assertEqual(result['round_status'], 'incomplete')
+                self.assertEqual(len(result['checks']), int(add_unrelated_row))
+                observations.append(dict(case=label, report=result))
+        OUTPUT.mkdir(parents=True, exist_ok=True)
+        (OUTPUT / 'empty-report.json').write_text(json.dumps(observations, indent=2) + '\n')
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
