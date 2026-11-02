@@ -41,6 +41,10 @@ separately **4 known-gap observations reproduced**. Do not call this a
 | E-4c | Three retained concerns and zero dispositions under a properly rebound/signed `disposition_required=false` policy; no disposition-check line. Strict-policy control reports three `DISPOSITION_MISSING` rows and exit 1. | False is accepted by the schema; the frozen Round-1 profile requires true. This is silent policy weakening/reporting, not a demonstrated signature bypass. |
 | E-3 | Two different steward-signed log/close heads for the exact same registration. Full log has three commitments, alternate omits reviewer C and has two. Both are threshold-complete, zero fail/missing, exit 2. | Real offline checks do **not** accept either as an overall pass. Synthetic anchors are unresolved. No live split audience or real timestamp uniqueness test. |
 
+E-3 exit 2 is **not fork detection**. It is caused by unresolved anchors. With
+explicitly mocked qualified anchors, both the full control and the omitted-C
+variant return exit 0; no fork-detection property has been demonstrated.
+
 ## Meta-test feasibility and findings
 
 [demonstrated here] The bounded probe has an actual nonzero offline control
@@ -49,18 +53,28 @@ uses a mocked anchor inspector plus expected signing keys and a supplied
 synthetic registry snapshot. The mock rejects changed/missing proof bytes; it
 does not qualify any external evidence. There is no real all-pass control here.
 
-- **64 status subsets:** `Report.finish()` follows the present 0/1/2 fold for all
-  combinations of its six supported statuses. An empty `Report` yields exit 0.
+- **64 status subsets (not bundle scenarios):** `Report.finish()` follows the present 0/1/2 fold for all
+  subsets of `pass`, `fail`, `missing`, `pending`, `unverifiable` and `not_checked`.
+  Each included status contributes one synthetic report row; 2^6 = 64 includes
+  the empty subset. This checks aggregation logic, not evidence or semantics.
+  An empty `Report` yields exit 0.
   That is a report-class observation; reachability of an empty report from
   `verify_bundle` is **[unknown]**. It is not a new end-to-end bypass finding.
-- **84 file mutations:** one removal and one first-byte corruption of each of
-  42 fixture files, without repairing the manifest. Every mutation produced
-  nonzero exit; no survivors. Many fail on inventory/hash checks, so this does
-  not establish that every semantic predicate detects its own missing evidence.
+- **84 file mutations, baseline 0 -> exit 1 in every case:** one removal and one first-byte corruption of each of
+  42 fixture files, without repairing the manifest. All used the simulated
+  all-pass control (exit 0), not the separate offline control (exit 2). Every
+  mutation returned exactly exit 1; each JSON case retains its path, operation,
+  exit, status counts and non-pass codes. The runner now asserts exit 1 for every
+  mutation. No survivors. For anchor proof files, the test double itself rejects byte changes; this
+  is not real anchor tamper validation. Other mutations can fail on inventory/hash
+  checks, so this does not establish that every semantic predicate detects its own missing evidence.
 - **Three rebuilt semantic controls:** omission of C, steward-attested withdrawal,
   and disabled dispositions each return exit 0 with simulated anchors. Their
   manifests, signatures, log links, roots and proofs are rebuilt consistently.
   This separates statement semantics and absent requirements from damaged bytes.
+  These are top-level exit-0 logic observations under mocks, not real rounds.
+  Withdrawal and false-policy variants are permitted by current semantics; the
+  issue is their scope and reporting, not a demonstrated signature bypass.
 - **68 statically discovered literal codes:** inventoried with source locations,
   including dynamic anchor mapping literals and envelope error literals. This
   is not an exhaustive reachability proof, nor 68 evidence mutation tests.
@@ -86,5 +100,6 @@ source reading at d54432f3, not execution. The supplied brief says Claude also
 read the same three source paths; that prior reading is not counted as a test
 or as independently reproduced here. These new executions are separate.
 
-See the concerns branch register and `DESIGN_NOTES.md`. No README intro has
-been invented: the author's separately supplied exact wording is still pending.
+See the concerns branch register and `DESIGN_NOTES.md`. The root README now uses the supplied introductory draft, narrowed to intended
+workflow and supplied-record checks; it does not assert exposure prevention or
+completeness against an uncommitted roster.

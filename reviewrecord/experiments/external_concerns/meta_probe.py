@@ -96,7 +96,8 @@ def run():
                         raw = path.read_bytes()
                         path.write_bytes(b'!' + raw[1:])
                     result = verify(trial, meta)
-                    mutations.append(dict(path=relative.as_posix(), operation=operation, exit_code=result['exit_code'],
+                    assert result['exit_code'] == 1, (relative.as_posix(), operation, result['summary'])
+                    mutations.append(dict(path=relative.as_posix(), operation=operation, exit_code=result['exit_code'], counts=result['counts'],
                                           nonpass_codes=sorted({x['code'] for x in result['checks'] if x['status'] != 'pass'})))
                     shutil.rmtree(trial)
         semantic = []
@@ -119,6 +120,10 @@ def run():
         return dict(label='demonstrated here: bounded synthetic experiment, not exhaustive per-code coverage',
                     base_commit='d54432f3e4c67f11ea53c16ebb383c1aec1f9224',
                     offline_control_exit=offline_control['exit_code'], simulated_control_exit=control['exit_code'],
+                    mutation_control_exit=control['exit_code'], mutation_expected_exit=1,
+                    mutation_exit_counts={str(code): sum(x['exit_code'] == code for x in mutations) for code in (0, 1, 2)},
+                    mutation_anchor_validation='test double checks expected proof bytes; no real anchor parsing/qualification tested by this sweep',
+                    fold_statuses=list(statuses), fold_interpretation='all 64 subsets of the six statuses, including empty; one synthetic row per included status; not bundle scenarios',
                     caveat='All-pass controls use mocked anchor validation and a supplied synthetic registry snapshot. No real fully qualified all-pass bundle demonstrated.',
                     fold_cases=folds, empty_report_exit=folds[0]['exit_code'],
                     static_literal_code_inventory=code_inventory(),

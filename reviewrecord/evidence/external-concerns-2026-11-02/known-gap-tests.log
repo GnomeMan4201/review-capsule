@@ -4,6 +4,6 @@ test_known_gap_e4b_steward_allegation_in_pass_bucket (known_gap_tests.KnownGapTe
 test_known_gap_e4c_disabled_disposition_check_is_silent (known_gap_tests.KnownGapTests.test_known_gap_e4c_disabled_disposition_check_is_silent) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 0.374s
+Ran 4 tests in 0.301s
 
 OK
