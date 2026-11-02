@@ -1,0 +1,53 @@
+[
+  {
+    "case": "empty",
+    "report": {
+      "spec": "0.2.2",
+      "checks": [],
+      "declarations": [],
+      "reviewers": [],
+      "anchors": [],
+      "registry_coverage": [],
+      "round_status": "incomplete",
+      "counts": {
+        "pass": 0,
+        "fail": 0,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "exit_code": 0,
+      "summary": "Integrity checks: 0 pass, 0 fail, 0 missing, 0 pending, 0 unverifiable, 0 not checked"
+    }
+  },
+  {
+    "case": "unrelated-pass-only",
+    "report": {
+      "spec": "0.2.2",
+      "checks": [
+        {
+          "code": "SYNTHETIC_UNRELATED_CHECK",
+          "status": "pass",
+          "subject": "",
+          "detail": "Check matched."
+        }
+      ],
+      "declarations": [],
+      "reviewers": [],
+      "anchors": [],
+      "registry_coverage": [],
+      "round_status": "incomplete",
+      "counts": {
+        "pass": 1,
+        "fail": 0,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "exit_code": 0,
+      "summary": "Integrity checks: 1 pass, 0 fail, 0 missing, 0 pending, 0 unverifiable, 0 not checked"
+    }
+  }
+]

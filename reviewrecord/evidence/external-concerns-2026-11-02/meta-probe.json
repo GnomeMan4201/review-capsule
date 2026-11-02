@@ -1,0 +1,2442 @@
+{
+  "label": "demonstrated here: bounded synthetic experiment, not exhaustive per-code coverage",
+  "base_commit": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224",
+  "offline_control_exit": 2,
+  "simulated_control_exit": 0,
+  "mutation_control_exit": 0,
+  "mutation_expected_exit": 1,
+  "mutation_exit_counts": {
+    "0": 0,
+    "1": 84,
+    "2": 0
+  },
+  "mutation_anchor_validation": "test double checks expected proof bytes; no real anchor parsing/qualification tested by this sweep",
+  "fold_statuses": [
+    "pass",
+    "fail",
+    "missing",
+    "pending",
+    "unverifiable",
+    "not_checked"
+  ],
+  "fold_interpretation": "all 64 subsets of the six statuses, including empty; one synthetic row per included status; not bundle scenarios",
+  "caveat": "All-pass controls use mocked anchor validation and a supplied synthetic registry snapshot. No real fully qualified all-pass bundle demonstrated.",
+  "fold_cases": [
+    {
+      "statuses": [],
+      "exit_code": 0
+    },
+    {
+      "statuses": [
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "unverifiable"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pending"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "missing"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "missing",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "missing",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "missing",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "missing",
+        "pending"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "missing",
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "missing",
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "missing",
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "pending"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing",
+        "pending"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing",
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing",
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "fail",
+        "missing",
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass"
+      ],
+      "exit_code": 0
+    },
+    {
+      "statuses": [
+        "pass",
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pass",
+        "unverifiable"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pass",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pass",
+        "pending"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pass",
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pass",
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pass",
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 2
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing",
+        "pending"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing",
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing",
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "missing",
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "pending"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing",
+        "pending"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing",
+        "pending",
+        "not_checked"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing",
+        "pending",
+        "unverifiable"
+      ],
+      "exit_code": 1
+    },
+    {
+      "statuses": [
+        "pass",
+        "fail",
+        "missing",
+        "pending",
+        "unverifiable",
+        "not_checked"
+      ],
+      "exit_code": 1
+    }
+  ],
+  "empty_report_exit": 0,
+  "static_literal_code_inventory": {
+    "ENVELOPE_NONCANONICAL": [
+      "src/rr/dsse.py:34"
+    ],
+    "CANON_INVALID": [
+      "src/rr/dsse.py:33",
+      "src/rr/dsse.py:48",
+      "src/rr/verify.py:89",
+      "src/rr/verify.py:177"
+    ],
+    "ENVELOPE_MALFORMED": [
+      "src/rr/dsse.py:49"
+    ],
+    "LIMITS_MISSING_OR_ALTERED": [
+      "src/rr/verify.py:129",
+      "src/rr/verify.py:130"
+    ],
+    "RUNTIME_UNSUPPORTED": [
+      "src/rr/verify.py:81"
+    ],
+    "MANIFEST_MISSING": [
+      "src/rr/verify.py:96"
+    ],
+    "REGISTRATION_MISSING": [
+      "src/rr/verify.py:111"
+    ],
+    "OPERATOR_DISCLOSURE": [
+      "src/rr/verify.py:127"
+    ],
+    "OBJECT_LOCATION_MISMATCH": [
+      "src/rr/verify.py:135"
+    ],
+    "SIGNATURE_INVALID": [
+      "src/rr/verify.py:150"
+    ],
+    "WITHHELD_MISSING": [
+      "src/rr/verify.py:193"
+    ],
+    "LOG_CHAIN_BROKEN": [
+      "src/rr/verify.py:209",
+      "src/rr/verify.py:205"
+    ],
+    "CLOSE_MISSING": [
+      "src/rr/verify.py:232"
+    ],
+    "TREE_HEAD_MISMATCH": [
+      "src/rr/verify.py:236"
+    ],
+    "COMMIT_NOT_IN_TREE": [
+      "src/rr/verify.py:245",
+      "src/rr/verify.py:218"
+    ],
+    "INCLUSION_PROOF_INVALID": [
+      "src/rr/verify.py:264"
+    ],
+    "LOCKS_BELOW_MINIMUM": [
+      "src/rr/verify.py:281"
+    ],
+    "REVEALS_BELOW_MINIMUM": [
+      "src/rr/verify.py:282"
+    ],
+    "COUNTING_NOT_CHECKED": [
+      "src/rr/verify.py:284"
+    ],
+    "ANCHOR_ORDER_NOT_CHECKED": [
+      "src/rr/verify.py:370",
+      "src/rr/verify.py:367"
+    ],
+    "ANCHOR_TARGET_NOT_CHECKED": [
+      "src/rr/verify.py:371"
+    ],
+    "REGISTRY_NOT_CHECKED": [
+      "src/rr/verify.py:372",
+      "src/rr/verify.py:380"
+    ],
+    "BUNDLE_UNREADABLE": [
+      "src/rr/verify.py:75",
+      "src/rr/verify.py:41",
+      "src/rr/verify.py:72"
+    ],
+    "HASH_MISMATCH": [
+      "src/rr/verify.py:104",
+      "src/rr/verify.py:108",
+      "src/rr/verify.py:106",
+      "src/rr/verify.py:176"
+    ],
+    "ROLE_KEY_REUSED": [
+      "src/rr/verify.py:117",
+      "src/rr/verify.py:163"
+    ],
+    "REGISTRATION_MALFORMED": [
+      "src/rr/verify.py:123"
+    ],
+    "EXPECTED_KEY_NOT_SUPPLIED": [
+      "src/rr/verify.py:125"
+    ],
+    "KEY_MISMATCH": [
+      "src/rr/verify.py:126",
+      "src/rr/verify.py:170"
+    ],
+    "REGISTRATION_BINDING_MISMATCH": [
+      "src/rr/verify.py:153"
+    ],
+    "DOCUMENT_MISSING": [
+      "src/rr/verify.py:174"
+    ],
+    "POLICY_MALFORMED": [
+      "src/rr/verify.py:183"
+    ],
+    "PACKET_MALFORMED": [
+      "src/rr/verify.py:192"
+    ],
+    "WITHHELD_COMMITMENT_MISMATCH": [
+      "src/rr/verify.py:198",
+      "src/rr/verify.py:199"
+    ],
+    "ACK_MISSING": [
+      "src/rr/verify.py:212",
+      "src/rr/verify.py:229",
+      "src/rr/verify.py:219"
+    ],
+    "WITHDRAWAL_MISMATCH": [
+      "src/rr/verify.py:237",
+      "src/rr/verify.py:238"
+    ],
+    "REVEAL_MISSING": [
+      "src/rr/verify.py:271"
+    ],
+    "DISPOSITION_NO_REASON": [
+      "src/rr/verify.py:295"
+    ],
+    "DISPOSITION_MALFORMED": [
+      "src/rr/verify.py:296",
+      "src/rr/verify.py:297"
+    ],
+    "ANCHOR_MISSING": [
+      "src/rr/verify.py:335",
+      "src/rr/verify.py:331"
+    ],
+    "ANCHOR_GATE_UNCONFIRMED": [
+      "src/rr/verify.py:340"
+    ],
+    "MANIFEST_MALFORMED": [
+      "src/rr/verify.py:109"
+    ],
+    "OBJECT_MALFORMED": [
+      "src/rr/verify.py:145"
+    ],
+    "RID_MISMATCH": [
+      "src/rr/verify.py:159"
+    ],
+    "PATH_HASH_MISMATCH": [
+      "src/rr/verify.py:160"
+    ],
+    "ASSESSMENT_MALFORMED": [
+      "src/rr/verify.py:257"
+    ],
+    "WITHDRAWAL_STEWARD_ATTESTED": [
+      "src/rr/verify.py:275"
+    ],
+    "WITHDRAWN": [
+      "src/rr/verify.py:278"
+    ],
+    "DISPOSITION_UNKNOWN_CONCERN": [
+      "src/rr/verify.py:292"
+    ],
+    "DUPLICATE_DISPOSITION": [
+      "src/rr/verify.py:293"
+    ],
+    "DISPOSITION_MISSING": [
+      "src/rr/verify.py:300"
+    ],
+    "GIT_PUBLICATION_TIME_IGNORED": [
+      "src/rr/verify.py:312"
+    ],
+    "OPTIONAL_ANCHOR": [
+      "src/rr/verify.py:313"
+    ],
+    "ANCHOR_INVALID": [
+      "src/rr/verify.py:314",
+      "src/rr/verify.py:316",
+      "src/rr/verify.py:331"
+    ],
+    "ANCHOR_CONFIRMED": [
+      "src/rr/verify.py:331"
+    ],
+    "ANCHOR_PENDING": [
+      "src/rr/verify.py:331"
+    ],
+    "ANCHOR_UNVERIFIABLE_OFFLINE": [
+      "src/rr/verify.py:331"
+    ],
+    "ANCHOR_AUTHORITY_NOT_CHECKED": [
+      "src/rr/verify.py:342"
+    ],
+    "ANCHOR_ORDER_ATTESTED": [
+      "src/rr/verify.py:361"
+    ],
+    "ANCHOR_ORDER_INCONSISTENT": [
+      "src/rr/verify.py:364"
+    ],
+    "PRIOR_ROUND_UNLISTED": [
+      "src/rr/verify.py:378"
+    ],
+    "REGISTRY_MALFORMED": [
+      "src/rr/verify.py:379"
+    ],
+    "BUNDLE_PATH_INVALID": [
+      "src/rr/verify.py:25",
+      "src/rr/verify.py:30",
+      "src/rr/verify.py:49"
+    ],
+    "BUNDLE_LIMIT_EXCEEDED": [
+      "src/rr/verify.py:32",
+      "src/rr/verify.py:35",
+      "src/rr/verify.py:39",
+      "src/rr/verify.py:51",
+      "src/rr/verify.py:54",
+      "src/rr/verify.py:57",
+      "src/rr/verify.py:67"
+    ],
+    "DECLARATION_MALFORMED": [
+      "src/rr/verify.py:168"
+    ],
+    "COMMITMENT_REUSED_ACROSS_KEYS": [
+      "src/rr/verify.py:222"
+    ],
+    "DUPLICATE_COMMIT": [
+      "src/rr/verify.py:226"
+    ],
+    "ANCHOR_NOT_INDEPENDENT": [
+      "src/rr/verify.py:346"
+    ],
+    "ANCHOR_AUTHORITY_CONFIRMED": [
+      "src/rr/verify.py:348"
+    ]
+  },
+  "mutation_cases": [
+    {
+      "path": "anchors/close-ots.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 0,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING"
+      ]
+    },
+    {
+      "path": "anchors/close-ots.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING",
+        "CANON_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/close-tsa.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 0,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING"
+      ]
+    },
+    {
+      "path": "anchors/close-tsa.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING",
+        "CANON_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/close.ots",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/close.ots",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/close.tsr",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/close.tsr",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/record-ots.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 0,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING"
+      ]
+    },
+    {
+      "path": "anchors/record-ots.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING",
+        "CANON_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/record-tsa.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 0,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING"
+      ]
+    },
+    {
+      "path": "anchors/record-tsa.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING",
+        "CANON_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/record.ots",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/record.ots",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/record.tsr",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/record.tsr",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/registration-ots.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 0,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING"
+      ]
+    },
+    {
+      "path": "anchors/registration-ots.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING",
+        "CANON_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/registration-tsa.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 0,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING"
+      ]
+    },
+    {
+      "path": "anchors/registration-tsa.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 1,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_MISSING",
+        "CANON_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/registration.ots",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/registration.ots",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/registration.tsr",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "anchors/registration.tsr",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 1,
+        "missing": 0,
+        "pending": 1,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_INVALID"
+      ]
+    },
+    {
+      "path": "assessments/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "assessments/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 161,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "assessments/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "assessments/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 161,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "assessments/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "assessments/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 161,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "close.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 158,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 2
+      },
+      "nonpass_codes": [
+        "ANCHOR_ORDER_NOT_CHECKED",
+        "ANCHOR_TARGET_NOT_CHECKED",
+        "CLOSE_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "close.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 159,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 2
+      },
+      "nonpass_codes": [
+        "ANCHOR_ORDER_NOT_CHECKED",
+        "ANCHOR_TARGET_NOT_CHECKED",
+        "CANON_INVALID",
+        "CLOSE_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "commits/r-7e2950f92c84e31f/ff3d213ca1e7bb5dc9f98884f20373d7a3676ac15e9a411ca0a829b9b2c078d6.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 155,
+        "fail": 12,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "commits/r-7e2950f92c84e31f/ff3d213ca1e7bb5dc9f98884f20373d7a3676ac15e9a411ca0a829b9b2c078d6.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 156,
+        "fail": 12,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "commits/r-a63875cfef0c7033/c20d793f1528d15445f0a5a0a6a4ef9af580e5add59b60bbd408823577e28dae.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 155,
+        "fail": 12,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "commits/r-a63875cfef0c7033/c20d793f1528d15445f0a5a0a6a4ef9af580e5add59b60bbd408823577e28dae.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 156,
+        "fail": 12,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "commits/r-a8fbbd3bce633fb9/5e23c8e409d0ad80679d567e1ac58575be0dafa3e3575e5bd8d335ae04446292.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 154,
+        "fail": 12,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "commits/r-a8fbbd3bce633fb9/5e23c8e409d0ad80679d567e1ac58575be0dafa3e3575e5bd8d335ae04446292.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 155,
+        "fail": 12,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "declarations/r-7e2950f92c84e31f/4529aca6a6ba2499be80967b352d3ad66985d95e9050d8c2091976c212d7a03f.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "declarations/r-7e2950f92c84e31f/4529aca6a6ba2499be80967b352d3ad66985d95e9050d8c2091976c212d7a03f.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 161,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "declarations/r-a63875cfef0c7033/0835233403d7d10ba0b3e08eeb7d24653ccfb0f2c4f51f7ac2c417f923dda1fe.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "declarations/r-a63875cfef0c7033/0835233403d7d10ba0b3e08eeb7d24653ccfb0f2c4f51f7ac2c417f923dda1fe.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 161,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "declarations/r-a8fbbd3bce633fb9/afbd717f83169630dd5b8e2ab524ce15d28c296962c2af7d4c937b97ea018db3.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "declarations/r-a8fbbd3bce633fb9/afbd717f83169630dd5b8e2ab524ce15d28c296962c2af7d4c937b97ea018db3.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 161,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "dispositions/1.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 162,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "dispositions/1.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 163,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "dispositions/2.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 162,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "dispositions/2.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 163,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "dispositions/3.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 162,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "dispositions/3.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 163,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_MISSING",
+        "HASH_MISMATCH"
+      ]
+    },
+    {
+      "path": "limits.txt",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 166,
+        "fail": 3,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "HASH_MISMATCH",
+        "LIMITS_MISSING_OR_ALTERED"
+      ]
+    },
+    {
+      "path": "limits.txt",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 2,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "HASH_MISMATCH",
+        "LIMITS_MISSING_OR_ALTERED"
+      ]
+    },
+    {
+      "path": "log/1.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 155,
+        "fail": 11,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH",
+        "LOG_CHAIN_BROKEN",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/1.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 156,
+        "fail": 11,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH",
+        "LOG_CHAIN_BROKEN",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/2.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 150,
+        "fail": 17,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "LOG_CHAIN_BROKEN",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/2.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 151,
+        "fail": 17,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "LOG_CHAIN_BROKEN",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/3.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 157,
+        "fail": 9,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH",
+        "LOG_CHAIN_BROKEN",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/3.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 158,
+        "fail": 9,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH",
+        "LOG_CHAIN_BROKEN",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/4.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 153,
+        "fail": 15,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "LOG_CHAIN_BROKEN",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/4.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 154,
+        "fail": 15,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "LOG_CHAIN_BROKEN",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/5.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 159,
+        "fail": 7,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH",
+        "LOG_CHAIN_BROKEN",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/5.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 7,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH",
+        "LOG_CHAIN_BROKEN",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/6.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 155,
+        "fail": 13,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "LOG_CHAIN_BROKEN",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/6.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 156,
+        "fail": 13,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "COMMIT_NOT_IN_TREE",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "LOG_CHAIN_BROKEN",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING",
+        "TREE_HEAD_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/7.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 159,
+        "fail": 5,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH",
+        "TREE_HEAD_MISMATCH",
+        "WITHDRAWAL_MISMATCH"
+      ]
+    },
+    {
+      "path": "log/7.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 5,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH",
+        "TREE_HEAD_MISMATCH",
+        "WITHDRAWAL_MISMATCH"
+      ]
+    },
+    {
+      "path": "manifest.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 135,
+        "fail": 0,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 1
+      },
+      "nonpass_codes": [
+        "ANCHOR_TARGET_NOT_CHECKED",
+        "MANIFEST_MISSING"
+      ]
+    },
+    {
+      "path": "manifest.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 135,
+        "fail": 1,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 1
+      },
+      "nonpass_codes": [
+        "ANCHOR_TARGET_NOT_CHECKED",
+        "CANON_INVALID",
+        "MANIFEST_MISSING"
+      ]
+    },
+    {
+      "path": "packet.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 165,
+        "fail": 10,
+        "missing": 4,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ASSESSMENT_MALFORMED",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "DOCUMENT_MISSING",
+        "HASH_MISMATCH",
+        "PACKET_MALFORMED",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "packet.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 166,
+        "fail": 10,
+        "missing": 4,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ASSESSMENT_MALFORMED",
+        "CANON_INVALID",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "DOCUMENT_MISSING",
+        "HASH_MISMATCH",
+        "PACKET_MALFORMED",
+        "REVEALS_BELOW_MINIMUM",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "policy.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 164,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 1
+      },
+      "nonpass_codes": [
+        "COUNTING_NOT_CHECKED",
+        "DOCUMENT_MISSING",
+        "HASH_MISMATCH",
+        "POLICY_MALFORMED"
+      ]
+    },
+    {
+      "path": "policy.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 165,
+        "fail": 3,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 1
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "COUNTING_NOT_CHECKED",
+        "DOCUMENT_MISSING",
+        "HASH_MISMATCH",
+        "POLICY_MALFORMED"
+      ]
+    },
+    {
+      "path": "proofs/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 166,
+        "fail": 4,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "proofs/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 4,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "proofs/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 166,
+        "fail": 4,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "proofs/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 4,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "proofs/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 166,
+        "fail": 4,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "proofs/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 4,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "HASH_MISMATCH",
+        "INCLUSION_PROOF_INVALID",
+        "REVEAL_MISSING"
+      ]
+    },
+    {
+      "path": "registration.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 86,
+        "fail": 44,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 3
+      },
+      "nonpass_codes": [
+        "ANCHOR_ORDER_NOT_CHECKED",
+        "ANCHOR_TARGET_NOT_CHECKED",
+        "CLOSE_MISSING",
+        "HASH_MISMATCH",
+        "KEY_MISMATCH",
+        "LIMITS_MISSING_OR_ALTERED",
+        "LOCKS_BELOW_MINIMUM",
+        "REGISTRATION_BINDING_MISMATCH",
+        "REGISTRATION_MALFORMED",
+        "REGISTRATION_MISSING",
+        "REGISTRY_NOT_CHECKED",
+        "REVEALS_BELOW_MINIMUM",
+        "SIGNATURE_INVALID",
+        "WITHHELD_COMMITMENT_MISMATCH"
+      ]
+    },
+    {
+      "path": "registration.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 87,
+        "fail": 44,
+        "missing": 2,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 3
+      },
+      "nonpass_codes": [
+        "ANCHOR_ORDER_NOT_CHECKED",
+        "ANCHOR_TARGET_NOT_CHECKED",
+        "CANON_INVALID",
+        "CLOSE_MISSING",
+        "HASH_MISMATCH",
+        "KEY_MISMATCH",
+        "LIMITS_MISSING_OR_ALTERED",
+        "LOCKS_BELOW_MINIMUM",
+        "REGISTRATION_BINDING_MISMATCH",
+        "REGISTRATION_MALFORMED",
+        "REGISTRATION_MISSING",
+        "REGISTRY_NOT_CHECKED",
+        "REVEALS_BELOW_MINIMUM",
+        "SIGNATURE_INVALID",
+        "WITHHELD_COMMITMENT_MISMATCH"
+      ]
+    },
+    {
+      "path": "withdrawals/r-a8fbbd3bce633fb9/928bae29a797a95ad60bee5d21b1aa7b4399de16ac80ef54c3f5c1b4b836cf33.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 159,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "HASH_MISMATCH",
+        "WITHDRAWAL_MISMATCH"
+      ]
+    },
+    {
+      "path": "withdrawals/r-a8fbbd3bce633fb9/928bae29a797a95ad60bee5d21b1aa7b4399de16ac80ef54c3f5c1b4b836cf33.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 160,
+        "fail": 4,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "ACK_MISSING",
+        "CANON_INVALID",
+        "HASH_MISMATCH",
+        "WITHDRAWAL_MISMATCH"
+      ]
+    },
+    {
+      "path": "withheld.json",
+      "operation": "remove",
+      "exit_code": 1,
+      "counts": {
+        "pass": 166,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "HASH_MISMATCH",
+        "WITHHELD_MISSING"
+      ]
+    },
+    {
+      "path": "withheld.json",
+      "operation": "corrupt",
+      "exit_code": 1,
+      "counts": {
+        "pass": 167,
+        "fail": 2,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "CANON_INVALID",
+        "HASH_MISMATCH",
+        "WITHHELD_MISSING"
+      ]
+    }
+  ],
+  "mutation_survivors": [],
+  "semantic_cases": [
+    {
+      "name": "omitted-reviewer-c",
+      "exit_code": 0,
+      "round_status": "complete",
+      "locked_count": 2,
+      "counts": {
+        "pass": 129,
+        "fail": 0,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      }
+    },
+    {
+      "name": "steward-attested-withdrawal",
+      "exit_code": 0,
+      "round_status": "complete",
+      "locked_count": 3,
+      "counts": {
+        "pass": 169,
+        "fail": 0,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      }
+    },
+    {
+      "name": "disabled-dispositions-with-three-concerns",
+      "exit_code": 0,
+      "round_status": "complete",
+      "locked_count": 3,
+      "counts": {
+        "pass": 151,
+        "fail": 0,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      }
+    }
+  ],
+  "exhaustive_per_code_coverage": "unknown; no evidence-to-code reachability/requirement map exists; diagnostic and absent-set cases cannot be generated by mutating an emitted row alone"
+}
