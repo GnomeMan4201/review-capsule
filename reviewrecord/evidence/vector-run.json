@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "command": [
+        "python",
+        "tools/vector_reference.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"canonical_cases\": 26, \"merkle_sizes\": 8, \"inclusion_proofs\": 30, \"pae_cases\": 3, \"status\": \"draft vectors match generated results\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "tools/vector_crosscheck.mjs"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"canonical_cases\":26,\"merkle_sizes\":8,\"inclusion_proofs\":30,\"rejected_mutations\":90,\"pae_cases\":3,\"status\":\"cross-language draft vectors match\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "tools/rfc8032_vectors.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"rfc8032_cases\": 3, \"published_signatures_match\": 3, \"altered_signatures_rejected\": 3}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "tools/rfc8032_crosscheck.mjs"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"rfc8032_cases\":3,\"published_signatures_match\":3,\"altered_signatures_rejected\":3}\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+test_01_pre_signing_exchange_is_not_a_factual_verdict (test_kill.KillTests.test_01_pre_signing_exchange_is_not_a_factual_verdict) ... ok
+test_02_substituted_assessment_does_not_pass (test_kill.KillTests.test_02_substituted_assessment_does_not_pass) ... ok
+test_03_missing_reveal_stays_listed (test_kill.KillTests.test_03_missing_reveal_stays_listed) ... ok
+test_04_removing_required_anchor_does_not_pass (test_kill.KillTests.test_04_removing_required_anchor_does_not_pass) ... ok
+test_05_git_clock_has_no_weight (test_kill.KillTests.test_05_git_clock_has_no_weight) ... ok
+test_06_registry_detects_omitted_prior_round (test_kill.KillTests.test_06_registry_detects_omitted_prior_round) ... ok
+test_altered_limits (test_verifier.BundleTests.test_altered_limits) ... ok
+test_bad_inclusion (test_verifier.BundleTests.test_bad_inclusion) ... ok
+test_baseline_is_unresolved_not_success (test_verifier.BundleTests.test_baseline_is_unresolved_not_success) ... ok
+test_cli_writes_report_and_returns_two (test_verifier.BundleTests.test_cli_writes_report_and_returns_two) ... ok
+test_duplicate_commit_retained_without_extra_lock (test_verifier.BundleTests.test_duplicate_commit_retained_without_extra_lock) ... ok
+test_empty_disposition (test_verifier.BundleTests.test_empty_disposition) ... ok
+test_example_report_matches (test_verifier.BundleTests.test_example_report_matches) ... ok
+test_extra_signature (test_verifier.BundleTests.test_extra_signature) ... ok
+test_float_in_payload (test_verifier.BundleTests.test_float_in_payload) ... ok
+test_foreign_registration (test_verifier.BundleTests.test_foreign_registration) ... ok
+test_keyid_has_no_authority (test_verifier.BundleTests.test_keyid_has_no_authority) ... ok
+test_malformed_ots (test_verifier.BundleTests.test_malformed_ots) ... ok
+test_malformed_shapes_do_not_crash (test_verifier.BundleTests.test_malformed_shapes_do_not_crash) ... ok
+test_noncanonical_file (test_verifier.BundleTests.test_noncanonical_file) ... ok
+test_optimized_runtime_is_rejected (test_verifier.BundleTests.test_optimized_runtime_is_rejected) ... ok
+test_payload_type (test_verifier.BundleTests.test_payload_type) ... ok
+test_reordered_log (test_verifier.BundleTests.test_reordered_log) ... ok
+test_skipped_seq (test_verifier.BundleTests.test_skipped_seq) ... ok
+test_tampered_payload (test_verifier.BundleTests.test_tampered_payload) ... ok
+test_tree_size (test_verifier.BundleTests.test_tree_size) ... ok
+test_tsa_placeholder_never_confirmed (test_verifier.BundleTests.test_tsa_placeholder_never_confirmed) ... ok
+test_unknown_envelope_field (test_verifier.BundleTests.test_unknown_envelope_field) ... ok
+test_unmatched_registry_not_checked (test_verifier.BundleTests.test_unmatched_registry_not_checked) ... ok
+test_withdrawn_missing_reveal (test_verifier.BundleTests.test_withdrawn_missing_reveal) ... ok
+test_wrong_hash_path (test_verifier.BundleTests.test_wrong_hash_path) ... ok
+test_wrong_key (test_verifier.BundleTests.test_wrong_key) ... ok
+test_wrong_prev (test_verifier.BundleTests.test_wrong_prev) ... ok
+test_wrong_rid (test_verifier.BundleTests.test_wrong_rid) ... ok
+test_zip_traversal_rejected (test_verifier.BundleTests.test_zip_traversal_rejected) ... ok
+test_frozen_vectors (test_verifier.PrimitiveTests.test_frozen_vectors) ... ok
+test_templates_have_no_forbidden_verdict (test_verifier.PrimitiveTests.test_templates_have_no_forbidden_verdict) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 1.391s
+
+OK

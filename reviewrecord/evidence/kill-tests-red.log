@@ -1,0 +1,131 @@
+test_01_pre_signing_exchange_is_not_a_factual_verdict (test_kill.KillTests.test_01_pre_signing_exchange_is_not_a_factual_verdict) ... FAIL
+test_02_substituted_assessment_does_not_pass (test_kill.KillTests.test_02_substituted_assessment_does_not_pass) ... FAIL
+test_03_missing_reveal_stays_listed (test_kill.KillTests.test_03_missing_reveal_stays_listed) ... FAIL
+test_04_removing_required_anchor_does_not_pass (test_kill.KillTests.test_04_removing_required_anchor_does_not_pass) ... FAIL
+test_05_git_clock_has_no_weight (test_kill.KillTests.test_05_git_clock_has_no_weight) ... FAIL
+test_06_registry_detects_omitted_prior_round (test_kill.KillTests.test_06_registry_detects_omitted_prior_round) ... FAIL
+
+======================================================================
+FAIL: test_01_pre_signing_exchange_is_not_a_factual_verdict (test_kill.KillTests.test_01_pre_signing_exchange_is_not_a_factual_verdict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 13, in verify
+    try:from rr.verify import verify_bundle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rr.verify'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 19, in test_01_pre_signing_exchange_is_not_a_factual_verdict
+    report=self.verify()
+           ^^^^^^^^^^^^^
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 14, in verify
+    except ImportError:self.fail('RED PHASE: rr.verify does not exist; this kill test predates implementation.')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RED PHASE: rr.verify does not exist; this kill test predates implementation.
+
+======================================================================
+FAIL: test_02_substituted_assessment_does_not_pass (test_kill.KillTests.test_02_substituted_assessment_does_not_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 13, in verify
+    try:from rr.verify import verify_bundle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rr.verify'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 29, in test_02_substituted_assessment_does_not_pass
+    report=self.verify();self.assertIn('HASH_MISMATCH',self.codes(report));self.assertEqual(report['exit_code'],1)
+           ^^^^^^^^^^^^^
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 14, in verify
+    except ImportError:self.fail('RED PHASE: rr.verify does not exist; this kill test predates implementation.')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RED PHASE: rr.verify does not exist; this kill test predates implementation.
+
+======================================================================
+FAIL: test_03_missing_reveal_stays_listed (test_kill.KillTests.test_03_missing_reveal_stays_listed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 13, in verify
+    try:from rr.verify import verify_bundle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rr.verify'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 32, in test_03_missing_reveal_stays_listed
+    report=self.verify();self.assertIn('REVEAL_MISSING',self.codes(report));self.assertEqual(report['exit_code'],1)
+           ^^^^^^^^^^^^^
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 14, in verify
+    except ImportError:self.fail('RED PHASE: rr.verify does not exist; this kill test predates implementation.')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RED PHASE: rr.verify does not exist; this kill test predates implementation.
+
+======================================================================
+FAIL: test_04_removing_required_anchor_does_not_pass (test_kill.KillTests.test_04_removing_required_anchor_does_not_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 13, in verify
+    try:from rr.verify import verify_bundle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rr.verify'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 36, in test_04_removing_required_anchor_does_not_pass
+    report=self.verify();self.assertIn('ANCHOR_MISSING',self.codes(report));self.assertEqual(report['exit_code'],1)
+           ^^^^^^^^^^^^^
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 14, in verify
+    except ImportError:self.fail('RED PHASE: rr.verify does not exist; this kill test predates implementation.')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RED PHASE: rr.verify does not exist; this kill test predates implementation.
+
+======================================================================
+FAIL: test_05_git_clock_has_no_weight (test_kill.KillTests.test_05_git_clock_has_no_weight)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 13, in verify
+    try:from rr.verify import verify_bundle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rr.verify'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 39, in test_05_git_clock_has_no_weight
+    report=self.verify();self.assertIn('GIT_PUBLICATION_TIME_IGNORED',self.codes(report))
+           ^^^^^^^^^^^^^
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 14, in verify
+    except ImportError:self.fail('RED PHASE: rr.verify does not exist; this kill test predates implementation.')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RED PHASE: rr.verify does not exist; this kill test predates implementation.
+
+======================================================================
+FAIL: test_06_registry_detects_omitted_prior_round (test_kill.KillTests.test_06_registry_detects_omitted_prior_round)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 13, in verify
+    try:from rr.verify import verify_bundle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rr.verify'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 45, in test_06_registry_detects_omitted_prior_round
+    report=self.verify([registry]);self.assertIn('PRIOR_ROUND_UNLISTED',self.codes(report));self.assertEqual(report['exit_code'],1)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/b4a26461d74e/phase0_reviewrecord/reviewrecord/tests/test_kill.py", line 14, in verify
+    except ImportError:self.fail('RED PHASE: rr.verify does not exist; this kill test predates implementation.')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RED PHASE: rr.verify does not exist; this kill test predates implementation.
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.123s
+
+FAILED (failures=6)

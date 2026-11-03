@@ -1,0 +1,67 @@
+{
+  "baseline_hash": "sha256:64da46627d51d36ce67880e135ee0ac368b8821008f16ef4cfd19cdfba5fcc50",
+  "projection": {
+    "files": [
+      {
+        "path": "spec/BUILD_BRIEF_v0.2.2.md",
+        "sha256": "sha256:ac09e53bcecc184756e430b7f461dca2010b4f9f822935e526e8f3074d6f5a00"
+      },
+      {
+        "path": "spec/REVIEW_RECORD_SPEC_v0.2.2.md",
+        "sha256": "sha256:3e470e2ee43aa65097dbf2dca2fdf147ab491a8cf28d32d23f33c5a2f7ea6332"
+      },
+      {
+        "path": "spec/limits.txt",
+        "sha256": "sha256:b74eeea0db13971e60b163c711178bae48a9ed6d8dea5f2f3307b1e4cf805fb1"
+      },
+      {
+        "path": "tools/counting_crosscheck.mjs",
+        "sha256": "sha256:2e20a98d74c7b82f1bd0e5ea6a60af89b92e33f05538e27604605287177a5e29"
+      },
+      {
+        "path": "tools/counting_vectors.py",
+        "sha256": "sha256:67715638bac7c81aac00a4a3fcdf8a6f2791d631571fb2e71c8185554a58ee68"
+      },
+      {
+        "path": "tools/rfc8032_crosscheck.mjs",
+        "sha256": "sha256:1a89bc9e1e3d5d3cc0736d7b44cafbb2789c5f9505f21adbe3eac4cabc82ded5"
+      },
+      {
+        "path": "tools/rfc8032_vectors.py",
+        "sha256": "sha256:6929305cd87b3892eb936e7675121ed1f340340a4e5766205876aa31fa9ae5d8"
+      },
+      {
+        "path": "tools/vector_crosscheck.mjs",
+        "sha256": "sha256:187a14cb10964892ec3816750ddc3a8ef5f9f066f4889da97c8d7d11649861cd"
+      },
+      {
+        "path": "tools/vector_reference.py",
+        "sha256": "sha256:a8ad4339be4300761d88ed85cee6794b7dffc1d62c7799576213a1c5d5f6e135"
+      },
+      {
+        "path": "vectors/counting-paths-v0.2.2.json",
+        "sha256": "sha256:9e019ed34696ef5982591650e2ceba17444285b4abdb4f4e7152cfa27ae37694"
+      },
+      {
+        "path": "vectors/primitive-v0.2.2.json",
+        "sha256": "sha256:3ffefd05284d141d9d3b1cb90361781e96262871de047f1c55d0ceb94ffa6a28"
+      },
+      {
+        "path": "vectors/rfc8032-draft.json",
+        "sha256": "sha256:10102675730f1d4769b54b8627f7c19e3abe133f5ed4670bcd3305ac278dad65"
+      }
+    ],
+    "spec": "0.2.2"
+  },
+  "scope": "Protocol and primitive/semantic vector implementation baseline before production libraries; not full signed-round or kill-test acceptance.",
+  "created_at_advisory": "2026-11-01T14:21:08.046281Z",
+  "not_an_external_anchor": true,
+  "remaining_gates": [
+    "full signed-round fixture and expected report",
+    "failing verifier kill tests before implementation",
+    "production libraries and verifier",
+    "real six-confirmation OTS backend verification",
+    "participant signing tools",
+    "cryptographer review"
+  ]
+}

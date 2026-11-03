@@ -1,0 +1,184 @@
+--- REVIEW_RECORD_SPEC_v0.2.1_DRAFT.md
++++ REVIEW_RECORD_SPEC_v0.2.2.md
+@@ -1,8 +1,8 @@
+-# Review Record Specification v0.2.1 (draft)
+-
+-Provenance: v0.2.1 is v0.2 with the author resolutions S1-S10 and decisions 1-10 applied. Every line that changed from v0.2 is listed in section 12. v0.2 itself was written by Claude from an adversarial review by ChatGPT; v0.2.1 was assembled by Claude from the author's resolutions. Neither version has been reviewed by a cryptographer.
+-
+-Status: draft for a first manual round. Do not rely on it for high-stakes claims until it has had a cryptographer's review. Where this document and the build brief differ on byte-level detail, this document wins once frozen; until then, report the conflict instead of choosing.
++# Review Record Specification v0.2.2 (implementation baseline)
++
++Provenance: v0.2.2 is the author-supplied v0.2.1 with author resolutions S11–S16 applied. The v0.2.1 source is preserved; the exact change patch is distributed separately. Neither version has been reviewed by a cryptographer.
++
++Status: implementation baseline for the first synthetic/manual round. Do not rely on it for high-stakes claims. This specification is authoritative over the synchronized build brief for the frozen technical profile. Freeze hashes identify exact document/vector bytes, not a security qualification. Changes to a frozen acceptance rule require a new version and retained change record.
+ 
+ ## 1. What the record claims, and what it does not
+ 
+@@ -58,13 +58,14 @@
+ ```json
+ {
+   "type": "registration",
+-  "spec": "0.2.1",
++  "spec": "0.2.2",
+   "canon": "canon-v1",
+   "round_id": "r-2026-11-xx-a",
+   "work_id": "short stable identifier for the research",
+   "author_key": "ed25519:...",
+   "steward_key": "ed25519:...",
+   "steward_is_author_operator": true,
++  "limits": "This record shows that a specific packet and policy were registered before review, that each listed reviewer's published assessment matches a commitment recorded before the declared reveal stage, and that changes to committed content are detectable against retained commitments. Statements about relationships, stakes and prior exposure are signed declarations by the participants and are not verified. It does not certify the independence, competence, or honesty of any participant, the absence of collusion or off-platform contact, the success of blinding, or the correctness of the research.",
+   "packet_hash": "sha256:...",
+   "policy_hash": "sha256:...",
+   "withheld_commitment": "sha256:...",
+@@ -82,6 +83,7 @@
+ - `prior_rounds` lists every earlier round on the same `work_id`, including abandoned or unfavorable ones. A record that omits an earlier round found in a named registry is reported as incomplete. The verifier cannot prove that no undisclosed round exists.
+ - `steward_is_author_operator` is a disclosure. The verifier shows `true` as a warning; round 1 does not require a second steward.
+ - The registration is the root of the log: every later object includes `registration_hash`.
++- `limits` is the section 8 statement with no trailing LF. It is signed and anchored with this registration. `limits.txt` must equal that field followed by exactly one LF. Both are checked against the statement for the declared spec version. Changing the statement requires a new registration. A version does not automatically authorize different limits text.
+ 
+ ### 4.2 Packet
+ 
+@@ -93,15 +95,15 @@
+ 
+ | Field | Meaning |
+ |---|---|
+-| `judgment_options` | Fixed in v0.2.1: `established`, `partly_established`, `not_established`, `uncertain`, `question_needs_fixing`. No scores, no agreement display. |
++| `judgment_options` | Fixed in v0.2.2: `established`, `partly_established`, `not_established`, `uncertain`, `question_needs_fixing`. No scores, no agreement display. |
+ | `min_locks` | Minimum distinct reviewers with a commitment in the log. Round 1: 2. |
+ | `min_reveals` | Minimum distinct reviewers whose assessment is revealed and verified. Round 1: 2. |
+ | `time_box_minutes` | Advisory length of a review. |
+-| `duplicate_policy` | The first `commit` per `reviewer_key` counts; later ones are reported as `DUPLICATE_COMMIT` and do not count. |
+-| `withdrawal_policy` | How withdrawals are recorded and counted (see 4.9). |
++| `duplicate_policy` | Round 1: `first_commit_per_reviewer_key`. The first `commit` by log seq per full `reviewer_key` counts; later ones are retained, reported as `DUPLICATE_COMMIT`, and do not increase `locked_count`. All commit log entries, including duplicates, remain tree leaves. |
++| `withdrawal_policy` | Round 1: `retain_locks_count_valid_reveals`. A withdrawal never removes a lock. A withdrawn reviewer contributes a reveal only by publishing a valid reveal; the author/steward cannot veto its validity. Without a reveal report both `WITHDRAWN` and `REVEAL_MISSING`. See 4.9. |
+ | `disposition_required` | Whether every declared concern needs a disposition. Round 1: true. |
+ 
+-Counting rules are computed from these fields only. A round is `complete` only if locks >= `min_locks` and verified reveals >= `min_reveals`; otherwise `incomplete`. An unrevealed lock counts toward `min_locks` but not `min_reveals`, and is reported as `REVEAL_MISSING`.
++Counting rules are computed from these fields only. After checking the available bundle, the verifier computes `round_status`: `complete` only if locks >= `min_locks` and verified reveals >= `min_reveals`; otherwise `incomplete`. This is a verifier result, not a signed participant claim. The signed close has no `status` field because reveals do not yet exist when it is signed. An unrevealed lock counts toward `min_locks` but not `min_reveals`, and is reported as `REVEAL_MISSING`. Round completeness does not erase any other failing, missing or unresolved checks and is not an overall verification verdict.
+ 
+ ### 4.4 Reviewer declaration (reviewer-signed, before the packet is released)
+ 
+@@ -187,14 +189,15 @@
+   "tree_head": "sha256:...",
+   "locked_count": 3,
+   "withdrawn": [{"reviewer_key": "ed25519:...", "reason": "optional"}],
+-  "status": "complete | incomplete",
+   "closed_at": "2026-11-..Z"
+ }
+ ```
+ 
+ - The **close record is the declared reveal boundary** in round 1. There is no separate reveal authorization. This does not prove when anyone first saw any content.
+ - `tree_head` is the Merkle tree head over all `commit` entries, built exactly as in RFC 9162 section 2.1: leaf hash SHA-256(0x00 || leaf data), node hash SHA-256(0x01 || left || right), empty tree hash SHA-256 of the empty string, split at the largest power of two strictly less than n. Leaf data is the raw 32 bytes of each commitment, in log order, `commit` entries only. Inclusion proofs are verified with the algorithm in RFC 9162 section 2.1.3.2. Implement from the RFC text and cross-check; never invent expected hashes.
+-- A reviewer who locked but never revealed stays listed as locked and unrevealed.
++- `tree_size` is the number of commit log entries, duplicates included. `locked_count` is the number of distinct full reviewer keys with a counting (first-by-seq) commit. Check both counts separately, including `tree_size >= locked_count`; do not deduplicate the Merkle leaf list.
++- The signed close is created before reveals. It retains `locked_count`, which is known at close, but contains no reveal-dependent `status`. The verifier's later `round_status` follows section 4.3.
++- A reviewer who locked but never revealed stays listed as locked and unrevealed. A valid reveal must match that reviewer's counting commit to contribute to `min_reveals`; later commits are retained as duplicates, not replacements for the first assessment.
+ 
+ ### 4.8 Anchors (S7)
+ 
+@@ -212,7 +215,7 @@
+ 
+ ### 4.9 Withdrawals (S3)
+ 
+-A reviewer may sign a `withdrawal` object (`type`, `round_id`, `registration_hash`, `reviewer_key`, optional `reason`) and send it for logging. A withdrawal recorded by the steward without a reviewer signature is allowed only if flagged `steward_attested: true` and is reported as attested by the steward, not as stated by the reviewer. Withdrawal does not remove a lock from the log; counting follows `withdrawal_policy`.
++A reviewer may sign a `withdrawal` object (`type`, `round_id`, `registration_hash`, `reviewer_key`, optional `reason`) and send it for logging. A withdrawal recorded by the steward without a reviewer signature is allowed only if flagged `steward_attested: true` and is reported as attested by the steward, not as stated by the reviewer. Withdrawal never removes a lock from the log or its contribution to `min_locks`. Under round-1 `withdrawal_policy`, a withdrawn reviewer contributes to `min_reveals` only if they choose to publish a valid reveal. Neither author nor steward can force publication or make an otherwise valid published reveal ineligible merely because of withdrawal. A withdrawn reviewer without a reveal receives both `WITHDRAWN` and `REVEAL_MISSING`. A verifier can check supplied evidence; it cannot make an operator serve omitted files, so the reviewer must retain and be able to supply their own reveal/receipt. The steward-attested variant is signed by the steward and explicitly carries `steward_attested: true`; report it as attested, never reviewer-stated.
+ 
+ ### 4.10 Dispositions (author-signed, after close)
+ 
+@@ -237,41 +240,46 @@
+ ```
+ bundle/
+   manifest.json
+-  registration.json          # DSSE envelope, author-signed
++  registration.json          # DSSE envelope, author-signed, includes limits
+   policy.json  packet.json
+   withheld.json              # results plus salt, released after close
+-  declarations/<rid>.json
+-  commits/<rid>.json         # signed commit envelope
+-  log/<seq>.json             # signed logentry envelopes
+-  proofs/<rid>.json          # inclusion proof: {leaf_index, tree_size, hashes[]}
+-  close.json
+-  assessments/<rid>.json     # revealed after close
++  declarations/<rid>/<hex64>.json
++  commits/<rid>/<hex64>.json
++  withdrawals/<rid>/<hex64>.json
++  log/<seq>.json             # steward-signed acknowledgement envelopes
++  close.json                 # no status; immutable declared reveal boundary
++  assessments/<rid>/<commit_hex64>.json
++  proofs/<rid>/<commit_hex64>.json
+   dispositions/<n>.json
+   anchors/<name>.json  anchors/<name>.ots  anchors/<name>.tsr ...
+   limits.txt
+ ```
+ 
+-- `rid` is `"r-"` plus the first 16 hex characters of SHA-256 of the reviewer's `reviewer_key` string.
+-- **`record_hash`** is SHA-256 of the canon-v1 bytes of `{"files": [{"path": ..., "sha256": ...}, ...], "spec": "0.2.1"}`, with `files` sorted ascending by `path`. The file list excludes `manifest.json` itself, everything under `anchors/`, and the `record_hash` field. `record_hash` is stored in `manifest.json` beside the file list, not inside the hashed projection.
+-- Anchor proofs sit beside the data they anchor, so no hash contains its own proof.
+-- Withheld results are released only after close, with the salt, so `withheld_commitment` can be verified.
++- `rid` is `"r-"` plus the first 16 lowercase hex characters of SHA-256 of the UTF-8 `reviewer_key` string. Filing by a truncated rid never authorizes a signer or merges counts: use the complete reviewer key for signature and distinct-key accounting.
++- For declarations, commits and withdrawals, `hex64` is the object's own complete `object_hash` without `sha256:`. Never replace a prior object with a later one.
++- For an assessment, `commit_hex64` is the digest from the commit payload's `commitment` field: the assessment envelope's own object hash, not the signed commit envelope's hash. The signed commit has a separate hash used for its path and log `ref_hash`. This interpretation follows the requirement that each reviewer-submitted signed object is named by its own hash.
++- The proof is an unsigned JSON document `{leaf_index, tree_size, hashes[]}` for the named assessment commitment. Its path uses that commitment digest, not the proof file's hash. Each sibling hash uses the hash encoding in section 3; the Merkle algorithm operates on its decoded 32 bytes. Check proof linkage to the corresponding counting commit, tree size and log-derived leaf index.
++- `RID_MISMATCH`: a reviewer-object path rid does not match the full reviewer key in its payload. `PATH_HASH_MISMATCH`: a reviewer-signed object's filename digest does not match its file object hash. Proof files have the explicit commitment-linkage rule above; they are not signed objects and do not name their own digest.
++- **`record_hash`** is SHA-256 of the canon-v1 bytes of `{"files": [{"path": ..., "sha256": ...}, ...], "spec": "0.2.2"}`, with files sorted ascending by path. List every included non-anchor file except manifest.json, exactly once. File sha256 values use section 3's prefixed encoding. The projection excludes manifest.json itself, anchors/* and the record_hash field. manifest.json stores spec, files and record_hash beside one another. Paths are relative bundle paths; duplicate names, parent traversal and symlink escapes are rejected rather than treated as evidence outside the bundle.
++- Anchor proofs sit beside the data they anchor, so no hash contains its own proof. Anchor files are checked by their target-binding adapters, not made valid merely by appearing in a manifest.
++- Withheld results are released only after close, with the salt, so withheld_commitment can be verified.
+ 
+ ## 6. Verification procedure
+ 
+ Anyone can run it offline except anchor and registry lookups. Each step produces outcome records and never short-circuits the report.
+ 
+-1. Parse every file: `CANON_INVALID`, `ENVELOPE_MALFORMED`, `ENVELOPE_NONCANONICAL`.
++1. Parse every file and validate reviewer-object path binding: `CANON_INVALID`, `ENVELOPE_MALFORMED`, `ENVELOPE_NONCANONICAL`, `RID_MISMATCH`, `PATH_HASH_MISMATCH`. Verify the manifest file hashes and record_hash projection; changes remain `HASH_MISMATCH`.
+ 2. Recompute `packet_hash`, `policy_hash` and, once the salt is present, `withheld_commitment`: `HASH_MISMATCH`, `WITHHELD_COMMITMENT_MISMATCH`.
+ 3. Verify every signature against the key named in the registration (author, steward) or declaration (reviewer); reject extra signatures and unknown fields in strict mode: `SIGNATURE_INVALID`, `KEY_MISMATCH`.
+ 4. Check every object's `registration_hash` and `round_id`: `REGISTRATION_BINDING_MISMATCH`.
+ 5. Walk the log: consecutive `seq`, chain links, an entry for each declaration and commit: `LOG_CHAIN_BROKEN`, `ACK_MISSING`, `DUPLICATE_COMMIT`.
+-6. Recompute the tree from the `commit` entries and compare with `tree_head`, `tree_size` and `last_entry_hash`: `TREE_HEAD_MISMATCH`.
++6. Recompute the tree from all commit log entries, duplicates included, and compare tree_head, tree_size and last_entry_hash. Independently compute locked_count from first commits per distinct full reviewer key, and check tree_size >= locked_count: `TREE_HEAD_MISMATCH` for any close/tree/count mismatch. Never use tree_size as a substitute for distinct-key lock count.
+ 7. For each revealed assessment: hash its envelope, find the matching commitment, verify its inclusion proof: `COMMIT_NOT_IN_TREE`, `INCLUSION_PROOF_INVALID`. A commit with no revealed assessment: `REVEAL_MISSING`.
+-8. Compare locks and verified reveals with `min_locks` and `min_reveals`: `LOCKS_BELOW_MINIMUM`, `REVEALS_BELOW_MINIMUM`.
++8. Compare counting locks and valid reveals matching counting commits with min_locks and min_reveals: `LOCKS_BELOW_MINIMUM`, `REVEALS_BELOW_MINIMUM`. Compute and report round_status as a verifier result: complete only when both minimums are met. A withdrawal retains its lock; a withdrawn reviewer with no reveal is both `WITHDRAWN` and `REVEAL_MISSING`. A supplied valid reveal can count despite withdrawal. Do not compare completeness to a signed close.status: that field does not exist.
+ 9. Anchors: each target has two anchors with different declared authorities; report each status: `ANCHOR_MISSING`, `ANCHOR_PENDING`, `ANCHOR_INVALID`, `ANCHOR_UNVERIFIABLE_OFFLINE`, `ANCHOR_NOT_INDEPENDENT`.
+ 10. Dispositions: every declared `cid` has one with a non-empty reason: `DISPOSITION_MISSING`, `DISPOSITION_NO_REASON`.
+ 11. Registry coverage: if registries are supplied, compare `prior_rounds` with rounds found for the same `work_id`: `PRIOR_ROUND_UNLISTED`; if none supplied: `REGISTRY_NOT_CHECKED`. Never report that no other round exists. Round 1's named registry is the author's public `rounds.json` in a GitHub repository plus any URLs the author lists; the report names exactly what was checked. Similarity between works is a manual warning, never an identity claim.
+-12. `limits.txt` equals the section 8 statement byte for byte: `LIMITS_MISSING_OR_ALTERED`. The forbidden-claim scan (S8) covers only text authored by the tool itself (reports, templates, UI strings). It does not scan `limits.txt` or quoted or input content, and a test confirms the tool's own templates contain no forbidden terms: `FORBIDDEN_CLAIM_PRESENT`.
++12. The signed registration limits field equals the section 8 statement for its declared spec version, with no trailing LF, and limits.txt equals that exact field plus one LF: `LIMITS_MISSING_OR_ALTERED`. The forbidden-claim scan (S8) covers only text authored by the tool itself (reports, templates, UI strings). It does not scan `limits.txt` or quoted or input content, and a test confirms the tool's own templates contain no forbidden terms: `FORBIDDEN_CLAIM_PRESENT`.
+ 
+ **Identity of the author and steward (S10):** the verifier accepts `--expected-author-key` and `--expected-steward-key`. Without them the report marks author and steward identity as `not_checked` and states that only self-consistency was verified.
+ 
+@@ -307,7 +315,7 @@
+ 4. Verifiable history (GitHub or ORCID) is optional and shown only if given.
+ 5. Coverage registry: the author's public `rounds.json` plus listed URLs. Work similarity is a manual warning.
+ 6. No second steward required; `steward_is_author_operator` is disclosed.
+-7. Unrevealed locks count toward `min_locks`; completeness also needs `min_reveals`.
++7. Unrevealed and withdrawn locks count toward min_locks; completeness also needs min_reveals. A withdrawn reviewer contributes a valid reveal only by their own publication choice.
+ 8. Anonymous reviewers stay anonymous in round 1; no credit mechanism.
+ 9. One complete verifier, plus independently cross-checked canon-v1 and Merkle primitives.
+ 10. Cross-check language: JavaScript (Python is the primary implementation).
+@@ -316,13 +324,14 @@
+ 
+ - Whether reviewer-published commitments should become the primary channel, making the steward optional (v0.3).
+ - How to detect a reused `work_id` under a new name beyond a manual warning.
+-- How a locked-then-withdrawn reviewer counts under `withdrawal_policy`.
+ - How anonymous reviewers could receive credit later without exposing identity.
+ - Whether a second independent verifier is required before any round that matters.
+ - Which TSA and which Bitcoin verification backend are acceptable for a production profile, and whether a transparency log such as Sigstore Rekor suits this use (untested).
+ - Availability of native Ed25519 libraries in a-Shell (untested). Round 1 verification runs in GitHub Actions.
+ 
+-## 11. First manual round (no new software beyond the vectors)
++## 11. First manual round using checked CLI tools
++
++Round 1 runs only after the verifier passes all kill tests, using checked CLI tools for participant-local signing, log production and bundle construction. The verifier-first phase order in the build brief remains in force; no new hosted interface is required.
+ 
+ 1. Write the packet (3 to 6 items) and policy. Run and record the leakage check.
+ 2. Sign and publish the registration with an OpenTimestamps proof plus an RFC 3161 token. A public git commit may carry it but is not trusted for time.
+@@ -343,6 +352,8 @@
+ 
+ ## 12. Changelog
+ 
++- v0.2.2: author resolutions S11–S16. Removed close.status; verifier derives round_status from locks and verified reveals. Retained locked_count at close and defined tree_size as all commit log entries including duplicates. Retained withdrawal locks; valid reviewer-published reveals can count despite withdrawal, while absence is WITHDRAWN plus REVEAL_MISSING. Added signed registration limits with exact limits.txt linkage. Reviewer-signed object paths now contain full object digests; added RID_MISMATCH and PATH_HASH_MISMATCH. Distinguished assessment commitment digest from signed commit envelope digest and unsigned proof naming. Kept verifier-first and required passing kill tests before a manual round. Round-1 policy strings encode the already authorized counting semantics. A generated patch retains every textual change from the supplied v0.2.1.
++
+ - v0.2.1: S1 `record_hash` projection defined; S2 `commits/` and `proofs/` added with schemas and `rid`; S3 `withdrawal` type and steward-attested variant; S4 policy schema and counting rules; S5 close record is the declared reveal boundary; S6 strict single-signature profile, `keyid` is a hint only; S7 anchor adapters declare authority, independence means different authorities, `rfc3161` added as a counting type, OTS needs 6 confirmations; S8 forbidden-claim scan limited to tool-authored text; S9 `limits.txt` bytes, canonical envelope files, `object_hash` over file bytes, `ENVELOPE_NONCANONICAL`; S10 expected-key flags; `steward_is_author_operator`; `min_locks` 2 and `min_reveals` 2; round-1 registry named; optional `history_url`; added `DUPLICATE_COMMIT`, `REVEALS_BELOW_MINIMUM`; decisions 1-10 recorded in section 9.
+ - v0.2: claims narrowed to commitments and publication order; independence and no prior exposure moved to signed declarations; steward key and acknowledgements; canon-v1 and DSSE; RFC 9162 tree; concern IDs; separate verifier outcomes; kill tests.
+ - v0.1: initial draft.

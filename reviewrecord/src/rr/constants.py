@@ -1,0 +1,4 @@
+# Protocol constants; Python 3.10+, stdlib [a-Shell ok].
+SPEC="0.2.2"
+LIMITS="This record shows that a specific packet and policy were registered before review, that each listed reviewer's published assessment matches a commitment recorded before the declared reveal stage, and that changes to committed content are detectable against retained commitments. Statements about relationships, stakes and prior exposure are signed declarations by the participants and are not verified. It does not certify the independence, competence, or honesty of any participant, the absence of collusion or off-platform contact, the success of blinding, or the correctness of the research."
+JUDGMENTS=("established","partly_established","not_established","uncertain","question_needs_fixing")

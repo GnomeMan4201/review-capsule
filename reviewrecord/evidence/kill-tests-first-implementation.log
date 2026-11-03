@@ -1,0 +1,11 @@
+test_01_pre_signing_exchange_is_not_a_factual_verdict (test_kill.KillTests.test_01_pre_signing_exchange_is_not_a_factual_verdict) ... ok
+test_02_substituted_assessment_does_not_pass (test_kill.KillTests.test_02_substituted_assessment_does_not_pass) ... ok
+test_03_missing_reveal_stays_listed (test_kill.KillTests.test_03_missing_reveal_stays_listed) ... ok
+test_04_removing_required_anchor_does_not_pass (test_kill.KillTests.test_04_removing_required_anchor_does_not_pass) ... ok
+test_05_git_clock_has_no_weight (test_kill.KillTests.test_05_git_clock_has_no_weight) ... ok
+test_06_registry_detects_omitted_prior_round (test_kill.KillTests.test_06_registry_detects_omitted_prior_round) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.151s
+
+OK
