@@ -1,0 +1,144 @@
+test_all_defined_status_subsets_keep_the_frozen_exit_mapping (test_report_status.ReportStatusTests.test_all_defined_status_subsets_keep_the_frozen_exit_mapping) ... ok
+test_pass_row_named_like_diagnostic_cannot_suppress_rejection (test_report_status.ReportStatusTests.test_pass_row_named_like_diagnostic_cannot_suppress_rejection) ... FAIL
+test_repeated_finish_does_not_duplicate_status_diagnostics (test_report_status.ReportStatusTests.test_repeated_finish_does_not_duplicate_status_diagnostics) ... FAIL
+test_status_guard_is_not_a_mandatory_check_inventory (test_report_status.ReportStatusTests.test_status_guard_is_not_a_mandatory_check_inventory) ... ok
+test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) ... 
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='typo') ... FAIL
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='declared') ... FAIL
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='attested') ... FAIL
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='PASS') ... FAIL
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=None) ... ERROR
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=True) ... ERROR
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=0) ... ERROR
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=[]) ... ERROR
+  test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status={}) ... ERROR
+
+======================================================================
+ERROR: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 28, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    result = report.finish()
+             ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 17, in finish
+    self.data['summary']='Integrity checks: '+', '.join(str(counts[k])+' '+k.replace('_',' ') for k in counts)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 17, in <genexpr>
+    self.data['summary']='Integrity checks: '+', '.join(str(counts[k])+' '+k.replace('_',' ') for k in counts)
+                                                                           ^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'replace'
+
+======================================================================
+ERROR: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 28, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    result = report.finish()
+             ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 17, in finish
+    self.data['summary']='Integrity checks: '+', '.join(str(counts[k])+' '+k.replace('_',' ') for k in counts)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 17, in <genexpr>
+    self.data['summary']='Integrity checks: '+', '.join(str(counts[k])+' '+k.replace('_',' ') for k in counts)
+                                                                           ^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'replace'
+
+======================================================================
+ERROR: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 28, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    result = report.finish()
+             ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 17, in finish
+    self.data['summary']='Integrity checks: '+', '.join(str(counts[k])+' '+k.replace('_',' ') for k in counts)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 17, in <genexpr>
+    self.data['summary']='Integrity checks: '+', '.join(str(counts[k])+' '+k.replace('_',' ') for k in counts)
+                                                                           ^^^^^^^^^
+AttributeError: 'int' object has no attribute 'replace'
+
+======================================================================
+ERROR: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 28, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    result = report.finish()
+             ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 14, in finish
+    counts.update(Counter(x['status'] for x in self.data['checks']))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/collections/__init__.py", line 607, in __init__
+    self.update(iterable, **kwds)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/collections/__init__.py", line 699, in update
+    _count_elements(self, iterable)
+TypeError: unhashable type: 'list'
+
+======================================================================
+ERROR: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status={})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 28, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    result = report.finish()
+             ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 14, in finish
+    counts.update(Counter(x['status'] for x in self.data['checks']))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/collections/__init__.py", line 607, in __init__
+    self.update(iterable, **kwds)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/collections/__init__.py", line 699, in update
+    _count_elements(self, iterable)
+TypeError: unhashable type: 'dict'
+
+======================================================================
+FAIL: test_pass_row_named_like_diagnostic_cannot_suppress_rejection (test_report_status.ReportStatusTests.test_pass_row_named_like_diagnostic_cannot_suppress_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 58, in test_pass_row_named_like_diagnostic_cannot_suppress_rejection
+    self.assertEqual(report.finish()['exit_code'], 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_repeated_finish_does_not_duplicate_status_diagnostics (test_report_status.ReportStatusTests.test_repeated_finish_does_not_duplicate_status_diagnostics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 50, in test_repeated_finish_does_not_duplicate_status_diagnostics
+    self.assertEqual(again['exit_code'], 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='typo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 29, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    self.assertEqual(result['exit_code'], 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='declared')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 29, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    self.assertEqual(result['exit_code'], 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='attested')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 29, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    self.assertEqual(result['exit_code'], 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) (status='PASS')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_status.py", line 29, in test_unknown_status_is_rejected_even_beside_a_matched_row
+    self.assertEqual(result['exit_code'], 1)
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.005s
+
+FAILED (failures=6, errors=5)

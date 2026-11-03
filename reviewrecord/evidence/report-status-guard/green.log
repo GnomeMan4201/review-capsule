@@ -1,0 +1,10 @@
+test_all_defined_status_subsets_keep_the_frozen_exit_mapping (test_report_status.ReportStatusTests.test_all_defined_status_subsets_keep_the_frozen_exit_mapping) ... ok
+test_pass_row_named_like_diagnostic_cannot_suppress_rejection (test_report_status.ReportStatusTests.test_pass_row_named_like_diagnostic_cannot_suppress_rejection) ... ok
+test_repeated_finish_does_not_duplicate_status_diagnostics (test_report_status.ReportStatusTests.test_repeated_finish_does_not_duplicate_status_diagnostics) ... ok
+test_status_guard_is_not_a_mandatory_check_inventory (test_report_status.ReportStatusTests.test_status_guard_is_not_a_mandatory_check_inventory) ... ok
+test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK
