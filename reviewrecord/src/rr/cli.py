@@ -9,6 +9,7 @@ def main(argv=None):
     parser.add_argument('bundle',type=Path)
     parser.add_argument('--json',type=Path,help='Write machine-readable report here; otherwise write it to stdout.')
     parser.add_argument('--expected-author-key');parser.add_argument('--expected-steward-key')
+    parser.add_argument('--report-format',choices=('legacy','reviewrecord-report/v1'),default='legacy',help='Opt-in report schema; protocol rules and exit effects are unchanged.')
     parser.add_argument('--registry',action='append',type=Path,default=[],help='Local normalized registry snapshot JSON (repeatable).')
     parser.add_argument('--network',action='store_true',help='Enable the configured Bitcoin RPC backend; does not fetch arbitrary bundle URLs.')
     parser.add_argument('--bitcoin-rpc-env',default='RR_BITCOIN_RPC',help='Name of environment variable holding the Bitcoin Core RPC URL.')
@@ -19,7 +20,7 @@ def main(argv=None):
     try:
         for path in args.registry:registries.append(loads(path.read_bytes()))
     except (OSError,CanonError):parser.error('A registry snapshot could not be read as canon-v1 input.')
-    report=verify_bundle(args.bundle,expected_author_key=args.expected_author_key,expected_steward_key=args.expected_steward_key,registries=registries,network=args.network,bitcoin_rpc=os.environ.get(args.bitcoin_rpc_env) if args.network else None,tsa_ca=args.tsa_ca,tsa_policy=args.tsa_policy,tsa_untrusted=args.tsa_untrusted)
+    report=verify_bundle(args.bundle,expected_author_key=args.expected_author_key,expected_steward_key=args.expected_steward_key,registries=registries,network=args.network,bitcoin_rpc=os.environ.get(args.bitcoin_rpc_env) if args.network else None,tsa_ca=args.tsa_ca,tsa_policy=args.tsa_policy,tsa_untrusted=args.tsa_untrusted,report_format=args.report_format)
     rendered=json.dumps(report,ensure_ascii=False,indent=2)+'\n'
     if args.json:
         try:args.json.write_text(rendered,encoding='utf-8')

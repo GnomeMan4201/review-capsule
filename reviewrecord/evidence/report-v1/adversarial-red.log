@@ -1,0 +1,68 @@
+test_cli_opt_in_and_unknown_format (test_report_v1.ReportV1Tests.test_cli_opt_in_and_unknown_format) ... ok
+test_counts_do_not_hide_a_missing_reveal_or_select_roster (test_report_v1.ReportV1Tests.test_counts_do_not_hide_a_missing_reveal_or_select_roster) ... ok
+test_direct_report_not_checked_wording_and_side_neutrality (test_report_v1.ReportV1Tests.test_direct_report_not_checked_wording_and_side_neutrality) ... ok
+test_disabled_dispositions_visible_but_strict_effect_unselected (test_report_v1.ReportV1Tests.test_disabled_dispositions_visible_but_strict_effect_unselected) ... ok
+test_empty_registry_notice_and_mismatch_control (test_report_v1.ReportV1Tests.test_empty_registry_notice_and_mismatch_control) ... ok
+test_existing_unchecked_rows_remain_blocking (test_report_v1.ReportV1Tests.test_existing_unchecked_rows_remain_blocking) ... ok
+test_nonstring_surplus_target_cannot_crash_either_format (test_report_v1.ReportV1Tests.test_nonstring_surplus_target_cannot_crash_either_format) ... ERROR
+test_operator_false_is_also_a_declaration (test_report_v1.ReportV1Tests.test_operator_false_is_also_a_declaration) ... ok
+test_scoped_counts_and_statements_preserve_mocked_and_offline_exits (test_report_v1.ReportV1Tests.test_scoped_counts_and_statements_preserve_mocked_and_offline_exits) ... ok
+test_side_wording_boundary_cannot_bypass_checks (test_report_v1.ReportV1Tests.test_side_wording_boundary_cannot_bypass_checks) ... ok
+test_steward_claim_is_side_content_not_consent_or_pass (test_report_v1.ReportV1Tests.test_steward_claim_is_side_content_not_consent_or_pass) ... ok
+test_surplus_descriptors_do_not_mask_missing_required_anchor (test_report_v1.ReportV1Tests.test_surplus_descriptors_do_not_mask_missing_required_anchor) ... ok
+test_unknown_status_cannot_crash_new_renderer (test_report_v1.ReportV1Tests.test_unknown_status_cannot_crash_new_renderer) ... 
+  test_unknown_status_cannot_crash_new_renderer (test_report_v1.ReportV1Tests.test_unknown_status_cannot_crash_new_renderer) (status=[]) ... ERROR
+  test_unknown_status_cannot_crash_new_renderer (test_report_v1.ReportV1Tests.test_unknown_status_cannot_crash_new_renderer) (status={}) ... ERROR
+
+======================================================================
+ERROR: test_nonstring_surplus_target_cannot_crash_either_format (test_report_v1.ReportV1Tests.test_nonstring_surplus_target_cannot_crash_either_format)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 176, in test_nonstring_surplus_target_cannot_crash_either_format
+    old, new = self.equivalent_exit()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 35, in equivalent_exit
+    old = self.run_report(**options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/verify.py", line 327, in verify_bundle
+    elif descriptor.get('target') not in targets:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'list'
+
+======================================================================
+ERROR: test_unknown_status_cannot_crash_new_renderer (test_report_v1.ReportV1Tests.test_unknown_status_cannot_crash_new_renderer) (status=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 185, in test_unknown_status_cannot_crash_new_renderer
+    self.assertEqual(report.finish()['exit_code'], 1)
+                     ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 49, in finish
+    return render(self.data,self.statements,self.coverage,self.policy)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report_v1.py", line 21, in render
+    if check['detail']=='Check did not match.' and check['status'] in DEFAULTS:
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'list'
+
+======================================================================
+ERROR: test_unknown_status_cannot_crash_new_renderer (test_report_v1.ReportV1Tests.test_unknown_status_cannot_crash_new_renderer) (status={})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 185, in test_unknown_status_cannot_crash_new_renderer
+    self.assertEqual(report.finish()['exit_code'], 1)
+                     ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report.py", line 49, in finish
+    return render(self.data,self.statements,self.coverage,self.policy)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/src/rr/report_v1.py", line 21, in render
+    if check['detail']=='Check did not match.' and check['status'] in DEFAULTS:
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.911s
+
+FAILED (errors=3)
