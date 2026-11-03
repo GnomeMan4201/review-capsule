@@ -8,7 +8,13 @@ Independent researchers rarely have a lab or team to check their work. When I as
 
 Review Record is a draft protocol and offline verifier intended to make the recorded parts of that process checkable. Its intended workflow asks reviewers to lock in their own judgment before assessments are revealed. Anyone with the supplied records can later check whether a published assessment matches its recorded commitment.
 
-It does not show that reviewers were independent, that blinding worked, or that the research is correct. It cannot establish that nobody saw an assessment early, or that an intended reviewer was included when the roster was never committed. It is an unfinished draft with no outside cryptographic review. Known gaps are tracked in [REVIEWRECORD_CONCERNS.md](https://github.com/GnomeMan4201/review-capsule/blob/concerns/reviewrecord-disposition-list/REVIEWRECORD_CONCERNS.md).
+It does not show that reviewers were independent, that blinding worked, or that the research is correct. It cannot establish that nobody saw an assessment early, or that an intended reviewer was included when the roster was never committed. It is an unfinished draft with no outside cryptographic review. Known gaps are tracked in [REVIEWRECORD_CONCERNS.md](REVIEWRECORD_CONCERNS.md).
+
+## Why not just use academic peer review?
+
+Academic peer review is an established route for expert scrutiny, and existing open-review practices already make parts of the process inspectable. For example, [PLOS offers published peer-review histories](https://plos.org/open-science-publishing/), including reviews and author responses. Review Record does not establish a new need merely because the author works independently.
+
+This draft explores whether a small investigation or specific claim can receive informal outside scrutiny with a portable record of the supplied assessments and how concerns were handled. It does not replace expert judgment or establish independence, blinding, membership completeness or research correctness. Its practical advantage over existing review workflows and published records has not been demonstrated. If an existing process meets the need more simply, using or adapting it is a valid outcome.
 
 ## Hosted Review Capsule prototype
 
