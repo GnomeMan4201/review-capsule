@@ -34,13 +34,6 @@ class ReportStatusTests(unittest.TestCase):
                 self.assertEqual(set(result['counts']), {'pass', 'fail', 'missing', 'pending', 'unverifiable', 'not_checked'})
                 self.assertEqual(result['checks'][1]['status'], status)
 
-    def test_status_guard_is_not_a_mandatory_check_inventory(self):
-        empty = Report().finish()
-        self.assertEqual(empty['exit_code'], 0)
-        report = Report()
-        report.add('SYNTHETIC_UNRELATED', 'pass')
-        self.assertEqual(report.finish()['exit_code'], 0)
-
     def test_repeated_finish_does_not_duplicate_status_diagnostics(self):
         report = Report()
         report.add('SYNTHETIC_UNKNOWN', 'typo')

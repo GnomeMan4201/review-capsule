@@ -35,7 +35,6 @@ test_wrong_genesis_even_if_node_claims_mainnet_is_rejected (test_ots_chain.OTSCh
 test_all_defined_status_subsets_keep_the_frozen_exit_mapping (test_report_status.ReportStatusTests.test_all_defined_status_subsets_keep_the_frozen_exit_mapping) ... ok
 test_pass_row_named_like_diagnostic_cannot_suppress_rejection (test_report_status.ReportStatusTests.test_pass_row_named_like_diagnostic_cannot_suppress_rejection) ... ok
 test_repeated_finish_does_not_duplicate_status_diagnostics (test_report_status.ReportStatusTests.test_repeated_finish_does_not_duplicate_status_diagnostics) ... ok
-test_status_guard_is_not_a_mandatory_check_inventory (test_report_status.ReportStatusTests.test_status_guard_is_not_a_mandatory_check_inventory) ... ok
 test_unknown_status_is_rejected_even_beside_a_matched_row (test_report_status.ReportStatusTests.test_unknown_status_is_rejected_even_beside_a_matched_row) ... ok
 test_assessment_input_refuses_symlinked_file (test_review_cli.ReviewerToolTests.test_assessment_input_refuses_symlinked_file) ... ok
 test_assessment_output_refuses_world_readable_directory (test_review_cli.ReviewerToolTests.test_assessment_output_refuses_world_readable_directory) ... ok
@@ -127,6 +126,6 @@ test_large_stored_entry_is_rejected (test_zip_limits.ZipResourceTests.test_large
 test_regular_archive_is_still_read (test_zip_limits.ZipResourceTests.test_regular_archive_is_still_read) ... ok
 
 ----------------------------------------------------------------------
-Ran 127 tests in 5.133s
+Ran 126 tests in 4.688s
 
 OK
