@@ -1,0 +1,3630 @@
+{
+  "label": "demonstrated here: retained experimental results, not coverage claims",
+  "source_commit": "12de4dce40ab7cd0ddc73fe5d60c7364bbfb525f",
+  "verifier_commit": "d54432f3e4c67f11ea53c16ebb383c1aec1f9224",
+  "original_result_path": "reviewrecord/evidence/external-concerns-2026-11-02/meta-probe.json",
+  "original_result_sha256": "c393869e5d338efa6c87ba7ba78ce7824f7a3a01c1df356d705346d74b91a9a3",
+  "anchor_mode": "MOCKED qualification; expected original proof bytes except helper-regenerated record.ots; no real anchor qualification",
+  "repair_method": "Unchanged fixtures.refresh_manifest; target record descriptor temporarily restored for helper prerequisites then mutation reapplied; manifest/record.ots overwrites retained and flagged",
+  "limitations": "Unknown per-code coverage; manifest repair is not repair of signatures/log bindings; mock byte gate can dominate; overwritten mutations are not surviving-defect tests",
+  "controls": {
+    "offline": {
+      "exit_code": 2,
+      "counts": {
+        "pass": 159,
+        "fail": 0,
+        "missing": 0,
+        "pending": 6,
+        "unverifiable": 3,
+        "not_checked": 1
+      },
+      "nonpass_codes": [
+        "ANCHOR_GATE_UNCONFIRMED",
+        "ANCHOR_ORDER_NOT_CHECKED",
+        "ANCHOR_PENDING",
+        "ANCHOR_UNVERIFIABLE_OFFLINE"
+      ]
+    },
+    "mocked": {
+      "exit_code": 0,
+      "counts": {
+        "pass": 169,
+        "fail": 0,
+        "missing": 0,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": []
+    },
+    "repaired_removed_reveal_negative": {
+      "exit_code": 1,
+      "counts": {
+        "pass": 161,
+        "fail": 1,
+        "missing": 1,
+        "pending": 0,
+        "unverifiable": 0,
+        "not_checked": 0
+      },
+      "nonpass_codes": [
+        "DISPOSITION_UNKNOWN_CONCERN",
+        "REVEAL_MISSING"
+      ]
+    }
+  },
+  "original_retained_exit_counts": {
+    "0": 0,
+    "1": 84,
+    "2": 0
+  },
+  "rerun_unrepaired_exit_counts": {
+    "0": 0,
+    "1": 84,
+    "2": 0
+  },
+  "repaired_exit_counts": {
+    "0": 4,
+    "1": 80,
+    "2": 0
+  },
+  "changed_exits": [
+    {
+      "path": "anchors/record.ots",
+      "operation": "remove",
+      "before": 1,
+      "after": 0,
+      "mutation_preserved": false
+    },
+    {
+      "path": "anchors/record.ots",
+      "operation": "corrupt",
+      "before": 1,
+      "after": 0,
+      "mutation_preserved": false
+    },
+    {
+      "path": "manifest.json",
+      "operation": "remove",
+      "before": 1,
+      "after": 0,
+      "mutation_preserved": false
+    },
+    {
+      "path": "manifest.json",
+      "operation": "corrupt",
+      "before": 1,
+      "after": 0,
+      "mutation_preserved": false
+    }
+  ],
+  "zero_exit_trials": [
+    {
+      "path": "anchors/record.ots",
+      "operation": "remove",
+      "mutation_preserved": false
+    },
+    {
+      "path": "anchors/record.ots",
+      "operation": "corrupt",
+      "mutation_preserved": false
+    },
+    {
+      "path": "manifest.json",
+      "operation": "remove",
+      "mutation_preserved": false
+    },
+    {
+      "path": "manifest.json",
+      "operation": "corrupt",
+      "mutation_preserved": false
+    }
+  ],
+  "trials": [
+    {
+      "path": "anchors/close-ots.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/close-ots.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/close-tsa.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/close-tsa.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/close.ots",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/close.ots",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/close.tsr",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/close.tsr",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/record-ots.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": true
+    },
+    {
+      "path": "anchors/record-ots.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": true
+    },
+    {
+      "path": "anchors/record-tsa.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": true
+    },
+    {
+      "path": "anchors/record-tsa.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": true
+    },
+    {
+      "path": "anchors/record.ots",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 0,
+        "counts": {
+          "pass": 169,
+          "fail": 0,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": []
+      },
+      "mutation_preserved": false,
+      "helper_overwrote_target": true,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/record.ots",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 0,
+        "counts": {
+          "pass": 169,
+          "fail": 0,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": []
+      },
+      "mutation_preserved": false,
+      "helper_overwrote_target": true,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/record.tsr",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/record.tsr",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration-ots.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration-ots.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration-tsa.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration-tsa.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 1,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration.ots",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration.ots",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration.tsr",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "anchors/registration.tsr",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 1,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ANCHOR_GATE_UNCONFIRMED",
+          "ANCHOR_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "assessments/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "assessments/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "assessments/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "assessments/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "assessments/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "assessments/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "close.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 158,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 2
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CLOSE_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 159,
+          "fail": 0,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 2
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CLOSE_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "close.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 159,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 2
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CANON_INVALID",
+          "CLOSE_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 2
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CANON_INVALID",
+          "CLOSE_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "commits/r-7e2950f92c84e31f/ff3d213ca1e7bb5dc9f98884f20373d7a3676ac15e9a411ca0a829b9b2c078d6.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 155,
+          "fail": 12,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 10,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "commits/r-7e2950f92c84e31f/ff3d213ca1e7bb5dc9f98884f20373d7a3676ac15e9a411ca0a829b9b2c078d6.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 12,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 157,
+          "fail": 11,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "commits/r-a63875cfef0c7033/c20d793f1528d15445f0a5a0a6a4ef9af580e5add59b60bbd408823577e28dae.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 155,
+          "fail": 12,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 10,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "commits/r-a63875cfef0c7033/c20d793f1528d15445f0a5a0a6a4ef9af580e5add59b60bbd408823577e28dae.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 12,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 157,
+          "fail": 11,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "commits/r-a8fbbd3bce633fb9/5e23c8e409d0ad80679d567e1ac58575be0dafa3e3575e5bd8d335ae04446292.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 154,
+          "fail": 12,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 155,
+          "fail": 10,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "commits/r-a8fbbd3bce633fb9/5e23c8e409d0ad80679d567e1ac58575be0dafa3e3575e5bd8d335ae04446292.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 155,
+          "fail": 12,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 11,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "declarations/r-7e2950f92c84e31f/4529aca6a6ba2499be80967b352d3ad66985d95e9050d8c2091976c212d7a03f.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 2,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "declarations/r-7e2950f92c84e31f/4529aca6a6ba2499be80967b352d3ad66985d95e9050d8c2091976c212d7a03f.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 3,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "declarations/r-a63875cfef0c7033/0835233403d7d10ba0b3e08eeb7d24653ccfb0f2c4f51f7ac2c417f923dda1fe.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 2,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "declarations/r-a63875cfef0c7033/0835233403d7d10ba0b3e08eeb7d24653ccfb0f2c4f51f7ac2c417f923dda1fe.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 3,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "declarations/r-a8fbbd3bce633fb9/afbd717f83169630dd5b8e2ab524ce15d28c296962c2af7d4c937b97ea018db3.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 2,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "declarations/r-a8fbbd3bce633fb9/afbd717f83169630dd5b8e2ab524ce15d28c296962c2af7d4c937b97ea018db3.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 3,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "dispositions/1.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 163,
+          "fail": 0,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "dispositions/1.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 163,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 164,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "dispositions/2.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 163,
+          "fail": 0,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "dispositions/2.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 163,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 164,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "dispositions/3.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 162,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 163,
+          "fail": 0,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "dispositions/3.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 163,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_MISSING",
+          "HASH_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 164,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "limits.txt",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 3,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "HASH_MISMATCH",
+          "LIMITS_MISSING_OR_ALTERED"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 1,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "LIMITS_MISSING_OR_ALTERED"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "limits.txt",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 2,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "HASH_MISMATCH",
+          "LIMITS_MISSING_OR_ALTERED"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 168,
+          "fail": 1,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "LIMITS_MISSING_OR_ALTERED"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/1.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 155,
+          "fail": 11,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 9,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/1.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 11,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 157,
+          "fail": 10,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/2.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 150,
+          "fail": 17,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 151,
+          "fail": 15,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/2.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 151,
+          "fail": 17,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 152,
+          "fail": 16,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/3.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 157,
+          "fail": 9,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 158,
+          "fail": 7,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/3.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 158,
+          "fail": 9,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 159,
+          "fail": 8,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/4.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 153,
+          "fail": 15,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 154,
+          "fail": 13,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/4.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 154,
+          "fail": 15,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 155,
+          "fail": 14,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/5.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 159,
+          "fail": 7,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 5,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/5.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 7,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 6,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/6.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 155,
+          "fail": 13,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 11,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/6.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 156,
+          "fail": 13,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 157,
+          "fail": 12,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "COMMIT_NOT_IN_TREE",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "LOG_CHAIN_BROKEN",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING",
+          "TREE_HEAD_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/7.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 159,
+          "fail": 5,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH",
+          "TREE_HEAD_MISMATCH",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 3,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "TREE_HEAD_MISMATCH",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "log/7.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 5,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH",
+          "TREE_HEAD_MISMATCH",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "TREE_HEAD_MISMATCH",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "manifest.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 135,
+          "fail": 0,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 1
+        },
+        "nonpass_codes": [
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "MANIFEST_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 0,
+        "counts": {
+          "pass": 169,
+          "fail": 0,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": []
+      },
+      "mutation_preserved": false,
+      "helper_overwrote_target": true,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "manifest.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 135,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 1
+        },
+        "nonpass_codes": [
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CANON_INVALID",
+          "MANIFEST_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 0,
+        "counts": {
+          "pass": 169,
+          "fail": 0,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": []
+      },
+      "mutation_preserved": false,
+      "helper_overwrote_target": true,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "packet.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 165,
+          "fail": 10,
+          "missing": 4,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ASSESSMENT_MALFORMED",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "DOCUMENT_MISSING",
+          "HASH_MISMATCH",
+          "PACKET_MALFORMED",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 8,
+          "missing": 4,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ASSESSMENT_MALFORMED",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "DOCUMENT_MISSING",
+          "PACKET_MALFORMED",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "packet.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 10,
+          "missing": 4,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ASSESSMENT_MALFORMED",
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "DOCUMENT_MISSING",
+          "HASH_MISMATCH",
+          "PACKET_MALFORMED",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 9,
+          "missing": 4,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ASSESSMENT_MALFORMED",
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "DOCUMENT_MISSING",
+          "PACKET_MALFORMED",
+          "REVEALS_BELOW_MINIMUM",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "policy.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 164,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 1
+        },
+        "nonpass_codes": [
+          "COUNTING_NOT_CHECKED",
+          "DOCUMENT_MISSING",
+          "HASH_MISMATCH",
+          "POLICY_MALFORMED"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 165,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 1
+        },
+        "nonpass_codes": [
+          "COUNTING_NOT_CHECKED",
+          "DOCUMENT_MISSING",
+          "POLICY_MALFORMED"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "policy.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 165,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 1
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "COUNTING_NOT_CHECKED",
+          "DOCUMENT_MISSING",
+          "HASH_MISMATCH",
+          "POLICY_MALFORMED"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 1
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "COUNTING_NOT_CHECKED",
+          "DOCUMENT_MISSING",
+          "POLICY_MALFORMED"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "proofs/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 4,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "proofs/r-7e2950f92c84e31f/a294bfbcb2d2e69817f1b5a61f391d297fbcb863d076b9239b9b1d154e53f8e8.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 4,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 168,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "proofs/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 4,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "proofs/r-a63875cfef0c7033/a440b4f575358b3700348c69f66018e8451b67ef714ddec99fb4d5392ee3d4ec.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 4,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 168,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "proofs/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 4,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "proofs/r-a8fbbd3bce633fb9/5d242b474ccacf8f2bc0f7f04b396382180ae81a31403cb72ba9b5fb36620c88.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 4,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "HASH_MISMATCH",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 168,
+          "fail": 3,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "DISPOSITION_UNKNOWN_CONCERN",
+          "INCLUSION_PROOF_INVALID",
+          "REVEAL_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "registration.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 86,
+          "fail": 44,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 3
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CLOSE_MISSING",
+          "HASH_MISMATCH",
+          "KEY_MISMATCH",
+          "LIMITS_MISSING_OR_ALTERED",
+          "LOCKS_BELOW_MINIMUM",
+          "REGISTRATION_BINDING_MISMATCH",
+          "REGISTRATION_MALFORMED",
+          "REGISTRATION_MISSING",
+          "REGISTRY_NOT_CHECKED",
+          "REVEALS_BELOW_MINIMUM",
+          "SIGNATURE_INVALID",
+          "WITHHELD_COMMITMENT_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 87,
+          "fail": 42,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 3
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CLOSE_MISSING",
+          "HASH_MISMATCH",
+          "KEY_MISMATCH",
+          "LIMITS_MISSING_OR_ALTERED",
+          "LOCKS_BELOW_MINIMUM",
+          "REGISTRATION_BINDING_MISMATCH",
+          "REGISTRATION_MALFORMED",
+          "REGISTRATION_MISSING",
+          "REGISTRY_NOT_CHECKED",
+          "REVEALS_BELOW_MINIMUM",
+          "SIGNATURE_INVALID",
+          "WITHHELD_COMMITMENT_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "registration.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 87,
+          "fail": 44,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 3
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CANON_INVALID",
+          "CLOSE_MISSING",
+          "HASH_MISMATCH",
+          "KEY_MISMATCH",
+          "LIMITS_MISSING_OR_ALTERED",
+          "LOCKS_BELOW_MINIMUM",
+          "REGISTRATION_BINDING_MISMATCH",
+          "REGISTRATION_MALFORMED",
+          "REGISTRATION_MISSING",
+          "REGISTRY_NOT_CHECKED",
+          "REVEALS_BELOW_MINIMUM",
+          "SIGNATURE_INVALID",
+          "WITHHELD_COMMITMENT_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 88,
+          "fail": 43,
+          "missing": 2,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 3
+        },
+        "nonpass_codes": [
+          "ANCHOR_ORDER_NOT_CHECKED",
+          "ANCHOR_TARGET_NOT_CHECKED",
+          "CANON_INVALID",
+          "CLOSE_MISSING",
+          "HASH_MISMATCH",
+          "KEY_MISMATCH",
+          "LIMITS_MISSING_OR_ALTERED",
+          "LOCKS_BELOW_MINIMUM",
+          "REGISTRATION_BINDING_MISMATCH",
+          "REGISTRATION_MALFORMED",
+          "REGISTRATION_MISSING",
+          "REGISTRY_NOT_CHECKED",
+          "REVEALS_BELOW_MINIMUM",
+          "SIGNATURE_INVALID",
+          "WITHHELD_COMMITMENT_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "withdrawals/r-a8fbbd3bce633fb9/928bae29a797a95ad60bee5d21b1aa7b4399de16ac80ef54c3f5c1b4b836cf33.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 159,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "HASH_MISMATCH",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 2,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "withdrawals/r-a8fbbd3bce633fb9/928bae29a797a95ad60bee5d21b1aa7b4399de16ac80ef54c3f5c1b4b836cf33.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 160,
+          "fail": 4,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "HASH_MISMATCH",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 161,
+          "fail": 3,
+          "missing": 0,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "ACK_MISSING",
+          "CANON_INVALID",
+          "WITHDRAWAL_MISMATCH"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "withheld.json",
+      "operation": "remove",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 166,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "HASH_MISMATCH",
+          "WITHHELD_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 0,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "WITHHELD_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    },
+    {
+      "path": "withheld.json",
+      "operation": "corrupt",
+      "retained_original_exit": 1,
+      "unrepaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 167,
+          "fail": 2,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "HASH_MISMATCH",
+          "WITHHELD_MISSING"
+        ]
+      },
+      "repaired": {
+        "exit_code": 1,
+        "counts": {
+          "pass": 168,
+          "fail": 1,
+          "missing": 1,
+          "pending": 0,
+          "unverifiable": 0,
+          "not_checked": 0
+        },
+        "nonpass_codes": [
+          "CANON_INVALID",
+          "WITHHELD_MISSING"
+        ]
+      },
+      "mutation_preserved": true,
+      "helper_overwrote_target": false,
+      "temporary_descriptor_prerequisite": false
+    }
+  ]
+}
