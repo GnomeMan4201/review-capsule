@@ -75,8 +75,8 @@ def read_bundle(path,report):
         report.add('BUNDLE_UNREADABLE','fail')
     return result
 
-def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,registries=None,network=False,bitcoin_rpc=None,tsa_ca=None,tsa_policy=None,tsa_untrusted=None):
-    report=Report()
+def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,registries=None,network=False,bitcoin_rpc=None,tsa_ca=None,tsa_policy=None,tsa_untrusted=None,report_format='legacy'):
+    report=Report(report_format=report_format)
     if sys.flags.optimize:
         report.add('RUNTIME_UNSUPPORTED','fail',detail='Run without Python optimization so all schema guards execute.')
         return report.finish()
@@ -125,6 +125,10 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         if expected is None:report.add('EXPECTED_KEY_NOT_SUPPLIED','not_checked',role,TOOL_TEXT['identity'])
         else:add('KEY_MISMATCH',reg.get(role+'_key')==expected,role)
     if reg.get('steward_is_author_operator') is True:report.add('OPERATOR_DISCLOSURE','pass','registration.json',TOOL_TEXT['warning'])
+    if type(reg.get('steward_is_author_operator')) is bool:
+        report.statement('operator_disclosure','author_declared','registration.json','registration.json',reg.get('author_key'),
+            {'steward_is_author_operator':reg['steward_is_author_operator']},
+            'Author registration declares the operator role; role claim not factually established.')
     statement_ok=reg.get('limits')==LIMITS
     add('LIMITS_MISSING_OR_ALTERED',statement_ok,'registration.limits')
     add('LIMITS_MISSING_OR_ALTERED',files.get('limits.txt')==(LIMITS+'\n').encode() and statement_ok,'limits.txt')
@@ -146,6 +150,18 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         if kind in ('registration','disposition'):key=reg.get('author_key')
         elif kind in ('logentry','close') or (kind=='withdrawal' and value.get('steward_attested') is True):key=reg.get('steward_key')
         else:key=value.get('reviewer_key')
+        if kind=='declaration':
+            report.statement('declaration','participant_declared',name,value.get('reviewer_key'),key,
+                {k:value[k] for k in ('relationship_to_author','stake_in_result','prior_exposure','identity_disclosure','credit_consent') if k in value},
+                'Participant states these disclosures; truth not established by these checks.')
+        elif kind=='withdrawal':
+            attested=value.get('steward_attested') is True
+            report.statement('withdrawal','steward_attested' if attested else 'participant_declared',name,value.get('reviewer_key'),key,
+                dict(value),'Steward states this reviewer withdrew; reviewer consent is not established.' if attested else
+                'Reviewer-key statement of withdrawal retained; lock retained. See separate log and counting checks.')
+        elif kind=='disposition':
+            report.statement('disposition','author_declared',name,name,key,dict(value),
+                'Author records this disposition and reason; any claimed change is not established by this row.')
         ok=schema_ok and key is not None and dsse.verify_signature(record,key)
         add('SIGNATURE_INVALID',ok,name)
         if name!='registration.json':
@@ -181,6 +197,7 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
         assert policy['duplicate_policy']=='first_commit_per_reviewer_key' and policy['withdrawal_policy']=='retain_locks_count_valid_reveals'
         assert type(policy['disposition_required']) is bool
     except (AssertionError,KeyError,TypeError):policy_ok=False;report.add('POLICY_MALFORMED','fail','policy.json')
+    report.policy=policy if policy_ok else None
     try:
         assert type(packet) is list and 0<len(packet)<=1000
         for item in packet:
@@ -298,7 +315,18 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
     if policy_ok and policy['disposition_required']:
         for ref in sorted(concerns):
             if ref not in dispositions:missing('DISPOSITION_MISSING','/'.join(ref))
+    elif policy_ok:
+        report.coverage_notice('disposition_presence','policy.json','skipped','policy_disabled',len(concerns),0,
+            'Disposition-presence checking skipped: disposition_required=false. No claim that dispositions are complete.')
     targets={x for x in (registration_hash,close_record.object_hash if close_record else None,record_hash) if x}
+    for name,descriptor in parsed.items():
+        if not name.startswith('anchors/'):continue
+        if type(descriptor) is not dict:
+            report.coverage_notice('anchor_descriptor',name,'skipped','descriptor_not_object',None,0,
+                'Entry skipped by current descriptor enumeration: expected an object. This notice does not assess required-target coverage.')
+        elif type(descriptor.get('target')) is not str or descriptor['target'] not in targets:
+            report.coverage_notice('anchor_descriptor',name,'skipped','target_not_requested',None,0,
+                "Descriptor skipped: target is outside this invocation's required target set. Required target checks are reported separately.")
     anchor_metadata={}
     for target in sorted(targets):
         observed_types=set()
@@ -373,8 +401,14 @@ def verify_bundle(path,*,expected_author_key=None,expected_steward_key=None,regi
     for registry in registries or []:
         try:
             assert type(registry) is dict and type(registry['source']) is str and type(registry['work_id']) is str and type(registry['prior_rounds']) is list and all(type(x) is str for x in registry['prior_rounds'])
-            if registry['work_id']!=reg.get('work_id'):continue
+            if registry['work_id']!=reg.get('work_id'):
+                report.coverage_notice('prior_round_membership',registry['source'],'skipped','work_id_mismatch',len(registry['prior_rounds']),0,
+                    'Snapshot skipped: work_id does not match this registration.')
+                continue
             report.data['registry_coverage'].append({'source':registry['source'],'basis':'supplied snapshot; completeness outside this snapshot is not established'})
+            if not registry['prior_rounds']:
+                report.coverage_notice('prior_round_membership',registry['source'],'zero_candidates','matching_snapshot_empty',0,0,
+                    'Matching supplied registry snapshot contains zero prior-round entries; zero membership comparisons performed. Coverage outside this snapshot is unknown.')
             for round_id in registry['prior_rounds']:add('PRIOR_ROUND_UNLISTED',round_id in reg.get('prior_rounds',[]),registry['source'])
         except (AssertionError,KeyError,TypeError):report.add('REGISTRY_MALFORMED','fail','registry')
     if registries and not report.data['registry_coverage']:report.add('REGISTRY_NOT_CHECKED','not_checked','registries')

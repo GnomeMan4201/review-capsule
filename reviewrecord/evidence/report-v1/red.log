@@ -1,0 +1,161 @@
+test_cli_opt_in_and_unknown_format (test_report_v1.ReportV1Tests.test_cli_opt_in_and_unknown_format) ... ERROR
+test_counts_do_not_hide_a_missing_reveal_or_select_roster (test_report_v1.ReportV1Tests.test_counts_do_not_hide_a_missing_reveal_or_select_roster) ... ERROR
+test_direct_report_not_checked_wording_and_side_neutrality (test_report_v1.ReportV1Tests.test_direct_report_not_checked_wording_and_side_neutrality) ... ERROR
+test_disabled_dispositions_visible_but_strict_effect_unselected (test_report_v1.ReportV1Tests.test_disabled_dispositions_visible_but_strict_effect_unselected) ... ERROR
+test_empty_registry_notice_and_mismatch_control (test_report_v1.ReportV1Tests.test_empty_registry_notice_and_mismatch_control) ... ERROR
+test_existing_unchecked_rows_remain_blocking (test_report_v1.ReportV1Tests.test_existing_unchecked_rows_remain_blocking) ... ERROR
+test_operator_false_is_also_a_declaration (test_report_v1.ReportV1Tests.test_operator_false_is_also_a_declaration) ... ERROR
+test_scoped_counts_and_statements_preserve_mocked_and_offline_exits (test_report_v1.ReportV1Tests.test_scoped_counts_and_statements_preserve_mocked_and_offline_exits) ... ERROR
+test_steward_claim_is_side_content_not_consent_or_pass (test_report_v1.ReportV1Tests.test_steward_claim_is_side_content_not_consent_or_pass) ... ERROR
+test_surplus_descriptors_do_not_mask_missing_required_anchor (test_report_v1.ReportV1Tests.test_surplus_descriptors_do_not_mask_missing_required_anchor) ... ERROR
+
+======================================================================
+ERROR: test_cli_opt_in_and_unknown_format (test_report_v1.ReportV1Tests.test_cli_opt_in_and_unknown_format)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 171, in test_cli_opt_in_and_unknown_format
+    self.assertEqual(json.loads(result.stdout)['report_format'], 'reviewrecord-report/v1')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+======================================================================
+ERROR: test_counts_do_not_hide_a_missing_reveal_or_select_roster (test_report_v1.ReportV1Tests.test_counts_do_not_hide_a_missing_reveal_or_select_roster)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 141, in test_counts_do_not_hide_a_missing_reveal_or_select_roster
+    old, new = self.equivalent_exit()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_direct_report_not_checked_wording_and_side_neutrality (test_report_v1.ReportV1Tests.test_direct_report_not_checked_wording_and_side_neutrality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 156, in test_direct_report_not_checked_wording_and_side_neutrality
+    report = Report(report_format='reviewrecord-report/v1')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Report.__init__() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_disabled_dispositions_visible_but_strict_effect_unselected (test_report_v1.ReportV1Tests.test_disabled_dispositions_visible_but_strict_effect_unselected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 96, in test_disabled_dispositions_visible_but_strict_effect_unselected
+    old, new = self.equivalent_exit()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_empty_registry_notice_and_mismatch_control (test_report_v1.ReportV1Tests.test_empty_registry_notice_and_mismatch_control)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 114, in test_empty_registry_notice_and_mismatch_control
+    old, new = self.equivalent_exit(registry=registry)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_existing_unchecked_rows_remain_blocking (test_report_v1.ReportV1Tests.test_existing_unchecked_rows_remain_blocking)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 152, in test_existing_unchecked_rows_remain_blocking
+    old, new = self.equivalent_exit(**options)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_operator_false_is_also_a_declaration (test_report_v1.ReportV1Tests.test_operator_false_is_also_a_declaration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 85, in test_operator_false_is_also_a_declaration
+    old, new = self.equivalent_exit()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_scoped_counts_and_statements_preserve_mocked_and_offline_exits (test_report_v1.ReportV1Tests.test_scoped_counts_and_statements_preserve_mocked_and_offline_exits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 44, in test_scoped_counts_and_statements_preserve_mocked_and_offline_exits
+    old, new = self.equivalent_exit(mocked=mocked)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_steward_claim_is_side_content_not_consent_or_pass (test_report_v1.ReportV1Tests.test_steward_claim_is_side_content_not_consent_or_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 66, in test_steward_claim_is_side_content_not_consent_or_pass
+    old, new = self.equivalent_exit()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+======================================================================
+ERROR: test_surplus_descriptors_do_not_mask_missing_required_anchor (test_report_v1.ReportV1Tests.test_surplus_descriptors_do_not_mask_missing_required_anchor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 130, in test_surplus_descriptors_do_not_mask_missing_required_anchor
+    old, new = self.equivalent_exit()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 36, in equivalent_exit
+    new = self.run_report(modern=True, **options)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/015c420cdae0/rr-work/reviewrecord/tests/test_report_v1.py", line 32, in run_report
+    return verify_bundle(self.folder, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: verify_bundle() got an unexpected keyword argument 'report_format'
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.393s
+
+FAILED (errors=10)

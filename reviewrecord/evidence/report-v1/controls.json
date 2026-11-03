@@ -1,0 +1,209 @@
+[
+  {
+    "case": "mocked_baseline",
+    "anchor_basis": "MOCKED anchor adapter; no real anchor qualification",
+    "legacy_exit": 0,
+    "report_v1_exit": 0,
+    "counts": {
+      "pass": 167,
+      "fail": 0,
+      "missing": 0,
+      "pending": 0,
+      "unverifiable": 0,
+      "not_checked": 0
+    },
+    "review_counts": {
+      "logged_distinct_commit_keys": 3,
+      "first_commit_matching_reveals": 3,
+      "commit_log_entries": 3,
+      "policy_min_locks": 2,
+      "policy_min_reveals": 2
+    },
+    "coverage_notices": [],
+    "statement_bases": [
+      "author_declared",
+      "participant_declared",
+      "participant_declared",
+      "participant_declared",
+      "author_declared",
+      "author_declared",
+      "author_declared",
+      "participant_declared"
+    ]
+  },
+  {
+    "case": "offline_baseline",
+    "anchor_basis": "SYNTHETIC pending OTS/placeholder TSA; offline adapter",
+    "legacy_exit": 2,
+    "report_v1_exit": 2,
+    "counts": {
+      "pass": 157,
+      "fail": 0,
+      "missing": 0,
+      "pending": 6,
+      "unverifiable": 3,
+      "not_checked": 1
+    },
+    "review_counts": {
+      "logged_distinct_commit_keys": 3,
+      "first_commit_matching_reveals": 3,
+      "commit_log_entries": 3,
+      "policy_min_locks": 2,
+      "policy_min_reveals": 2
+    },
+    "coverage_notices": [],
+    "statement_bases": [
+      "author_declared",
+      "participant_declared",
+      "participant_declared",
+      "participant_declared",
+      "author_declared",
+      "author_declared",
+      "author_declared",
+      "participant_declared"
+    ]
+  },
+  {
+    "case": "mocked_steward_attestation",
+    "anchor_basis": "MOCKED anchor adapter; no real anchor qualification",
+    "legacy_exit": 0,
+    "report_v1_exit": 0,
+    "counts": {
+      "pass": 167,
+      "fail": 0,
+      "missing": 0,
+      "pending": 0,
+      "unverifiable": 0,
+      "not_checked": 0
+    },
+    "review_counts": {
+      "logged_distinct_commit_keys": 3,
+      "first_commit_matching_reveals": 3,
+      "commit_log_entries": 3,
+      "policy_min_locks": 2,
+      "policy_min_reveals": 2
+    },
+    "coverage_notices": [],
+    "statement_bases": [
+      "author_declared",
+      "participant_declared",
+      "participant_declared",
+      "participant_declared",
+      "author_declared",
+      "author_declared",
+      "author_declared",
+      "steward_attested"
+    ]
+  },
+  {
+    "case": "mocked_disabled_dispositions",
+    "anchor_basis": "MOCKED anchor adapter; no real anchor qualification",
+    "legacy_exit": 0,
+    "report_v1_exit": 0,
+    "counts": {
+      "pass": 149,
+      "fail": 0,
+      "missing": 0,
+      "pending": 0,
+      "unverifiable": 0,
+      "not_checked": 0
+    },
+    "review_counts": {
+      "logged_distinct_commit_keys": 3,
+      "first_commit_matching_reveals": 3,
+      "commit_log_entries": 3,
+      "policy_min_locks": 2,
+      "policy_min_reveals": 2
+    },
+    "coverage_notices": [
+      {
+        "scope": "disposition_presence",
+        "subject": "policy.json",
+        "execution": "skipped",
+        "reason": "policy_disabled",
+        "candidate_count": 3,
+        "checked_count": 0,
+        "wording": "Disposition-presence checking skipped: disposition_required=false. No claim that dispositions are complete."
+      }
+    ],
+    "statement_bases": [
+      "author_declared",
+      "participant_declared",
+      "participant_declared",
+      "participant_declared",
+      "participant_declared"
+    ]
+  },
+  {
+    "case": "mocked_empty_registry",
+    "anchor_basis": "MOCKED anchor adapter; no real anchor qualification",
+    "legacy_exit": 0,
+    "report_v1_exit": 0,
+    "counts": {
+      "pass": 166,
+      "fail": 0,
+      "missing": 0,
+      "pending": 0,
+      "unverifiable": 0,
+      "not_checked": 0
+    },
+    "review_counts": {
+      "logged_distinct_commit_keys": 3,
+      "first_commit_matching_reveals": 3,
+      "commit_log_entries": 3,
+      "policy_min_locks": 2,
+      "policy_min_reveals": 2
+    },
+    "coverage_notices": [
+      {
+        "scope": "prior_round_membership",
+        "subject": "SYNTHETIC empty",
+        "execution": "zero_candidates",
+        "reason": "matching_snapshot_empty",
+        "candidate_count": 0,
+        "checked_count": 0,
+        "wording": "Matching supplied registry snapshot contains zero prior-round entries; zero membership comparisons performed. Coverage outside this snapshot is unknown."
+      }
+    ],
+    "statement_bases": [
+      "author_declared",
+      "participant_declared",
+      "participant_declared",
+      "participant_declared",
+      "author_declared",
+      "author_declared",
+      "author_declared",
+      "participant_declared"
+    ]
+  },
+  {
+    "case": "mocked_omitted_reviewer",
+    "anchor_basis": "MOCKED anchor adapter; no real anchor qualification",
+    "legacy_exit": 0,
+    "report_v1_exit": 0,
+    "counts": {
+      "pass": 127,
+      "fail": 0,
+      "missing": 0,
+      "pending": 0,
+      "unverifiable": 0,
+      "not_checked": 0
+    },
+    "review_counts": {
+      "logged_distinct_commit_keys": 2,
+      "first_commit_matching_reveals": 2,
+      "commit_log_entries": 2,
+      "policy_min_locks": 2,
+      "policy_min_reveals": 2
+    },
+    "coverage_notices": [],
+    "statement_bases": [
+      "author_declared",
+      "participant_declared",
+      "participant_declared",
+      "author_declared",
+      "author_declared",
+      "participant_declared"
+    ]
+  }
+]
