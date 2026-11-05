@@ -1,0 +1,47 @@
+name: Review Record required-check omission oracle
+on:
+  push:
+    branches:
+      - experiment/required-check-omission-2026-11-05
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  omission-oracle:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: frozen-protocol-legacy
+            sha: a1336eac905fbb410ff8ba0e61faaf324ece7a6b
+          - label: report-v1-draft
+            sha: 217004458e448b4fcba0987d26d7649ae137bdd9
+    steps:
+      - name: Checkout isolated experiment files
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout exact pinned Review Record source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.sha }}
+          path: pinned
+          persist-credentials: false
+      - name: Set Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned project dependencies
+        run: python -m pip install -e ./pinned/reviewrecord
+      - name: Fault-injection experiment with independent oracle
+        run: python .github/probes/rr_required_check_omission.py --run --repo pinned/reviewrecord --expected-commit "${{ matrix.sha }}" --out "${{ runner.temp }}/required-check-${{ matrix.label }}.json"
+      - name: Retain exact JSON evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: required-check-${{ matrix.label }}
+          path: ${{ runner.temp }}/required-check-${{ matrix.label }}.json
+          if-no-files-found: warn
