@@ -1,0 +1,47 @@
+name: Review Record evidence prerequisite coverage probe
+on:
+  push:
+    branches:
+      - experiment/reviewrecord-coverage-2026-11-05
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-coverage:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: protocol
+            sha: a1336eac905fbb410ff8ba0e61faaf324ece7a6b
+          - label: repaired-sweep
+            sha: 56e5677da52eaf62c7ff6b9ea152267297ca6a96
+    steps:
+      - name: Checkout isolated probe
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout pinned source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.sha }}
+          path: pinned
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned project dependencies
+        run: python -m pip install -e ./pinned/reviewrecord
+      - name: Run signed synthetic evidence coverage matrix
+        run: python .github/probes/rr_prereq_coverage_probe.py --run --repo ./pinned/reviewrecord --expected-commit "${{ matrix.sha }}" --out "${{ runner.temp }}/coverage-${{ matrix.label }}.json"
+      - name: Preserve JSON evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewrecord-coverage-${{ matrix.label }}
+          path: ${{ runner.temp }}/coverage-${{ matrix.label }}.json
+          if-no-files-found: warn
