@@ -375,6 +375,67 @@ class StewardIntakeTests(unittest.TestCase):
         self.assertEqual(closed.value["tree_size"],2)
         self.assertEqual(closed.value["locked_count"],1)
 
+    def test_pre_enrollment_exclusion_invisible_to_round_completeness(self):
+        """Synthetic counterexample for issue #3; NOT an overall integrity verdict.
+
+        The test operator knows A, B, C were intended. That roster is deliberately
+        not registered, since frozen v0.2.2 registers a target count only.
+        This test does not simulate a post-acknowledgement omission.
+        """
+        from reference_round import pub
+        from rr.verify import verify_bundle
+
+        intended={pub(name) for name in ("reviewer-a","reviewer-b","reviewer-c")}
+        enrolled={pub(name) for name in ("reviewer-a","reviewer-b")}
+        excluded=pub("reviewer-c")
+        self.assertEqual(len(intended),3)
+        self.assertNotIn(excluded,enrolled)
+        self.init()
+        bundle=self.workspace/"bundle"
+        registration=dsse.decode((bundle/"registration.json").read_bytes())
+        self.assertEqual(registration.value["reviewers_target"],3)
+        self.assertNotIn("reviewer_roster",registration.value)
+        self.assertNotIn("invitation_ids",registration.value)
+
+        for role in ("reviewer-a","reviewer-b"):
+            declaration,_=self.pick("declarations",pub(role))
+            self.assertEqual(self.intake(declaration),0,self.stderr.getvalue())
+            self.stdout=io.StringIO();self.stderr=io.StringIO()
+            commit,_=self.pick("commits",pub(role))
+            self.assertEqual(self.intake(commit),0,self.stderr.getvalue())
+            self.stdout=io.StringIO();self.stderr=io.StringIO()
+
+        self.assertEqual(self.invoke("close"),0,self.stderr.getvalue())
+        close=dsse.decode((bundle/"close.json").read_bytes())
+        self.assertEqual(close.value["locked_count"],2)
+        self.assertEqual(close.value["tree_size"],2)
+        for role in ("reviewer-a","reviewer-b"):
+            assessment,_=self.pick("assessments",pub(role))
+            self.assertEqual(self.reveal(assessment),0,self.stderr.getvalue())
+            self.stdout=io.StringIO();self.stderr=io.StringIO()
+
+        admitted=set()
+        for path in (bundle/"declarations").rglob("*.json"):
+            admitted.add(dsse.decode(path.read_bytes()).value["reviewer_key"])
+        self.assertEqual(admitted,enrolled)
+        self.assertNotIn(excluded,admitted)
+
+        report=verify_bundle(
+            bundle,
+            expected_author_key=self.meta["author_key"],
+            expected_steward_key=self.meta["steward_key"])
+        self.assertEqual(report["round_status"],"complete")
+        self.assertEqual(report["locked_count"],2)
+        self.assertEqual(report["verified_reveals"],2)
+        self.assertEqual({x["reviewer_key"] for x in report["reviewers"]},enrolled)
+        statuses={x["code"]:x["status"] for x in report["checks"]}
+        self.assertEqual(statuses["LOCKS_BELOW_MINIMUM"],"pass")
+        self.assertEqual(statuses["REVEALS_BELOW_MINIMUM"],"pass")
+        self.assertFalse(any(x["code"]=="REVEAL_MISSING" for x in report["checks"]))
+        self.assertFalse(any("ROSTER" in x["code"] for x in report["checks"]))
+        # The steward workspace is not a final independently anchored bundle.
+        # Do NOT assert report exit code 0 or call the complete count an integrity verdict.
+
     def test_verifier_marks_empty_steward_close_incomplete(self):
         from rr.verify import verify_bundle
         self.init()
