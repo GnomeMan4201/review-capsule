@@ -1,0 +1,47 @@
+name: Review Record vacuity probe (isolated)
+on:
+  push:
+    branches:
+      - experiment/zade-vacuity-2026-11-05
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pinned-vacuity-probe:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: protocol
+            sha: a1336eac905fbb410ff8ba0e61faaf324ece7a6b
+          - label: repaired-manifest-experiment
+            sha: 56e5677da52eaf62c7ff6b9ea152267297ca6a96
+    steps:
+      - name: Checkout isolated probe
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout pinned verifier
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.sha }}
+          path: pinned
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install project requirements
+        run: python -m pip install -e ./pinned/reviewrecord
+      - name: Run isolated synthetic signed-bundle mutations
+        run: python .github/probes/zade_vacuity_runner.py --repo ./pinned/reviewrecord --expected-commit "${{ matrix.sha }}" --json-out "${{ runner.temp }}/vacuity-${{ matrix.label }}.json"
+      - name: Upload per-commit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vacuity-${{ matrix.label }}
+          path: ${{ runner.temp }}/vacuity-${{ matrix.label }}.json
+          if-no-files-found: warn
