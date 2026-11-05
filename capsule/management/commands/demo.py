@@ -20,7 +20,9 @@ class Command(BaseCommand):
         study=Study.objects.create(title='Synthetic evidence support • demo',author=users[0],steward=users[1])
         packet=[{'id':'item-1','evidence':['A laboratory note records that Sensor A displayed 18 at noon.','The same note records that Sensor B displayed 18 at noon.'],'candidate':'The matching readings establish that both sensors used the same power supply.'},
         {'id':'item-2','evidence':['A stipulated authentic maintenance record identifies Pump K as serviced on Monday.'],'candidate':'According to the maintenance record, Pump K was serviced on Monday.'}]
-        r=Round.objects.create(study=study,question='Judge whether each exact conclusion is established by the supplied synthetic evidence.',packet=packet,withheld={'item-1':'NOT_ESTABLISHED','item-2':'SUPPORTED','notice':'Synthetic author-expected labels; not independent adjudication.'},deadline=timezone.now()+timedelta(days=7))
-        Assignment.objects.bulk_create([Assignment(round=r,reviewer=u) for u in users[2:]])
+        r=Round.objects.create(study=study,question='Judge whether each exact conclusion is established by the supplied synthetic evidence.',packet=packet,withheld={'item-1':'NOT_ESTABLISHED','item-2':'ESTABLISHED','notice':'Synthetic author-expected labels; not independent adjudication.'},deadline=timezone.now()+timedelta(days=7))
+        [Assignment.objects.create(round=r,reviewer=u) for u in users[2:]]
+        from capsule.services import event
+        event(r,users[0],'draft_created',synthetic=True)
         self.stdout.write('Created a DRAFT synthetic study. Accounts: '+', '.join(names))
         self.stdout.write('Open the author desk, inspect the exact packet, then freeze it. Use separate browser profiles for the four roles. These are demo accounts, not independent reviewers.')

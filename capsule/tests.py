@@ -6,14 +6,14 @@ from django.core.exceptions import PermissionDenied,ValidationError
 from django.test import TestCase,Client
 from django.urls import reverse
 from django.utils import timezone
-from .models import Study,Round,Assignment,Assessment,Feedback,Exposure,Amendment
+from .models import Study,Round,Assignment,Assessment,Feedback,Exposure,Amendment,RoundSecrets
 from . import services as s
 
 class BoundaryTests(TestCase):
     def setUp(self):
         self.author,self.steward,self.a,self.b,self.outsider=[get_user_model().objects.create_user(username=name,password='synthetic-test-only-842') for name in ('author','steward','reviewer-a','reviewer-b','outsider')]
         self.study=Study.objects.create(title='Synthetic review fixture',author=self.author,steward=self.steward)
-        self.r=Round.objects.create(study=self.study,question='Assess evidence support.',packet=[dict(id='item-1',evidence=['A stipulated source says X.'],candidate='The source says X.')],withheld={'answer_canary':'WITHHELD-CANARY-82a7','model_output':'MODEL-CANARY-a139'},deadline=timezone.now()+timedelta(days=1))
+        self.r=Round.objects.create(protocol='0.1',study=self.study,question='Assess evidence support.',packet=[dict(id='item-1',evidence=['A stipulated source says X.'],candidate='The source says X.')],withheld={'answer_canary':'WITHHELD-CANARY-82a7','model_output':'MODEL-CANARY-a139'},deadline=timezone.now()+timedelta(days=1))
         self.aa=Assignment.objects.create(round=self.r,reviewer=self.a);self.ab=Assignment.objects.create(round=self.r,reviewer=self.b)
         self.r=s.freeze(self.r.pk,self.author)
     def admit(self,a,user):
@@ -97,18 +97,18 @@ class BoundaryTests(TestCase):
         self.assertEqual(self.client.get(reverse('export',args=[self.r.pk])).status_code,403)
         self.login(self.author);export=self.client.get(reverse('export',args=[self.r.pk])).json()
         self.assertEqual(len(export['assignments']),2)
-        self.assertEqual(len(export['feedback']),1)
+        self.assertNotIn('feedback',export)
+        self.assertNotIn('OPEN-FEEDBACK-IS-NOT-A-LABEL',json.dumps(export))
+        self.assertEqual(len(self.client.get(reverse('feedback_export',args=[self.r.pk])).json()['feedback']),1)
         self.assertEqual(s.digest({'contract':export['contract'],'nonce':export['contract_nonce']}),export['commitment'])
         self.assertFalse(any(x['missing'] for x in export['assignments']))
 
     def test_frozen_packet_roster_and_withheld_changes_are_detected(self):
         self.admit(self.aa,self.a)
-        original=self.r.withheld
-        Round.objects.filter(pk=self.r.pk).update(withheld={'changed':'not allowed'})
-        with self.assertRaises(ValidationError):s.packet(self.aa.pk,self.a)
-        Round.objects.filter(pk=self.r.pk).update(withheld=original)
-        Assignment.objects.create(round=self.r,reviewer=self.outsider)
-        with self.assertRaises(ValidationError):s.packet(self.aa.pk,self.a)
+        with self.assertRaises(ValidationError): RoundSecrets.objects.filter(round=self.r).update(withheld={'changed':'not allowed'})
+        with self.assertRaises(ValidationError): Assignment.objects.create(round=self.r,reviewer=self.outsider)
+        with self.assertRaises(ValidationError): Round.objects.filter(pk=self.r.pk).update(packet=[])
+        self.assertEqual(s.packet(self.aa.pk,self.a)['items'],self.r.packet)
 
     def test_external_exposure_preserves_existing_assessment(self):
         self.admit(self.aa,self.a);self.answer(self.aa,self.a)
@@ -128,7 +128,7 @@ class BoundaryTests(TestCase):
 
     def test_known_exposure_carries_to_new_round(self):
         self.admit(self.aa,self.a);s.report_exposure(self.aa.pk,self.a,'Previously exposed')
-        second=Round.objects.create(study=self.study,version=2,question=self.r.question,packet=self.r.packet,withheld={},deadline=self.r.deadline)
+        second=Round.objects.create(protocol='0.1',study=self.study,version=2,question=self.r.question,packet=self.r.packet,withheld={},deadline=self.r.deadline)
         aa=Assignment.objects.create(round=second,reviewer=self.a);Assignment.objects.create(round=second,reviewer=self.b)
         s.freeze(second.pk,self.author)
         s.declare(aa.pk,self.a,dict(conflict=False,prior_exposure=False,ai_assessment=False,note='Claim no exposure'))
@@ -136,7 +136,7 @@ class BoundaryTests(TestCase):
 
     def test_no_release_while_related_assignment_open(self):
         self.admit(self.aa,self.a);self.admit(self.ab,self.b);self.answer(self.aa,self.a);self.answer(self.ab,self.b);s.close(self.r.pk,self.steward)
-        second=Round.objects.create(study=self.study,version=2,question=self.r.question,packet=self.r.packet,withheld={},deadline=self.r.deadline)
+        second=Round.objects.create(protocol='0.1',study=self.study,version=2,question=self.r.question,packet=self.r.packet,withheld={},deadline=self.r.deadline)
         Assignment.objects.create(round=second,reviewer=self.a);Assignment.objects.create(round=second,reviewer=self.b);s.freeze(second.pk,self.author)
         with self.assertRaises(PermissionDenied):s.results(self.aa.pk,self.a)
 
@@ -154,7 +154,8 @@ class BoundaryTests(TestCase):
             response=self.client.get(reverse('review',args=[self.aa.pk]))
         self.assertNotIn('<script>unsafe()',response.content.decode())
         self.assertIn('&lt;script&gt;',response.content.decode())
-        self.assertIn("script-src 'none'",response['Content-Security-Policy'])
+        self.assertIn("script-src 'self'",response['Content-Security-Policy'])
+        self.assertNotIn("script-src 'self' 'unsafe-inline'",response['Content-Security-Policy'])
 
     def test_human_form_submission_path(self):
         self.login(self.a)

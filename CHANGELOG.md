@@ -1,3 +1,13 @@
+# 0.2 iteration candidate — 2026-11-01
+
+- Add separate private material table, preserving legacy contracts/receipts through migration.
+- New rounds freeze before an external-publication attestation and opening; corrections link new versions.
+- Add timestamped per-item receipts and an a-Shell-compatible verifier.
+- Add relationship/stake declarations, optional username credit consent, five judgments and steward-only calibration reports.
+- Add chained append-only application audit events, calibration redaction and disjoint feedback exports.
+- Improve mobile header, JSON placeholders/height, reviewer rows, UTC picker and hash copying.
+- Supply migration, backup limits and acceptance checklist. Candidate is not deployed.
+
 ## v0.1.1 — synthetic deployment candidate
 
 - Add Gunicorn/WSGI, Docker packaging and Railway health configuration.

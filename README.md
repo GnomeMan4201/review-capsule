@@ -104,3 +104,11 @@ See the accompanying product blueprint for sources and the broader design. The p
 ## License
 
 MIT, under the GnomeMan4201 handle. This license covers this prototype's code and synthetic fixtures; it grants no rights over third-party research or reviewer contributions uploaded later.
+
+## Next iteration candidate (0.2)
+
+See [changed files and protocol decisions](docs/NEXT_ITERATION.md), [migration notes](docs/MIGRATION_0_2.md), [freeze/lock/receipt checklist](docs/TEST_CHECKLIST_0_2.md), and [storage and backup operations](docs/OPERATIONS.md). This branch adds the next iteration; it has not replaced the running synthetic demo. Older sections above describe the deployed 0.1 behavior.
+
+New rounds use a separate freeze / external-publication-attestation / open sequence, per-item timestamped receipts, linked correction versions, explicit relationship and stake declarations, five judgment options, steward-only calibration reporting, and separate feedback-only exports. Legacy contracts and hashes remain intact. New calibration and withheld data use a separate private database table. Optional credit consent concerns username credit only, not publication of private assessments.
+
+The audit chain is append-only through application ORM entry points; a database/server operator remains privileged. External publication URLs are author attestations, not independently verified timestamps. The current free PostgreSQL instance has no managed recovery or automatic backup; see the operations document before any migration or real-data decision.
