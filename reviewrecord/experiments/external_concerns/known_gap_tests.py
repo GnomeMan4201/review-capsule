@@ -90,6 +90,33 @@ class KnownGapTests(unittest.TestCase):
         self.assertEqual(report['exit_code'], 1)
         self.assertEqual(sum(x['code'] == 'DISPOSITION_MISSING' for x in report['checks']), 3)
 
+    def test_known_gap_e4d_round1_minimums_not_pinned(self):
+        # Round 1 specifies min_locks=2 and min_reveals=2 (BUILD_BRIEF_v0.2.2.md:104-105).
+        # The verifier checks only for positive ints. Strict control: one reviewer, minimums 2.
+        control = Path(self.temp.name) / 'strict-minimums'
+        shutil.copytree(self.folder, control)
+        rebuild(control, omit=('reviewer-b', 'reviewer-c'))
+        strict = verify_bundle(control, expected_author_key=self.meta['author_key'],
+                               expected_steward_key=self.meta['steward_key'])
+        OUTPUT.mkdir(parents=True, exist_ok=True)
+        (OUTPUT / 'e4d-control.json').write_text(json.dumps(strict, indent=2) + '\n')
+        self.assertEqual((strict['locked_count'], strict['verified_reveals']), (1, 1))
+        self.assertEqual(strict['round_status'], 'incomplete')
+        self.assertEqual(strict['exit_code'], 1)
+        self.assertEqual(sorted(x['code'] for x in strict['checks'] if x['status'] in ('fail', 'missing')),
+                         ['LOCKS_BELOW_MINIMUM', 'REVEALS_BELOW_MINIMUM'])
+        # Same single reviewer, re-signed registration binding minimums of 1.
+        rebuild(self.folder, omit=('reviewer-b', 'reviewer-c'),
+                policy_overrides={'min_locks': 1, 'min_reveals': 1})
+        result = self.verify('e4d')
+        self.assertEqual(json.loads((self.folder / 'policy.json').read_bytes())['min_locks'], 1)
+        self.assertEqual((result['locked_count'], result['verified_reveals']), (1, 1))
+        self.assertEqual(result['round_status'], 'complete')
+        self.assertFalse(any('POLICY' in x['code'] for x in result['checks']))
+        # The same minimum checks that failed in the control now report pass.
+        self.assertEqual({x['code']: x['status'] for x in result['checks'] if 'BELOW_MINIMUM' in x['code']},
+                         {'LOCKS_BELOW_MINIMUM': 'pass', 'REVEALS_BELOW_MINIMUM': 'pass'})
+
     def test_known_gap_e3_two_consistent_heads_same_registration(self):
         fork = Path(self.temp.name) / 'fork'
         shutil.copytree(self.folder, fork)

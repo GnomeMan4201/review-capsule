@@ -11,16 +11,18 @@ from reference_round import create, canon, envelope, h, pub, rid, manifest, tree
 from rr import dsse
 
 
-def rebuild(folder, *, policy_off=False, omit=None, attested=False):
+def rebuild(folder, *, policy_off=False, omit=None, attested=False, policy_overrides=None):
     """Re-sign dependent objects and rebuild proofs; preserve the registration for forks."""
     values = {p.relative_to(folder).as_posix(): dsse.decode(p.read_bytes()).value
               for prefix in ('declarations', 'commits', 'withdrawals', 'assessments', 'log', 'dispositions')
               for p in (folder / prefix).rglob('*.json')}
     registration = dsse.decode((folder / 'registration.json').read_bytes()).value
     close = dsse.decode((folder / 'close.json').read_bytes()).value
-    if policy_off:
+    if policy_off or policy_overrides:
         policy = json.loads((folder / 'policy.json').read_bytes())
-        policy['disposition_required'] = False
+        if policy_off:
+            policy['disposition_required'] = False
+        policy.update(policy_overrides or {})
         (folder / 'policy.json').write_bytes(canon(policy))
         registration['policy_hash'] = h(canon(policy))
         (folder / 'registration.json').write_bytes(envelope(registration, 'author'))
@@ -40,10 +42,11 @@ def rebuild(folder, *, policy_off=False, omit=None, attested=False):
 
     mapped = {}
     assessments = []
-    omitted_key = pub(omit) if omit else None
+    omitted = (omit,) if isinstance(omit, str) else tuple(omit or ())
+    omitted_keys = {pub(role) for role in omitted}
     for kind in ('assessment', 'declaration', 'commit', 'withdrawal'):
         for name, original in values.items():
-            if original['type'] != kind or original.get('reviewer_key') == omitted_key:
+            if original['type'] != kind or original.get('reviewer_key') in omitted_keys:
                 continue
             value = dict(original, registration_hash=reg_hash)
             role = role_for(value['reviewer_key'])
