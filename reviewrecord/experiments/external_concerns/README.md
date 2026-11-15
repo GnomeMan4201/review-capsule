@@ -42,6 +42,22 @@ separately **5 known-gap observations reproduced**. Do not call this a
 | Report aggregation (not an external concern or end-to-end bypass) | Empty `Report.finish()` and a report with only one unrelated synthetic passing row both return exit 0. | No nonempty or expected-structural-check guard in the report class; no verifier bypass demonstrated. |
 | E-3 | Two different steward-signed log/close heads for the exact same registration. Full log has three commitments, alternate omits reviewer C and has two. Both are threshold-complete, zero fail/missing, exit 2. | Real offline checks do **not** accept either as an overall pass. Synthetic anchors are unresolved. No live split audience or real timestamp uniqueness test. |
 
+### Addendum 2026-11-15: E-4d (Round 1 minimums not pinned)
+
+[demonstrated here] Added `test_known_gap_e4d_round1_minimums_not_pinned`
+after @zade_meadows' 2026-11-15 follow-up. Run by Claude in a Linux sandbox
+(Python 3.13, cryptography 50.0.1); AI-assisted, not independent human review.
+Known-gap observations are now **6**, still counted separately from the 122
+existing tests (122 OK, unchanged). The section above is retained as written.
+
+| Known-gap observation | Result | Limits |
+|---|---|---|
+| E-4d | Strict control: one reviewer (B and C omitted) under the frozen minimums of 2 gives `LOCKS_BELOW_MINIMUM` and `REVEALS_BELOW_MINIMUM` as `fail`, `round_status=incomplete`, exit 1. Same reviewer, policy re-signed with `min_locks=1`, `min_reveals=1`: both rows `pass`, `round_status=complete`, no policy row, exit 2. | Round 1 specifies 2 for both (BUILD_BRIEF_v0.2.2.md:104–105); the verifier checks positive ints only. Exit 2 comes from unresolved synthetic anchors, not policy detection. Re-signing uses the author's own key: this is author-controlled weakening, not a signature bypass. |
+
+Fixture change: `rebuild()` gained `policy_overrides=` and `omit=` now takes
+one role or a tuple. Existing calls behave as before (all prior observations
+and the meta-probe still run unchanged).
+
 E-3 exit 2 is **not fork detection**. It is caused by unresolved anchors. With
 explicitly mocked qualified anchors, both the full control and the omitted-C
 variant return exit 0; no fork-detection property has been demonstrated.

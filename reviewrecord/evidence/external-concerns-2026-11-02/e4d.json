@@ -1,0 +1,654 @@
+{
+  "spec": "0.2.2",
+  "checks": [
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "manifest inventory",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "assessments/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "close.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "commits/r-a8fbbd3bce633fb9/8c8be7d2f3a8c7f819684a0718d039869496a6be113fbdc30a93986345a88b1a.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "dispositions/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "limits.txt",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "log/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "log/2.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "log/3.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "packet.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "policy.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "proofs/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "registration.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "withdrawals/r-a8fbbd3bce633fb9/d4203429fddf4a801c2543934d98ba7540f4b588e8c96bef9b3bf8f0231a5258.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "withheld.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "record_hash",
+      "detail": "Check matched."
+    },
+    {
+      "code": "KEY_MISMATCH",
+      "status": "pass",
+      "subject": "author",
+      "detail": "Check matched."
+    },
+    {
+      "code": "KEY_MISMATCH",
+      "status": "pass",
+      "subject": "steward",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OPERATOR_DISCLOSURE",
+      "status": "pass",
+      "subject": "registration.json",
+      "detail": "Operator role disclosure is present."
+    },
+    {
+      "code": "LIMITS_MISSING_OR_ALTERED",
+      "status": "pass",
+      "subject": "registration.limits",
+      "detail": "Check matched."
+    },
+    {
+      "code": "LIMITS_MISSING_OR_ALTERED",
+      "status": "pass",
+      "subject": "limits.txt",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "assessments/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "assessments/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "assessments/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "RID_MISMATCH",
+      "status": "pass",
+      "subject": "assessments/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "PATH_HASH_MISMATCH",
+      "status": "pass",
+      "subject": "assessments/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "close.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "close.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "close.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "commits/r-a8fbbd3bce633fb9/8c8be7d2f3a8c7f819684a0718d039869496a6be113fbdc30a93986345a88b1a.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "commits/r-a8fbbd3bce633fb9/8c8be7d2f3a8c7f819684a0718d039869496a6be113fbdc30a93986345a88b1a.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "commits/r-a8fbbd3bce633fb9/8c8be7d2f3a8c7f819684a0718d039869496a6be113fbdc30a93986345a88b1a.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "RID_MISMATCH",
+      "status": "pass",
+      "subject": "commits/r-a8fbbd3bce633fb9/8c8be7d2f3a8c7f819684a0718d039869496a6be113fbdc30a93986345a88b1a.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "PATH_HASH_MISMATCH",
+      "status": "pass",
+      "subject": "commits/r-a8fbbd3bce633fb9/8c8be7d2f3a8c7f819684a0718d039869496a6be113fbdc30a93986345a88b1a.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "RID_MISMATCH",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "PATH_HASH_MISMATCH",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "DECLARATION_MALFORMED",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "dispositions/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "dispositions/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "dispositions/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "log/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "log/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "log/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "log/2.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "log/2.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "log/2.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "log/3.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "log/3.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "log/3.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "registration.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "registration.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "OBJECT_LOCATION_MISMATCH",
+      "status": "pass",
+      "subject": "withdrawals/r-a8fbbd3bce633fb9/d4203429fddf4a801c2543934d98ba7540f4b588e8c96bef9b3bf8f0231a5258.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "SIGNATURE_INVALID",
+      "status": "pass",
+      "subject": "withdrawals/r-a8fbbd3bce633fb9/d4203429fddf4a801c2543934d98ba7540f4b588e8c96bef9b3bf8f0231a5258.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REGISTRATION_BINDING_MISMATCH",
+      "status": "pass",
+      "subject": "withdrawals/r-a8fbbd3bce633fb9/d4203429fddf4a801c2543934d98ba7540f4b588e8c96bef9b3bf8f0231a5258.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "RID_MISMATCH",
+      "status": "pass",
+      "subject": "withdrawals/r-a8fbbd3bce633fb9/d4203429fddf4a801c2543934d98ba7540f4b588e8c96bef9b3bf8f0231a5258.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "PATH_HASH_MISMATCH",
+      "status": "pass",
+      "subject": "withdrawals/r-a8fbbd3bce633fb9/d4203429fddf4a801c2543934d98ba7540f4b588e8c96bef9b3bf8f0231a5258.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "policy.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "HASH_MISMATCH",
+      "status": "pass",
+      "subject": "packet.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "WITHHELD_COMMITMENT_MISMATCH",
+      "status": "pass",
+      "subject": "withheld.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "LOG_CHAIN_BROKEN",
+      "status": "pass",
+      "subject": "log/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "LOG_CHAIN_BROKEN",
+      "status": "pass",
+      "subject": "log/2.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "LOG_CHAIN_BROKEN",
+      "status": "pass",
+      "subject": "log/3.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "ACK_MISSING",
+      "status": "pass",
+      "subject": "commits/r-a8fbbd3bce633fb9/8c8be7d2f3a8c7f819684a0718d039869496a6be113fbdc30a93986345a88b1a.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "ACK_MISSING",
+      "status": "pass",
+      "subject": "declarations/r-a8fbbd3bce633fb9/7f0dda07ec74883b97c1908b06d1c10f6c7931d668386d35976b6d6165dd5e09.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "ACK_MISSING",
+      "status": "pass",
+      "subject": "withdrawals/r-a8fbbd3bce633fb9/d4203429fddf4a801c2543934d98ba7540f4b588e8c96bef9b3bf8f0231a5258.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "TREE_HEAD_MISMATCH",
+      "status": "pass",
+      "subject": "close.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "WITHDRAWAL_MISMATCH",
+      "status": "pass",
+      "subject": "close.withdrawn",
+      "detail": "Check matched."
+    },
+    {
+      "code": "COMMIT_NOT_IN_TREE",
+      "status": "pass",
+      "subject": "assessments/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "INCLUSION_PROOF_INVALID",
+      "status": "pass",
+      "subject": "proofs/r-a8fbbd3bce633fb9/526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "WITHDRAWN",
+      "status": "pass",
+      "subject": "ed25519:iFaKZw4UgL0yOSA_d9MQwZeW-FKNpLRH5zgMrPWgk9Y",
+      "detail": "Withdrawal is retained; it does not remove the lock."
+    },
+    {
+      "code": "LOCKS_BELOW_MINIMUM",
+      "status": "pass",
+      "subject": "round",
+      "detail": "Check matched."
+    },
+    {
+      "code": "REVEALS_BELOW_MINIMUM",
+      "status": "pass",
+      "subject": "round",
+      "detail": "Check matched."
+    },
+    {
+      "code": "DISPOSITION_NO_REASON",
+      "status": "pass",
+      "subject": "dispositions/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "DISPOSITION_MALFORMED",
+      "status": "pass",
+      "subject": "dispositions/1.json",
+      "detail": "Check matched."
+    },
+    {
+      "code": "ANCHOR_PENDING",
+      "status": "pending",
+      "subject": "anchors/registration-ots.json",
+      "detail": "Calendar reference has no checked Bitcoin attestation."
+    },
+    {
+      "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
+      "status": "unverifiable",
+      "subject": "anchors/registration-tsa.json",
+      "detail": "No externally configured TSA CA was supplied."
+    },
+    {
+      "code": "ANCHOR_GATE_UNCONFIRMED",
+      "status": "pending",
+      "subject": "sha256:09d7b7c3f0b6c45824249b04b3ffadee611aa134c388d36b6ae0482626869492",
+      "detail": "Required anchor types are not both confirmed for this target."
+    },
+    {
+      "code": "ANCHOR_PENDING",
+      "status": "pending",
+      "subject": "anchors/record-ots.json",
+      "detail": "Calendar reference has no checked Bitcoin attestation."
+    },
+    {
+      "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
+      "status": "unverifiable",
+      "subject": "anchors/record-tsa.json",
+      "detail": "No externally configured TSA CA was supplied."
+    },
+    {
+      "code": "ANCHOR_GATE_UNCONFIRMED",
+      "status": "pending",
+      "subject": "sha256:3a723387908d07434c23223e005fe54dff66211a2deca85a6ce3ea47165f7e43",
+      "detail": "Required anchor types are not both confirmed for this target."
+    },
+    {
+      "code": "ANCHOR_PENDING",
+      "status": "pending",
+      "subject": "anchors/close-ots.json",
+      "detail": "Calendar reference has no checked Bitcoin attestation."
+    },
+    {
+      "code": "ANCHOR_UNVERIFIABLE_OFFLINE",
+      "status": "unverifiable",
+      "subject": "anchors/close-tsa.json",
+      "detail": "No externally configured TSA CA was supplied."
+    },
+    {
+      "code": "ANCHOR_GATE_UNCONFIRMED",
+      "status": "pending",
+      "subject": "sha256:9a85261727e839e58e0ccc1483df216449bd876e22e841a4be0c583dad94561a",
+      "detail": "Required anchor types are not both confirmed for this target."
+    },
+    {
+      "code": "ANCHOR_ORDER_NOT_CHECKED",
+      "status": "not_checked",
+      "subject": "registration -> close",
+      "detail": "Verified attested times for registration and close have not been established."
+    },
+    {
+      "code": "REGISTRY_NOT_CHECKED",
+      "status": "not_checked",
+      "subject": "registries",
+      "detail": "Check did not match."
+    }
+  ],
+  "declarations": [
+    {
+      "reviewer_key": "ed25519:iFaKZw4UgL0yOSA_d9MQwZeW-FKNpLRH5zgMrPWgk9Y",
+      "relationship_to_author": "none",
+      "stake_in_result": "none",
+      "prior_exposure": "none",
+      "identity_disclosure": "pseudonym",
+      "credit_consent": false,
+      "basis": "declared by participant"
+    }
+  ],
+  "reviewers": [
+    {
+      "reviewer_key": "ed25519:iFaKZw4UgL0yOSA_d9MQwZeW-FKNpLRH5zgMrPWgk9Y",
+      "commitment": "sha256:526b5ae03d4f032a3bbbe018e0ca8eae09e37b029b1172d89697b07718af9971",
+      "revealed": true,
+      "withdrawn": true,
+      "withdrawal_basis": "reviewer-stated"
+    }
+  ],
+  "anchors": [
+    {
+      "type": "ots",
+      "authority": "bitcoin",
+      "target": "sha256:09d7b7c3f0b6c45824249b04b3ffadee611aa134c388d36b6ae0482626869492",
+      "evidence_format": "ots-detached",
+      "validation_backend": "Bitcoin Core",
+      "confirmation_policy": {
+        "min_confirmations": 6
+      },
+      "status": "pending",
+      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "authority_basis": "descriptor label only; unauthenticated"
+    },
+    {
+      "type": "rfc3161",
+      "authority": "FreeTSA.org",
+      "target": "sha256:09d7b7c3f0b6c45824249b04b3ffadee611aa134c388d36b6ae0482626869492",
+      "evidence_format": "rfc3161-response",
+      "validation_backend": "OpenSSL",
+      "confirmation_policy": {
+        "ca_required": true
+      },
+      "status": "unverifiable_offline",
+      "detail": "No externally configured TSA CA was supplied.",
+      "authority_basis": "descriptor label only; unauthenticated"
+    },
+    {
+      "type": "ots",
+      "authority": "bitcoin",
+      "target": "sha256:3a723387908d07434c23223e005fe54dff66211a2deca85a6ce3ea47165f7e43",
+      "evidence_format": "ots-detached",
+      "validation_backend": "Bitcoin Core",
+      "confirmation_policy": {
+        "min_confirmations": 6
+      },
+      "status": "pending",
+      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "authority_basis": "descriptor label only; unauthenticated"
+    },
+    {
+      "type": "rfc3161",
+      "authority": "FreeTSA.org",
+      "target": "sha256:3a723387908d07434c23223e005fe54dff66211a2deca85a6ce3ea47165f7e43",
+      "evidence_format": "rfc3161-response",
+      "validation_backend": "OpenSSL",
+      "confirmation_policy": {
+        "ca_required": true
+      },
+      "status": "unverifiable_offline",
+      "detail": "No externally configured TSA CA was supplied.",
+      "authority_basis": "descriptor label only; unauthenticated"
+    },
+    {
+      "type": "ots",
+      "authority": "bitcoin",
+      "target": "sha256:9a85261727e839e58e0ccc1483df216449bd876e22e841a4be0c583dad94561a",
+      "evidence_format": "ots-detached",
+      "validation_backend": "Bitcoin Core",
+      "confirmation_policy": {
+        "min_confirmations": 6
+      },
+      "status": "pending",
+      "detail": "Calendar reference has no checked Bitcoin attestation.",
+      "authority_basis": "descriptor label only; unauthenticated"
+    },
+    {
+      "type": "rfc3161",
+      "authority": "FreeTSA.org",
+      "target": "sha256:9a85261727e839e58e0ccc1483df216449bd876e22e841a4be0c583dad94561a",
+      "evidence_format": "rfc3161-response",
+      "validation_backend": "OpenSSL",
+      "confirmation_policy": {
+        "ca_required": true
+      },
+      "status": "unverifiable_offline",
+      "detail": "No externally configured TSA CA was supplied.",
+      "authority_basis": "descriptor label only; unauthenticated"
+    }
+  ],
+  "registry_coverage": [],
+  "round_status": "complete",
+  "locked_count": 1,
+  "tree_size": 1,
+  "verified_reveals": 1,
+  "counts": {
+    "pass": 78,
+    "fail": 0,
+    "missing": 0,
+    "pending": 6,
+    "unverifiable": 3,
+    "not_checked": 2
+  },
+  "exit_code": 2,
+  "summary": "Integrity checks: 78 pass, 0 fail, 0 missing, 6 pending, 3 unverifiable, 2 not checked"
+}
